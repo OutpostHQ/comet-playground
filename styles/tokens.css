@@ -120,7 +120,7 @@
   --cp-transparent: #000;
 }
 
-.dark {
+:root[data-theme="dark"] {
   --background: 120, 3%, 7%;
   --cp-shadow: rgba(0, 0, 0, 0.33);
 
