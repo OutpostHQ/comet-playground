@@ -1,4 +1,4 @@
-const { fontFamily } = require("tailwindcss/defaultTheme");
+const { fontFamily } = require("tailwindcss/defaultTheme")
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -92,6 +92,13 @@ module.exports = {
         "2xl": "1200px",
       },
     },
+    boxShadow: {
+      "shadow-0.25": "var(--cp-shadow-025)",
+      "shadow-0.5": "var(--cp-shadow-050)",
+      "shadow-0.75": "var(--cp-shadow-075)",
+      "shadow-1": "var(--cp-shadow-100)",
+      "shadow-2": "var(--cp-shadow-200)",
+    },
     extend: {
       borderRadius: {
         lg: `var(--radius)`,
@@ -111,18 +118,7 @@ module.exports = {
           to: { height: 0 },
         },
       },
-      boxShadow: {
-        "cp-shadow": "0px 1.33333px 4px 0.25px var(--cp-shadow)",
-        "cp-shadow-0.25":
-          "0px 1.3333330154418945px 4px 0.25px rgba(161, 161, 170, 0.33)",
-        "cp-shadow-0.5":
-          "0px 2.666670083999634px 8px 0.5px rgba(161, 161, 170, 0.33)",
-        "cp-shadow-0.75": "0px 4px 12px 0.75px rgba(161, 161, 170, 0.33)",
-        "cp-shadow-1":
-          "0px 5.3333330154418945px 16px 1px rgba(161, 161, 170, 0.33)",
-        "cp-shadow-2":
-          "0px 10.666999816894531px 32px 2px rgba(161, 161, 170, 0.33)",
-      },
+
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
@@ -130,4 +126,4 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-animate"), require("tailwind-scrollbar")],
-};
+}

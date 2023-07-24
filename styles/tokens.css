@@ -118,6 +118,13 @@
   --cp-white: #fff;
   --cp-black: #000;
   --cp-transparent: #000;
+
+  /* SHADOWS */
+  --cp-shadow-025: 0px 1.3333330154418945px 4px 0.25px rgba(161, 161, 170, 0.33);
+  --cp-shadow-050: 0px 2.666670083999634px 8px 0.5px rgba(161, 161, 170, 0.33);
+  --cp-shadow-075: 0px 4px 12px 0.75px rgba(161, 161, 170, 0.33);
+  --cp-shadow-100: 0px 5.333330154418945px 16px 1px rgba(161, 161, 170, 0.33);
+  --cp-shadow-200: 0px 10.666999816894531px 32px 2px rgba(161, 161, 170, 0.33);
 }
 
 :root[data-theme="dark"] {
@@ -237,4 +244,10 @@
   --cp-white: #fff;
   --cp-black: #000;
   --cp-transparent: #000;
+
+  --cp-shadow-025: 0px 1.3333330154418945px 4px 0.25px rgba(0, 0, 0, 0.33);
+  --cp-shadow-050: 0px 2.666670083999634px 8px 0.5px rgba(0, 0, 0, 0.33);
+  --cp-shadow-075: 0px 4px 12px 0.75px rgba(0, 0, 0, 0.33);
+  --cp-shadow-100: 0px 5.3333330154418945px 16px 1px rgba(0, 0, 0, 0.33);
+  --cp-shadow-200: 0px 10.666999816894531px 32px 2px rgba(0, 0, 0, 0.33);
 }
