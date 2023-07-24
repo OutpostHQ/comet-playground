@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { CheckIcon, Copy, CopyIcon } from "lucide-react"
+import { useEffect, useState } from "react";
+import { CheckIcon, CopyIcon } from "lucide-react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils/cn";
 
 export default function CopySnippet({
   code,
@@ -11,18 +11,18 @@ export default function CopySnippet({
   fullWidth = false,
   multiLine = false,
 }: {
-  code: string
-  className?: string
-  fullWidth?: boolean
-  multiLine?: boolean
+  code: string;
+  className?: string;
+  fullWidth?: boolean;
+  multiLine?: boolean;
 }) {
-  const [hasCopied, setHasCopied] = useState(false)
+  const [hasCopied, setHasCopied] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {
-      setHasCopied(false)
-    }, 2000)
-  }, [hasCopied])
+      setHasCopied(false);
+    }, 2000);
+  }, [hasCopied]);
 
   return (
     <pre
@@ -35,8 +35,8 @@ export default function CopySnippet({
       <code>{code}</code>
       <button
         onClick={() => {
-          navigator.clipboard.writeText(code)
-          setHasCopied(true)
+          navigator.clipboard.writeText(code);
+          setHasCopied(true);
         }}
         className={` absolute  grid  w-10 place-items-center  bg-surface-default transition-all duration-200 hover:bg-surface-hovered ${
           multiLine
@@ -51,5 +51,5 @@ export default function CopySnippet({
         )}
       </button>
     </pre>
-  )
+  );
 }

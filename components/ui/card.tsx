@@ -1,16 +1,15 @@
-import { ComponentProps, ElementType, ReactNode } from "react"
-
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils/cn";
+import { ComponentProps, ElementType, ReactNode } from "react";
 
 type TCardOwnProps<T extends ElementType> = {
-  className?: string
-  id?: string
-  children: ReactNode
-  as?: T
-}
+  className?: string;
+  id?: string;
+  children: ReactNode;
+  as?: T;
+};
 
 type CardProps<T extends ElementType> = TCardOwnProps<T> &
-  Omit<ComponentProps<T>, keyof TCardOwnProps<T>>
+  Omit<ComponentProps<T>, keyof TCardOwnProps<T>>;
 
 const Card = <T extends ElementType = "div">({
   children,
@@ -18,7 +17,7 @@ const Card = <T extends ElementType = "div">({
   id = "",
   as,
 }: CardProps<T>) => {
-  const Comp = as || "div"
+  const Comp = as || "div";
   return (
     <Comp
       className={cn(
@@ -29,7 +28,7 @@ const Card = <T extends ElementType = "div">({
     >
       {children}
     </Comp>
-  )
-}
+  );
+};
 
-export default Card
+export default Card;

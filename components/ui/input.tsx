@@ -1,13 +1,13 @@
-import React from "react"
+import React from "react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils/cn";
 
-import Text from "./text"
+import Text from "./text";
 
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {
-  fullwidth?: boolean
-  errorMessage?: string
+  fullwidth?: boolean;
+  errorMessage?: string;
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
@@ -35,9 +35,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           </Text>
         )}
       </>
-    )
+    );
   }
-)
-Input.displayName = "Input"
+);
+Input.displayName = "Input";
 
-export { Input }
+export { Input };
