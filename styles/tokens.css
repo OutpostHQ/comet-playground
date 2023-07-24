@@ -1,31 +1,9 @@
 :root {
   /* SIZE TOKENS */
 
-  --main-nav-height--desktop: 64px;
-  --main-nav-height--mobile: 60px;
+  --sidebar-width: 305px;
 
-  --sub-nav-height--desktop: 44px;
-
-  --header-width: 1240px;
-
-  --services-main-width: 735px;
-  --services-sidebar-width: 305px;
-  --playground-main-width: 615px;
-  --playground-sidebar-width: 305px;
-  --search-main-width: 735px;
-
-  /* header height = main nav + sub nav */
-  --header-height: 108px;
-
-  /*  
-     --headerwidth: 1240px;
-    --header_height: 72px;
-
-    --site_header_height--desktop: 72px;
-    --site_header_height--mobile: 60px;
-
-    --sub_header_height--desktop: 44px; 
-    */
+  --header-height: 60px;
 
   --background: 0 0% 100%;
   --foreground: 222.2 47.4% 11.2%;
