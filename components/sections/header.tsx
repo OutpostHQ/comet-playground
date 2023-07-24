@@ -15,7 +15,7 @@ export default function Header() {
         </Text>
       </div>
       <Button className="flex h-9 gap-2 py-2">
-        <span className="h-5 w-5 rounded-full border border-border-default bg-surface-default"></span>
+        <span className="h-5 w-5 rounded-full border border-border-default bg-white"></span>
         <span>Login with outpost</span>
       </Button>
     </header>
