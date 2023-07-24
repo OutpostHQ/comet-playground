@@ -9,7 +9,7 @@ export default function Header() {
     <header className="fixed inset-x-0 top-0 flex w-full items-center justify-between border-b border-b-border-default bg-surface-default px-6 py-3">
       <div className="flex items-center gap-3 ">
         <Logo />
-        <div className="ml-1 h-6 w-0.5 -skew-x-6 bg-border-default"></div>
+        <div className="ml-1 h-6 w-0.5 skew-x-[-15deg] bg-border-default"></div>
         <Text weight="semibold" variant="displayMedium">
           AI
         </Text>
