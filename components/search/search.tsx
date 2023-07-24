@@ -4,7 +4,7 @@ import React, { useContext } from "react"
 import * as Dialog from "@radix-ui/react-dialog"
 import { SearchIcon } from "lucide-react"
 
-import { SearchContext } from "./search-provider"
+import { SearchContext } from "../providers/search-provider"
 import SearchResultContainer from "./search-result"
 
 export interface Props extends React.HTMLAttributes<HTMLDivElement> {
@@ -51,7 +51,7 @@ function SearchFooter() {
 }
 
 function SearchContainer({ children }: Props) {
-  const { theme, overlayColor, AIPlaceholder } = useContext(SearchContext)
+  const { theme } = useContext(SearchContext)
 
   return (
     <div className={`OutpostSearch ${theme === "dark" ? "dark" : ""}`}>

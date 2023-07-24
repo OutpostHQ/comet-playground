@@ -2,7 +2,7 @@
 
 import { createContext } from "react"
 
-import SearchComponent from "./search"
+import SearchComponent from "../search/search"
 
 type SearchTheme = "light" | "dark"
 type SearchSize = "small" | "base"

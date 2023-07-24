@@ -1,8 +1,9 @@
 "use client"
 
-import React from "react"
+import React, { useCallback, useContext } from "react"
 import { Switch } from "@radix-ui/react-switch"
 
+import { PlaygroundContext } from "../providers/playground-provider"
 import { Button } from "../ui/button"
 import Field from "../ui/field"
 import { Input } from "../ui/input"
@@ -35,17 +36,46 @@ export default function Sidebar() {
 }
 
 function Design() {
+  const { searchConfig, setSearchConfig } = useContext(PlaygroundContext)
+
+  const handleValueChange = useCallback(
+    (key: keyof typeof searchConfig, value: string) => {
+      setSearchConfig((prev) => {
+        return { ...prev, [key]: value }
+      })
+    },
+    [setSearchConfig]
+  )
+
+  console.log(searchConfig)
   return (
     <div className="h-[80vh]  space-y-4 overflow-y-scroll px-4 py-5 pb-10 scrollbar scrollbar-none">
       <Field className="" htmlFor="theme" label="Theming">
         <div className="flex">
           <Button
+            onClick={() => {
+              handleValueChange("theme", "light")
+            }}
             variant="outline"
-            className="flex-1 rounded-r-none border-r-0"
+            className={`${
+              !searchConfig?.theme || searchConfig.theme == "light"
+                ? "bg-surface-pressed"
+                : "bg-surface-default"
+            } flex-1 rounded-r-none border-r-0`}
           >
             Light
           </Button>
-          <Button variant="outline" className=" flex-1 rounded-l-none">
+          <Button
+            onClick={() => {
+              handleValueChange("theme", "dark")
+            }}
+            variant="outline"
+            className={`${
+              searchConfig?.theme == "dark"
+                ? "bg-surface-pressed"
+                : "bg-surface-default"
+            }  flex-1 rounded-l-none`}
+          >
             Dark
           </Button>
         </div>
@@ -62,9 +92,12 @@ function Design() {
 
       <Field className="" htmlFor="width" label="AI Placeholder">
         <Input
+          onChange={(e) => {
+            handleValueChange("AIPlaceholder", e.target.value)
+          }}
           fullwidth
           placeholder="How do I use Outopst API"
-          defaultValue="How do I use Outpost API"
+          defaultValue="Search"
         />
       </Field>
 
