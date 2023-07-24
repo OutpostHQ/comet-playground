@@ -1,5 +1,12 @@
-import React from "react"
+"use client"
 
+import React from "react"
+import { Switch } from "@radix-ui/react-switch"
+
+import { Button } from "../ui/button"
+import Field from "../ui/field"
+import { Input } from "../ui/input"
+import { Label } from "../ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
 
 export default function Sidebar() {
@@ -15,28 +22,70 @@ export default function Sidebar() {
           </TabsTrigger>
         </TabsList>
         <TabsContent className="overflow-hidden border-none p-0" value="design">
-          <div className="h-[80vh] overflow-y-scroll px-4 py-5 pb-10 scrollbar scrollbar-none">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolores
-            culpa quae nobis, dignissimos magnam, consequuntur optio itaque
-            tenetur ea adipisci porro veniam cumque sint non? Optio temporibus
-            deleniti nam eligendi error eveniet quam fugiat, magni ut soluta
-            ullam cum quibusdam quia modi beatae? Adipisci eligendi dolore eos
-            aspernatur, itaque illum ipsum voluptatum rem ipsam iste
-            consequuntur, dolorum enim fugit consectetur. Exercitationem, eaque
-            voluptatibus. Cumque ad omnis dolorem ipsam optio quos, officia hic
-            reiciendis impedit officiis odit, culpa incidunt porro accusantium
-            commodi quia corrupti! Blanditiis aliquam eum repudiandae facilis
-            corrupti expedita a harum odio, architecto unde voluptatem
-            aspernatur ullam nobis! Fugit. tenetur ea adipisci porro veniam
-            cumque sint non? Optio temporibus deleniti nam eligendi error
-            eveniet quam fugiat, magni ut soluta ullam cum quibusdam quia modi
-            beatae? Adipisci eligendi dolore eos aspernatur, itaque illum ipsum
-            voluptatum rem ipsam iste consequuntur, dolorum enim fugit
-            consectetur. Exercitationem, eaque voluptatibus. Cumque ad omnis
-            dolorem ipsam optio quos, officia hic reiciendis impedit officiis
-            odit, culpa incidunt porro accusantium commodi quia corrupti!
-            Blanditiis aliquam eum repudiandae facilis corrupti expedita a harum
-            odio, architecto unde voluptatem aspernatur ullam nobis! Fugit.
+          <div className="h-[80vh]  space-y-4 overflow-y-scroll px-4 py-5 pb-10 scrollbar scrollbar-none">
+            <Field className="" htmlFor="theme" label="Theming">
+              <Button variant="outline" className="rounded-r-none border-r-0">
+                Light
+              </Button>
+              <Button variant="outline" className=" rounded-l-none">
+                Dark
+              </Button>
+            </Field>
+
+            <Field
+              className=""
+              htmlFor="width"
+              label="Container width (Desktop)"
+            >
+              <Input
+                fullwidth
+                placeholder="default: 615px"
+                defaultValue="615"
+                type="number"
+              />
+            </Field>
+
+            <Field className="" htmlFor="width" label="AI Placeholder">
+              <Input
+                fullwidth
+                placeholder="How do I use Outopst API"
+                defaultValue="How do I use Outpost API"
+              />
+            </Field>
+
+            <Field className="" htmlFor="textSize" label="Text Size">
+              <Button className="rounded-r-none" variant="outline">
+                Small
+              </Button>
+              <Button className="rounded-none border-x-0" variant="outline">
+                Medium
+              </Button>
+              <Button className="rounded-l-none" variant="outline">
+                Large
+              </Button>
+            </Field>
+
+            <Field className="flex-1" htmlFor="radius" label="Radius">
+              <Input fullwidth defaultValue="8" type="number" />
+            </Field>
+            <Field className="" htmlFor="width" label="Don't know message">
+              <Input
+                placeholder="Sorry, I couldn't find anything related to your search "
+                defaultValue="Sorry, I couldn't find anything related to your search "
+                fullwidth
+              />
+            </Field>
+            <Field className="" htmlFor="width" label="Reference message">
+              <Input
+                placeholder="Answer generated from the following pages"
+                defaultValue="Answer generated from the following pages"
+                fullwidth
+              />
+            </Field>
+            <div className="flex items-center justify-between">
+              <Label />
+              <Switch />
+            </div>
           </div>
         </TabsContent>
         <TabsContent className="overflow-auto border-none p-0" value="model">
