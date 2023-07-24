@@ -93,11 +93,11 @@ module.exports = {
       },
     },
     boxShadow: {
-      "shadow-0.25": "var(--cp-shadow-025)",
-      "shadow-0.5": "var(--cp-shadow-050)",
-      "shadow-0.75": "var(--cp-shadow-075)",
-      "shadow-1": "var(--cp-shadow-100)",
-      "shadow-2": "var(--cp-shadow-200)",
+      0.25: "var(--cp-shadow-025)",
+      0.5: "var(--cp-shadow-050)",
+      0.75: "var(--cp-shadow-075)",
+      1: "var(--cp-shadow-100)",
+      2: "var(--cp-shadow-200)",
     },
     extend: {
       borderRadius: {

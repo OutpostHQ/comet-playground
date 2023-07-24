@@ -13,9 +13,9 @@ import Text from "../ui/text"
 
 export default function Sidebar() {
   return (
-    <aside className="fixed bottom-6 right-6 top-[calc(var(--header-height)+24px)] w-[var(--sidebar-width)] overflow-hidden rounded-lg border border-border-default bg-surface-default shadow-cp-shadow-0.25">
+    <aside className="fixed bottom-6 right-6 top-[calc(var(--header-height)+24px)] w-[var(--sidebar-width)] overflow-hidden rounded-lg border border-border-default bg-surface-default shadow-0.25">
       <Tabs defaultValue="design">
-        <TabsList className="bg-surface-default">
+        <TabsList className=" border-0 border-b border-b-border-default bg-surface-default">
           <TabsTrigger className="px-4 py-2 font-medium" value="design">
             Design
           </TabsTrigger>
