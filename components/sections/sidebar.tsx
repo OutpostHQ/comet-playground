@@ -7,7 +7,9 @@ import { Button } from "../ui/button"
 import Field from "../ui/field"
 import { Input } from "../ui/input"
 import { Label } from "../ui/label"
+import { Select, SelectContent, SelectItem, SelectTrigger } from "../ui/select"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
+import Text from "../ui/text"
 
 export default function Sidebar() {
   return (
@@ -107,8 +109,40 @@ function Design() {
 
 function Model() {
   return (
-    <div className="h-[80vh] overflow-y-auto px-4 py-5 pb-10 scrollbar scrollbar-none">
-      two
+    <div className="h-[80vh] space-y-4 overflow-y-auto px-4 py-5 pb-10 scrollbar scrollbar-none">
+      <Field htmlFor="model" label="Model">
+        <Select>
+          <SelectTrigger>gpt-4</SelectTrigger>
+          <SelectContent>
+            <SelectItem value="One">One</SelectItem>
+            <SelectItem value="Two">Two</SelectItem>
+            <SelectItem value="Three">Three</SelectItem>
+          </SelectContent>
+        </Select>
+      </Field>
+
+      <Field
+        htmlFor="template"
+        label={
+          <p className="mb-1 flex items-center gap-2">
+            <Text as="span" weight="medium" className="text-foreground-soft">
+              Template
+            </Text>
+            <span className="rounded-full border border-border-primary bg-surface-primary-subdued px-2 py-0.5 text-xs">
+              Pro
+            </span>
+          </p>
+        }
+      >
+        <Select>
+          <SelectTrigger>gpt-4</SelectTrigger>
+          <SelectContent>
+            <SelectItem value="One">One</SelectItem>
+            <SelectItem value="Two">Two</SelectItem>
+            <SelectItem value="Three">Three</SelectItem>
+          </SelectContent>
+        </Select>
+      </Field>
     </div>
   )
 }
