@@ -3,7 +3,7 @@
 .OutpostSearch {
   --input-height: 2rem;
   --search-max-width: 615px;
-  --result-container-height: 575px;
+  --result-container-height: 60vh;
 }
 
 * {
