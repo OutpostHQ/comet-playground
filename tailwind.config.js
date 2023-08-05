@@ -6,108 +6,132 @@ module.exports = {
   content: ["app/**/*.{ts,tsx}", "components/**/*.{ts,tsx}"],
   theme: {
     colors: {
-      // Background Colors
-      surface: {
-        default: "var(--cp-surface)",
-        subdued: "var(--cp-surface-subdued)",
-        hovered: "var(--cp-surface-hovered)",
-        pressed: "var(--cp-surface-pressed)",
-        active: "var(--cp-surface-active)",
-        input: "var(--cp-surface-input)",
-        disabled: "var(--cp-surface-disabled)",
-
-        primary: "var(--cp-surface-primary)",
-        "primary-subdued": "var(--cp-surface-primary-subdued)",
-        "primary-hovered": "var(--cp-surface-primary-hovered)",
-        "primary-pressed": "var(--cp-surface-primary-pressed)",
-        "primary-active": "var(--cp-surface-primary-active)",
-        "primary-disabled": "var(--cp-surface-primary-disabled)",
-
-        secondary: "var(--cp-surface-secondary)",
-        "secondary-subdued": "var(--cp-surface-secondary-subdued)",
-        "secondary-hovered": "var(--cp-surface-secondary-hovered)",
-        "secondary-pressed": "var(--cp-surface-secondary-pressed)",
-        "secondary-active": "var(--cp-surface-secondary-active)",
-
-        tertiary: "var(--cp-surface-tertiary)",
-        "tertiary-hovered": "var(--cp-surface-tertiary-hovered)",
-        "tertiary-pressed": "var(--cp-surface-tertiary-pressed)",
-
-        critical: "var(--cp-surface-critical)",
-        "critical-subdued": "var(--cp-surface-critical-subdued)",
-        "critical-hovered": "var(--cp-surface-critical-hovered)",
-        "critical-pressed": "var(--cp-surface-critical-pressed)",
-
-        warning: "var(--cp-surface-warning)",
-        "warning-subdued": "var(--cp-surface-warning-subdued)",
-
-        success: "var(--cp-surface-success)",
-        "success-subdued": "var(--cp-surface-success-subdued)",
-      },
-      // Text Colors
-      foreground: {
-        default: "var(--cp-text)",
-        strong: "var(--cp-text-strong)",
-        soft: "var(--cp-text-soft)",
-        disabled: "var(--cp-text-disabled)",
-        critical: "var(--cp-text-critical)",
-        warning: "var(--cp-text-warning)",
-        success: "var(--cp-text-success)",
-        primary: "var(--cp-text-primary)",
-        secondary: "var(--cp-text-secondary)",
-        "on-primary": "var(--cp-text-on-primary)",
-        "on-tertiary": "var(--cp-text-on-tertiary)",
-      },
-      // Icon Colors
-      icon: {
-        default: "var(--cp-icon)",
-        strong: "var(--cp-icon-strong)",
-        soft: "var(--cp-icon-soft)",
-        disabled: "var(--cp-icon-disabled)",
-        critical: "var(--cp-icon-critical)",
-        warning: "var(--cp-icon-warning)",
-        success: "var(--cp-icon-success)",
-        primary: "var(--cp-icon-primary)",
-        secondary: "var(--cp-icon-secondary)",
-        "on-primary": "var(--cp-icon-on-primary)",
-        "on-tertiary": "var(--cp-icon-on-tertiary)",
-      },
-      // Border Colors
-      border: {
-        default: "var(--cp-border)",
-        critical: "var(--cp-border-critical)",
-        warning: "var(--cp-border-warning)",
-        success: "var(--cp-border-success)",
-        primary: "var(--cp-border-primary)",
-        secondary: "var(--cp-border-secondary)",
-        tertiary: "var(--cp-border-tertiary)",
-      },
-      white: "var(--cp-white)",
-      black: "var(--cp-black)",
-      transparent: "var(--cp-transparent)",
+      transparent: "var(--op-transparent)",
+      black: "var(--op-black)",
+      white: "var(--op-white)",
+      primary: "var(--op-text-primary)",
+      secondary: "var(--op-text-secondary)",
     },
-    container: {
-      center: true,
-      screens: {
-        "2xl": "1200px",
-      },
+    textColor: {
+      DEFAULT: "var(--op-text)",
+      default: "var(--op-text)",
+      strong: "var(--op-text-strong)",
+      soft: "var(--op-text-soft)",
+      disabled: "var(--op-text-disabled)",
+      critical: "var(--op-text-critical)",
+      warning: "var(--op-text-warning)",
+      success: "var(--op-text-success)",
+      primary: "var(--op-text-primary)",
+      secondary: "var(--op-text-secondary)",
+      "on-primary": "var(--op-text-on-primary)",
+      "on-secondary": "var(--op-text-on-secondary)",
+
+      icon: "var(--op-icon)",
+      "icon-strong": "var(--op-icon-strong)",
+      "icon-soft": "var(--op-icon-soft)",
+      "icon-disabled": "var(--op-icon-disabled)",
+
+      "icon-critical": "var(--op-icon-critical)",
+      "icon-warning": "var(--op-icon-warning)",
+      "icon-success": "var(--op-icon-success)",
+      "icon-primary": "var(--op-icon-primary)",
+      "icon-secondary": "var(--op-icon-secondary)",
+
+      "icon-on-primary": "var(--op-icon-on-primary)",
+      "icon-on-tertiary": "var(--op-icon-on-tertiary)",
+
+      transparent: "var(--op-transparent)",
+    },
+    backgroundColor: {
+      DEFAULT: "var(--op-surface)",
+      default: "var(--op-surface)",
+      subdued: "var(--op-surface-subdued)",
+      hovered: "var(--op-surface-hovered)",
+      pressed: "var(--op-surface-pressed)",
+      active: "var(--op-surface-active)",
+      input: "var(--op-surface-input)",
+      disabled: "var(--op-surface-disabled)",
+
+      primary: "var(--op-surface-primary)",
+      "primary-subdued": "var(--op-surface-primary-subdued)",
+      "primary-hovered": "var(--op-surface-primary-hovered)",
+      "primary-pressed": "var(--op-surface-primary-pressed)",
+      "primary-active": "var(--op-surface-primary-active)",
+      "primary-disabled": "var(--op-surface-primary-disabled)",
+
+      secondary: "var(--op-surface-secondary)",
+      "secondary-subdued": "var(--op-surface-secondary-subdued)",
+      "secondary-hovered": "var(--op-surface-secondary-hovered)",
+      "secondary-pressed": "var(--op-surface-secondary-pressed)",
+      "secondary-active": "var(--op-surface-secondary-active)",
+
+      tertiary: "var(--op-surface-tertiary)",
+      "tertiary-hovered": "var(--op-surface-tertiary-hovered)",
+      "tertiary-pressed": "var(--op-surface-tertiary-pressed)",
+
+      critical: "var(--op-surface-critical)",
+      "critical-subdued": "var(--op-surface-critical-subdued)",
+      "critical-hovered": "var(--op-surface-critical-hovered)",
+      "critical-pressed": "var(--op-surface-critical-pressed)",
+
+      warning: "var(--op-surface-warning)",
+      "warning-subdued": "var(--op-surface-warning-subdued)",
+
+      success: "var(--op-surface-success)",
+      "success-subdued": "var(--op-surface-success-subdued)",
+
+      transparent: "var(--op-transparent)",
+    },
+    borderColor: {
+      DEFAULT: "var(--op-border)",
+      default: "var(--op-border)",
+      critical: "var(--op-border-critical)",
+      warning: "var(--op-border-warning)",
+      success: "var(--op-border-success)",
+      primary: "var(--op-border-primary)",
+      secondary: "var(--op-border-secondary)",
+      tertiary: "var(--op-border-tertiary)",
+      focus: "var(--op-border-focus)",
+      transparent: "var(--op-transparent)",
+      text: "var(--op-text)",
+      soft: "var(--op-text-soft)",
+    },
+    divideColor: {
+      DEFAULT: "var(--op-border)",
+      default: "var(--op-border)",
+      critical: "var(--op-border-critical)",
+      warning: "var(--op-border-warning)",
+      success: "var(--op-border-success)",
+      primary: "var(--op-border-primary)",
+      secondary: "var(--op-border-secondary)",
+      tertiary: "var(--op-border-tertiary)",
+      focus: "var(--op-border-focus)",
+      transparent: "var(--op-transparent)",
+      text: "var(--op-text)",
+      soft: "var(--op-text-soft)",
+    },
+    ringColor: {
+      DEFAULT: "var(--op-border-focus)",
+      focus: "var(--op-border-focus)",
+      transparent: "var(--op-transparent)",
+    },
+    outlineColor: {
+      DEFAULT: "var(--op-border-focus)",
+      focus: "var(--op-border-focus)",
+      success: "var(--op-border-success)",
+      warning: "var(--op-border-warning)",
+      critical: "var(--op-border-critical)",
+      primary: "var(--op-border-primary)",
+      transparent: "var(--op-transparent)",
     },
     boxShadow: {
-      0.25: "var(--cp-shadow-025)",
-      0.5: "var(--cp-shadow-050)",
-      0.75: "var(--cp-shadow-075)",
-      1: "var(--cp-shadow-100)",
-      2: "var(--cp-shadow-200)",
+      0.25: "var(--op-shadow-025)",
+      0.5: "var(--op-shadow-050)",
+      0.75: "var(--op-shadow-075)",
+      1: "var(--op-shadow-100)",
+      2: "var(--op-shadow-200)",
     },
     extend: {
-      borderRadius: {
-        lg: `var(--radius)`,
-        md: `calc(var(--radius) - 2px)`,
-        sm: "calc(var(--radius) - 4px)",
-      },
-      fontFamily: {
-        sans: ["var(--font-sans)", ...fontFamily.sans],
-      },
       keyframes: {
         "accordion-down": {
           from: { height: 0 },
@@ -118,12 +142,14 @@ module.exports = {
           to: { height: 0 },
         },
       },
-
-      animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
+      container: {
+        center: true,
+        screens: {
+          "2xl": "1200px",
+        },
       },
     },
   },
+
   plugins: [require("tailwindcss-animate"), require("tailwind-scrollbar")],
 }
