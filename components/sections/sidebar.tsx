@@ -14,9 +14,9 @@ import Text from "../ui/text"
 
 export default function Sidebar() {
   return (
-    <aside className="fixed bottom-6 right-6 top-[calc(var(--header-height)+24px)] w-[var(--sidebar-width)] overflow-hidden rounded-lg border border-border-default bg-surface-default shadow-0.25">
+    <aside className="fixed bottom-6 right-6 top-[calc(var(--header-height)+24px)] w-[var(--sidebar-width)]  overflow-hidden rounded-lg border bg-default shadow-0.25">
       <Tabs defaultValue="design">
-        <TabsList className=" border-0 border-b border-b-border-default bg-surface-default">
+        <TabsList className=" border-0 border-b bg-default">
           <TabsTrigger className="px-4 py-2 font-medium" value="design">
             Design
           </TabsTrigger>
@@ -49,7 +49,7 @@ function Design() {
 
   console.log(searchConfig)
   return (
-    <div className="h-[80vh]  space-y-4 overflow-y-scroll px-4 py-5 pb-10 scrollbar scrollbar-none">
+    <div className="h-[80vh] w-[var(--sidebar-width)]  space-y-4 overflow-y-scroll px-4 py-5 pb-10 scrollbar scrollbar-none">
       <Field className="" htmlFor="theme" label="Theming">
         <div className="flex">
           <Button
@@ -59,8 +59,8 @@ function Design() {
             variant="outline"
             className={`${
               !searchConfig?.theme || searchConfig.theme == "light"
-                ? "bg-surface-pressed"
-                : "bg-surface-default"
+                ? "bg-pressed"
+                : "bg-default"
             } flex-1 rounded-r-none border-r-0`}
           >
             Light
@@ -71,9 +71,7 @@ function Design() {
             }}
             variant="outline"
             className={`${
-              searchConfig?.theme == "dark"
-                ? "bg-surface-pressed"
-                : "bg-surface-default"
+              searchConfig?.theme == "dark" ? "bg-pressed" : "bg-default"
             }  flex-1 rounded-l-none`}
           >
             Dark
@@ -158,10 +156,10 @@ function Model() {
         htmlFor="template"
         label={
           <p className="mb-1 flex items-center gap-2">
-            <Text as="span" weight="medium" className="text-foreground-soft">
+            <Text as="span" weight="medium" className="text-soft">
               Template
             </Text>
-            <span className="rounded-full border border-border-primary bg-surface-primary-subdued px-2 py-0.5 text-xs">
+            <span className="rounded-full border border-primary bg-primary-subdued px-2 py-0.5 text-xs">
               Pro
             </span>
           </p>

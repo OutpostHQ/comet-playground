@@ -1,19 +1,5 @@
-:root {
-  --main-nav-height--desktop: 64px;
-  --main-nav-height--mobile: 60px;
-
-  --sub-nav-height--desktop: 44px;
-
-  --header-width: 1240px;
-
-  --services-main-width: 735px;
-  --services-sidebar-width: 305px;
-  --playground-main-width: 615px;
-  --playground-sidebar-width: 305px;
-  --search-main-width: 735px;
-
-  /* header height = main nav + sub nav */
-  --header-height: 108px;
+html[data-theme="light"] {
+  --sidebar-width: 302px;
 
   /* op LIGHT THEME VARIABLES */
   --op-surface: #ffffff;
@@ -107,7 +93,7 @@
   --op-shadow-200: 0px 10.666999816894531px 32px 2px rgba(161, 161, 170, 0.33);
 }
 
-:root.dark {
+html[dark-theme="dark"] {
   --op-surface: #18181b;
   --op-surface-subdued: #27272a;
 
