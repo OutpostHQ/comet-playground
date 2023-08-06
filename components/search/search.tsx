@@ -66,7 +66,7 @@ export default function SearchComponent() {
     <SearchContainer>
       <SearchInput />
       <SearchResultContainer />
-      {includeBranding && <SearchFooter />}
+      {/* {includeBranding && <SearchFooter />} */}
     </SearchContainer>
   )
 }

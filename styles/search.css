@@ -156,7 +156,6 @@
   padding: 0.5rem 0;
   background-color: var(--op-surface-subdued);
   border-top: 1px solid var(--op-border);
-  text-align: center;
 }
 
 .OutpostSearch .footer a {
