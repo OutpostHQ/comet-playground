@@ -8,8 +8,6 @@ import React, {
   useState,
 } from "react"
 
-import useTheme from "@/lib/hooks/useTheme"
-
 import Sidebar from "../sections/sidebar"
 import Search from "./search-provider"
 
@@ -43,12 +41,11 @@ function PlaygroundProvider({
 
 export default function Playground() {
   const [searchConfig, setSearchConfig] = useState({})
-  const { theme } = useTheme()
   return (
     <div>
       <Search
         config={{
-          theme: theme as "light" | "dark",
+          theme: "light",
           includeBranding: "true",
 
           ...searchConfig,

@@ -11,7 +11,7 @@ const badgeVariants = cva(
         default: "bg-primary hover:bg-primary border-transparent text-default",
         destructive:
           "bg-critical hover:bg-critical border-transparent text-on-primary",
-        outline: "text-foreground-default",
+        outline: "text-default",
       },
     },
     defaultVariants: {

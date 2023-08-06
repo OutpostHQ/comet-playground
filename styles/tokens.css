@@ -1,4 +1,4 @@
-html[data-theme="light"] {
+html.light {
   --sidebar-width: 302px;
 
   /* op LIGHT THEME VARIABLES */
@@ -93,7 +93,7 @@ html[data-theme="light"] {
   --op-shadow-200: 0px 10.666999816894531px 32px 2px rgba(161, 161, 170, 0.33);
 }
 
-html[dark-theme="dark"] {
+html.dark {
   --op-surface: #18181b;
   --op-surface-subdued: #27272a;
 
