@@ -7,6 +7,8 @@ import "@/styles/tokens.css"
 
 import { ThemeProvider } from "@/components/providers/theme-provider"
 
+import Mounted from "./mounted"
+
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
@@ -20,9 +22,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html suppressHydrationWarning={true} lang="en">
-      <body className={inter.className}>
-        <ThemeProvider>{children}</ThemeProvider>
+    <html suppressHydrationWarning lang="en">
+      <body suppressHydrationWarning className={inter.className}>
+        <ThemeProvider>
+          <Mounted>{children}</Mounted>
+        </ThemeProvider>
       </body>
     </html>
   )
