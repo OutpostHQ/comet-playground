@@ -52,68 +52,7 @@
 }
 
 body {
-  color: var(--cp-text);
-  scroll-margin-top: 100px;
-}
-
-button:focus-visible {
-  outline: none !important;
-}
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-@layer base {
-  body {
-    @apply bg-default text-default;
-    font-feature-settings: "rlig" 1, "calt" 1;
-  }
-  a {
-    @apply text-primary;
-  }
-
-  svg {
-    color: currentColor;
-  }
-
-  .btn-primary {
-    @apply rounded-lg border bg-primary px-4 py-2 text-sm font-medium text-on-primary hover:bg-primary-hovered;
-  }
-  .btn-outline {
-    @apply rounded-lg border bg-default px-4 py-2 text-sm font-medium text-default hover:bg-hovered;
-  }
-  .btn-critical {
-    @apply rounded-lg  bg-critical px-4 py-2 text-sm font-medium text-on-primary hover:bg-critical-hovered;
-  }
-
-  button.gradient-button-primary {
-    background: linear-gradient(180deg, #6764cd 28.13%, #3b398c 100%);
-    border: 1px solid rgba(139, 135, 224, 0.5);
-  }
-  html[class="light"] button.gradient-button-secondary {
-    background: linear-gradient(180deg, #ffffff 27.08%, #f4eff4 100%);
-    border: 1px solid #e5e1e6;
-  }
-  html[class="light"] button.gradient-button-secondary:hover {
-    filter: brightness(1.03);
-  }
-
-  html[class="dark"] button.gradient-button-secondary {
-    background: linear-gradient(
-      180deg,
-      rgba(52, 58, 66, 0.5) 0%,
-      rgba(0, 0, 0, 0.5) 100%
-    );
-    border: 1px solid rgba(71, 70, 74, 0.5);
-  }
-
-  html[class="dark"] button.gradient-button-secondary:hover {
-    filter: brightness(1.5);
-  }
-}
-
-body {
-  color: var(--cp-text);
+  color: var(--op-text);
   scroll-margin-top: 100px;
 }
 

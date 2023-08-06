@@ -94,6 +94,8 @@ html.light {
 }
 
 html.dark {
+  --sidebar-width: 302px;
+
   --op-surface: #18181b;
   --op-surface-subdued: #27272a;
 
