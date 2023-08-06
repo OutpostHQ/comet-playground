@@ -1,8 +1,8 @@
-import React, { CSSProperties, ElementType, ReactNode, useMemo } from "react";
+import React, { CSSProperties, ElementType, ReactNode, useMemo } from "react"
 
-import { cn } from "@/lib/utils/cn";
+import { cn } from "@/lib/utils/cn"
 
-type CPTextWeight = "light" | "base" | "medium" | "semibold" | "bold";
+type CPTextWeight = "light" | "base" | "medium" | "semibold" | "bold"
 type CPTextVariants =
   | "caption"
   | "subheading"
@@ -10,22 +10,22 @@ type CPTextVariants =
   | "heading"
   | "displaySmall"
   | "displayMedium"
-  | "displayLarge";
+  | "displayLarge"
 
 type CPTextProps = {
-  children: ReactNode | string;
-  weight?: CPTextWeight;
-  variant?: CPTextVariants;
-  style?: CSSProperties;
-  as?: ElementType;
-  className?: string;
-};
+  children: ReactNode | string
+  weight?: CPTextWeight
+  variant?: CPTextVariants
+  style?: CSSProperties
+  as?: ElementType
+  className?: string
+}
 
 type sharedType = {
-  lineHeight: string;
-  fontSize: string;
-  as: ElementType;
-};
+  lineHeight: string
+  fontSize: string
+  as: ElementType
+}
 
 // styles local to text components
 const textVariants: { [key: string]: sharedType } = {
@@ -70,7 +70,7 @@ const textVariants: { [key: string]: sharedType } = {
     lineHeight: "2rem",
     as: "h1",
   },
-};
+}
 
 export default function Text({
   children,
@@ -90,7 +90,7 @@ export default function Text({
       ? "500"
       : weight === "light"
       ? "300"
-      : "400";
+      : "400"
 
   const resultingStyles = useMemo(() => {
     return {
@@ -98,18 +98,18 @@ export default function Text({
       fontWeight,
       textTransform: variant === "subheading" ? "uppercase" : "",
       ...style,
-    };
-  }, [style, variant, fontWeight]);
+    }
+  }, [style, variant, fontWeight])
 
-  const TextElement = as ? as : textVariants[variant].as || "p";
+  const TextElement = as ? as : textVariants[variant].as || "p"
 
   return (
     <TextElement
-      className={cn("text-foreground-default " + className)}
+      className={cn("text-default " + className)}
       style={resultingStyles}
       {...otherProps}
     >
       {children}
     </TextElement>
-  );
+  )
 }

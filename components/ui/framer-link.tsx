@@ -51,7 +51,7 @@ export function FramerLink({
             left: direction === "vertical" ? "5%" : "0",
             position: "absolute",
             borderRadius: "4px",
-            background: "var(--cp-surface-primary)",
+            background: "var(--op-surface-primary)",
             zIndex: "0",
           }}
         />
@@ -76,7 +76,7 @@ export function FramerLink({
             content: "",
             position: "absolute",
             borderRadius: "8px",
-            background: "var(--cp-surface-hovered)",
+            background: "var(--op-surface-hovered)",
             opacity: "1",
             zIndex: "0",
           }}
@@ -102,7 +102,7 @@ export function FramerLink({
             content: "",
             position: "absolute",
             borderRadius: "8px",
-            background: "var(--cp-surface-hovered)",
+            background: "var(--op-surface-hovered)",
             opacity: "1",
             zIndex: "0",
           }}
@@ -119,7 +119,7 @@ export function FramerLink({
         className={className}
         style={{
           fontWeight: isActive ? "500" : "400",
-          color: isActive ? "var(--cp-text)" : "var(--cp-text-soft)",
+          color: isActive ? "var(--op-text)" : "var(--op-text-soft)",
           position: "relative",
           padding: direction === "vertical" ? "0.5rem 1rem" : "0.75rem 1rem",
           borderRadius: "0.5rem",

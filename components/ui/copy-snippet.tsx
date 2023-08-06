@@ -1,9 +1,9 @@
-"use client";
+"use client"
 
-import { useEffect, useState } from "react";
-import { CheckIcon, CopyIcon } from "lucide-react";
+import { useEffect, useState } from "react"
+import { CheckIcon, Copy, CopyIcon } from "lucide-react"
 
-import { cn } from "@/lib/utils/cn";
+import { cn } from "@/lib/utils/cn"
 
 export default function CopySnippet({
   code,
@@ -11,45 +11,46 @@ export default function CopySnippet({
   fullWidth = false,
   multiLine = false,
 }: {
-  code: string;
-  className?: string;
-  fullWidth?: boolean;
-  multiLine?: boolean;
+  code: string | undefined
+  className?: string
+  fullWidth?: boolean
+  multiLine?: boolean
 }) {
-  const [hasCopied, setHasCopied] = useState(false);
+  const [hasCopied, setHasCopied] = useState(false)
 
   useEffect(() => {
     setTimeout(() => {
-      setHasCopied(false);
-    }, 2000);
-  }, [hasCopied]);
+      setHasCopied(false)
+    }, 2000)
+  }, [hasCopied])
 
   return (
     <pre
       className={cn(
-        `relative min-h-[2.5rem] overflow-hidden rounded-lg border border-border-default bg-surface-default p-3 text-sm text-foreground-default ${
+        `relative min-h-[2.5rem] overflow-hidden rounded-lg border bg-default p-3 text-sm text-default ${
           fullWidth ? "w-full " : "cp-input-width "
         }` + className
       )}
     >
       <code>{code}</code>
       <button
+        type="button"
         onClick={() => {
-          navigator.clipboard.writeText(code);
-          setHasCopied(true);
+          navigator.clipboard.writeText(code || "")
+          setHasCopied(true)
         }}
-        className={` absolute  grid  w-10 place-items-center  bg-surface-default transition-all duration-200 hover:bg-surface-hovered ${
+        className={` absolute  grid  w-10 place-items-center  bg-default transition-all duration-200 hover:bg-hovered ${
           multiLine
-            ? "right-2 top-2 h-10 rounded-lg border border-surface-default hover:border-border-default"
-            : "right-0 top-0 h-full border-l border-l-surface-default hover:border-l-border-default "
+            ? "right-2 top-2 h-10 rounded-lg border border-transparent hover:border-default"
+            : "right-0 top-0 h-full border-l border-l-transparent hover:border-l-default "
         }`}
       >
         {hasCopied ? (
-          <CheckIcon size={16} className="text-icon-default" />
+          <CheckIcon size={16} className="text-icon" />
         ) : (
-          <CopyIcon size={16} className="text-icon-default" />
+          <CopyIcon size={16} className="text-icon" />
         )}
       </button>
     </pre>
-  );
+  )
 }

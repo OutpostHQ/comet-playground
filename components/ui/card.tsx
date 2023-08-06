@@ -1,34 +1,51 @@
-import { cn } from "@/lib/utils/cn";
-import { ComponentProps, ElementType, ReactNode } from "react";
+import React, { HTMLProps } from "react"
 
-type TCardOwnProps<T extends ElementType> = {
-  className?: string;
-  id?: string;
-  children: ReactNode;
-  as?: T;
-};
+import { cn } from "@/lib/utils/cn"
 
-type CardProps<T extends ElementType> = TCardOwnProps<T> &
-  Omit<ComponentProps<T>, keyof TCardOwnProps<T>>;
+import Text from "./text"
 
-const Card = <T extends ElementType = "div">({
-  children,
-  className = "",
-  id = "",
-  as,
-}: CardProps<T>) => {
-  const Comp = as || "div";
+export interface CardProps extends HTMLProps<HTMLDivElement> {
+  title?: string
+  description?: string
+  footer?: React.ReactNode
+  bodyStyles?: string
+  footerStyles?: string
+}
+
+export default function Card(props: CardProps) {
+  const {
+    title,
+    description,
+    className = "",
+    bodyStyles = "",
+    footerStyles = "",
+    footer,
+    children,
+    ...cardProps
+  } = props
+
   return (
-    <Comp
+    <div
       className={cn(
-        `overflow-hidden rounded-lg border border-border-default bg-surface-default p-5 shadow-cp-shadow ` +
-          className
+        "overflow-hidden rounded-lg border bg-default shadow-0.25",
+        className
       )}
-      id={id}
+      {...cardProps}
     >
-      {children}
-    </Comp>
-  );
-};
-
-export default Card;
+      <div className={cn("p-5 ", bodyStyles)}>
+        {props.title && (
+          <Text variant="displayMedium" weight="semibold">
+            {props.title}
+          </Text>
+        )}
+        {props.description && <Text>{props.description}</Text>}
+        {props.children}
+      </div>
+      {footer && (
+        <div className={cn("border-t  bg-subdued px-5 py-3 ", footerStyles)}>
+          {footer}
+        </div>
+      )}
+    </div>
+  )
+}
