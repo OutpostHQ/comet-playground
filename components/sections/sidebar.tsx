@@ -1,16 +1,13 @@
 "use client"
 
-import React, { useCallback, useContext } from "react"
-import { Switch } from "@radix-ui/react-switch"
+import React from "react"
+import { useDesignStore } from "@/store/store"
 
-import { PlaygroundContext } from "../providers/playground-provider"
-import { Button } from "../ui/button"
 import Field from "../ui/field"
-import { Input } from "../ui/input"
-import { Label } from "../ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger } from "../ui/select"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
 import Text from "../ui/text"
+import { Design } from "./design-tab"
 
 export default function Sidebar() {
   return (
@@ -35,108 +32,13 @@ export default function Sidebar() {
   )
 }
 
-function Design() {
-  const { searchConfig, setSearchConfig } = useContext(PlaygroundContext)
-
-  const handleValueChange = useCallback(
-    (key: keyof typeof searchConfig, value: string) => {
-      setSearchConfig((prev) => {
-        return { ...prev, [key]: value }
-      })
-    },
-    [setSearchConfig]
-  )
-
-  console.log(searchConfig)
-  return (
-    <div className="h-[80vh] w-[var(--sidebar-width)]  space-y-4 overflow-y-scroll px-4 py-5 pb-10 scrollbar scrollbar-none">
-      <Field className="" htmlFor="theme" label="Theming">
-        <div className="flex">
-          <Button
-            onClick={() => {
-              handleValueChange("theme", "light")
-            }}
-            variant="outline"
-            className={`${
-              !searchConfig?.theme || searchConfig.theme == "light"
-                ? "bg-pressed"
-                : "bg-default"
-            } flex-1 rounded-r-none border-r-0`}
-          >
-            Light
-          </Button>
-          <Button
-            onClick={() => {
-              handleValueChange("theme", "dark")
-            }}
-            variant="outline"
-            className={`${
-              searchConfig?.theme == "dark" ? "bg-pressed" : "bg-default"
-            }  flex-1 rounded-l-none`}
-          >
-            Dark
-          </Button>
-        </div>
-      </Field>
-
-      <Field className="" htmlFor="width" label="Container width (Desktop)">
-        <Input
-          fullwidth
-          placeholder="default: 615px"
-          defaultValue="615"
-          type="number"
-        />
-      </Field>
-
-      <Field className="" htmlFor="width" label="AI Placeholder">
-        <Input
-          onChange={(e) => {
-            handleValueChange("AIPlaceholder", e.target.value)
-          }}
-          fullwidth
-          placeholder="How do I use Outopst API"
-          defaultValue="Search"
-        />
-      </Field>
-
-      <Field className="" htmlFor="textSize" label="Text Size">
-        <div className="flex">
-          <Button className="flex-1 rounded-r-none" variant="outline">
-            Small
-          </Button>
-          <Button className="flex-1 rounded-none border-x-0" variant="outline">
-            Medium
-          </Button>
-          <Button className="flex-1 rounded-l-none" variant="outline">
-            Large
-          </Button>
-        </div>
-      </Field>
-
-      <Field className="flex-1" htmlFor="radius" label="Radius">
-        <Input fullwidth defaultValue="8" type="number" />
-      </Field>
-      <Field className="" htmlFor="width" label="Don't know message">
-        <Input
-          placeholder="Sorry, I couldn't find anything related to your search "
-          defaultValue="Sorry, I couldn't find anything related to your search "
-          fullwidth
-        />
-      </Field>
-      <Field className="" htmlFor="width" label="Reference message">
-        <Input
-          placeholder="Answer generated from the following pages"
-          defaultValue="Answer generated from the following pages"
-          fullwidth
-        />
-      </Field>
-      <div className="flex items-center justify-between">
-        <Label />
-        <Switch />
-      </div>
-    </div>
-  )
-}
+/* 
+"max_tokens": 16,
+    "temperature": 1,
+    "top_p": 1,
+    "presence_penalty": 0,
+    "frequency_penalty": 0
+*/
 
 function Model() {
   return (
