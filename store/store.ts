@@ -10,10 +10,14 @@ type State = {
     dontKnowMessage: string
     referenceMessage: string
   }
+
+  config: {}
+
   updateDesign: (key: keyof State["design"], value: string | number) => void
+  updateConfig: (key: keyof State["config"], value: string | number) => void
 }
 
-export const useDesignStore = create<State>()((set) => ({
+export const useStore = create<State>()((set) => ({
   design: {
     theme: "light",
     containerWidth: 615,
@@ -23,12 +27,22 @@ export const useDesignStore = create<State>()((set) => ({
     referenceMessage: "Reference",
     AIPlaceholder: "Search...",
   },
+  config: {},
 
   updateDesign: (key, value) =>
     set((state) => ({
       ...state,
       design: {
         ...state.design,
+        [key]: value,
+      },
+    })),
+
+  updateConfig: (key, value) =>
+    set((state) => ({
+      ...state,
+      config: {
+        ...state.config,
         [key]: value,
       },
     })),

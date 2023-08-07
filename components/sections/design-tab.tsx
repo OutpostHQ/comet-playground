@@ -1,4 +1,4 @@
-import { useDesignStore } from "@/store/store"
+import { useStore } from "@/store/store"
 
 import { Button } from "../ui/button"
 import Field from "../ui/field"
@@ -19,7 +19,7 @@ export function Design() {
 }
 
 function Theme() {
-  const [theme, update] = useDesignStore((state) => [
+  const [theme, update] = useStore((state) => [
     state.design.theme,
     state.updateDesign,
   ])
@@ -54,7 +54,7 @@ function Theme() {
 }
 
 function ContainerWidth() {
-  const [containerWidth, update] = useDesignStore((state) => [
+  const [containerWidth, update] = useStore((state) => [
     state.design.containerWidth,
     state.updateDesign,
   ])
@@ -75,7 +75,7 @@ function ContainerWidth() {
 }
 
 function AIPlaceholder() {
-  const [AIPlaceholder, update] = useDesignStore((state) => [
+  const [AIPlaceholder, update] = useStore((state) => [
     state.design.AIPlaceholder,
     state.updateDesign,
   ])
@@ -95,7 +95,7 @@ function AIPlaceholder() {
 }
 
 function TextSize() {
-  const [textSize, update] = useDesignStore((state) => [
+  const [textSize, update] = useStore((state) => [
     state.design.textSize,
     state.updateDesign,
   ])
@@ -140,7 +140,7 @@ function TextSize() {
 }
 
 function Radius() {
-  const [radius, update] = useDesignStore((state) => [
+  const [radius, update] = useStore((state) => [
     state.design.borderRadius,
     state.updateDesign,
   ])
@@ -161,7 +161,7 @@ function Radius() {
 }
 
 function DontKnowMessage() {
-  const [dontKnowMessage, update] = useDesignStore((state) => [
+  const [dontKnowMessage, update] = useStore((state) => [
     state.design.dontKnowMessage,
     state.updateDesign,
   ])
@@ -181,7 +181,7 @@ function DontKnowMessage() {
 }
 
 function ReferenceMessage() {
-  const [referenceMessage, update] = useDesignStore((state) => [
+  const [referenceMessage, update] = useStore((state) => [
     state.design.referenceMessage,
     state.updateDesign,
   ])

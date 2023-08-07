@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import { useDesignStore } from "@/store/store"
+import { useStore } from "@/store/store"
 
 import Field from "../ui/field"
 import { Select, SelectContent, SelectItem, SelectTrigger } from "../ui/select"
@@ -10,7 +10,7 @@ import Text from "../ui/text"
 import { Design } from "./design-tab"
 
 export default function Sidebar() {
-  const state = useDesignStore((state) => state.design)
+  const state = useStore((state) => state.design)
 
   console.log(state)
   return (
