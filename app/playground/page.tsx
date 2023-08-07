@@ -1,6 +1,6 @@
 import React from "react"
 
-import Playground from "@/components/providers/playground-provider"
+import Playground from "@/components/playground"
 
 export default function Page() {
   return (

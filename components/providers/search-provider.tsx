@@ -20,7 +20,7 @@ type SearchConfig = Partial<{
 
 export const SearchContext = createContext<SearchConfig>({} as SearchConfig)
 
-export default function Search({ config }: { config?: SearchConfig }) {
+export default function Search({ config }: { config?: any }) {
   return (
     <SearchContext.Provider value={{ ...config }}>
       <SearchComponent />
