@@ -21,7 +21,7 @@ export function Design() {
 function Theme() {
   const [theme, update] = useDesignStore((state) => [
     state.design.theme,
-    state.update,
+    state.updateDesign,
   ])
   return (
     <Field className="" htmlFor="theme" label="Theming">
@@ -56,7 +56,7 @@ function Theme() {
 function ContainerWidth() {
   const [containerWidth, update] = useDesignStore((state) => [
     state.design.containerWidth,
-    state.update,
+    state.updateDesign,
   ])
 
   return (
@@ -77,7 +77,7 @@ function ContainerWidth() {
 function AIPlaceholder() {
   const [AIPlaceholder, update] = useDesignStore((state) => [
     state.design.AIPlaceholder,
-    state.update,
+    state.updateDesign,
   ])
 
   return (
@@ -97,7 +97,7 @@ function AIPlaceholder() {
 function TextSize() {
   const [textSize, update] = useDesignStore((state) => [
     state.design.textSize,
-    state.update,
+    state.updateDesign,
   ])
 
   return (
@@ -142,7 +142,7 @@ function TextSize() {
 function Radius() {
   const [radius, update] = useDesignStore((state) => [
     state.design.borderRadius,
-    state.update,
+    state.updateDesign,
   ])
 
   return (
@@ -163,7 +163,7 @@ function Radius() {
 function DontKnowMessage() {
   const [dontKnowMessage, update] = useDesignStore((state) => [
     state.design.dontKnowMessage,
-    state.update,
+    state.updateDesign,
   ])
 
   return (
@@ -183,7 +183,7 @@ function DontKnowMessage() {
 function ReferenceMessage() {
   const [referenceMessage, update] = useDesignStore((state) => [
     state.design.referenceMessage,
-    state.update,
+    state.updateDesign,
   ])
 
   return (

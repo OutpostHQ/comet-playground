@@ -10,7 +10,7 @@ type State = {
     dontKnowMessage: string
     referenceMessage: string
   }
-  update: (key: keyof State["design"], value: string | number) => void
+  updateDesign: (key: keyof State["design"], value: string | number) => void
 }
 
 export const useDesignStore = create<State>()((set) => ({
@@ -24,7 +24,7 @@ export const useDesignStore = create<State>()((set) => ({
     AIPlaceholder: "Search...",
   },
 
-  update: (key, value) =>
+  updateDesign: (key, value) =>
     set((state) => ({
       ...state,
       design: {
