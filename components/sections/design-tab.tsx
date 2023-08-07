@@ -147,14 +147,13 @@ function Radius() {
 
   return (
     <Field className="" htmlFor="radius" label="Radius">
-      <Input
-        value={radius}
-        onChange={(e) => {
-          update("borderRadius", Number(e.target.value))
+      <Slider
+        value={[radius]}
+        onValueChange={(value) => {
+          update("borderRadius", Number(value))
         }}
-        fullwidth
-        placeholder="default: 8px"
-        type="number"
+        max={20}
+        min={0}
       />
     </Field>
   )

@@ -50,11 +50,14 @@ function SearchFooter() {
 }
 
 function SearchContainer({ children }: Props) {
-  const { theme, containerWidth } = useContext(SearchContext)
+  const { theme, containerWidth, borderRadius } = useContext(SearchContext)
 
   return (
     <div className={`OutpostSearch ${theme === "dark" ? "dark" : ""}`}>
-      <div className="dialog-content" style={{ maxWidth: containerWidth }}>
+      <div
+        className="dialog-content"
+        style={{ maxWidth: containerWidth, borderRadius }}
+      >
         {children}
       </div>
     </div>
