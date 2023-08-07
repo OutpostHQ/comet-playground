@@ -5,6 +5,7 @@ import { useStore } from "@/store/store"
 
 import Field from "../ui/field"
 import { Select, SelectContent, SelectItem, SelectTrigger } from "../ui/select"
+import { Slider } from "../ui/slider"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
 import Text from "../ui/text"
 import { Design } from "./design-tab"
@@ -43,42 +44,114 @@ export default function Sidebar() {
     "frequency_penalty": 0
 */
 
+function Temprature() {
+  const [temperature, update] = useStore((state) => [
+    state.config.temperature,
+    state.updateConfig,
+  ])
+  return (
+    <Field htmlFor="temperature" label="Temperature">
+      <Slider
+        value={[temperature]}
+        onValueChange={(value) => {
+          update("temperature", value[0])
+        }}
+        max={2}
+        min={0}
+        step={0.1}
+      />
+    </Field>
+  )
+}
+
+function TopP() {
+  const [top_p, update] = useStore((state) => [
+    state.config.top_p,
+    state.updateConfig,
+  ])
+  return (
+    <Field htmlFor="top_p" label="top_p">
+      <Slider
+        value={[top_p]}
+        onValueChange={(value) => {
+          update("top_p", value[0])
+        }}
+        max={2}
+        min={0}
+        step={0.1}
+      />
+    </Field>
+  )
+}
+
+function PresencePenalty() {
+  const [presence_penalty, update] = useStore((state) => [
+    state.config.presence_penalty,
+    state.updateConfig,
+  ])
+  return (
+    <Field htmlFor="presence_penalty" label="Presence Penalty">
+      <Slider
+        value={[presence_penalty]}
+        onValueChange={(value) => {
+          update("presence_penalty", value[0])
+        }}
+        max={2}
+        min={0}
+        step={0.1}
+      />
+    </Field>
+  )
+}
+
+function FrequencePenalty() {
+  const [frequency_penalty, update] = useStore((state) => [
+    state.config.frequency_penalty,
+    state.updateConfig,
+  ])
+  return (
+    <Field htmlFor="frequency_penalty" label="Frequency Penalty">
+      <Slider
+        value={[frequency_penalty]}
+        onValueChange={(value) => {
+          update("frequency_penalty", value[0])
+        }}
+        max={2}
+        min={0}
+        step={0.1}
+      />
+    </Field>
+  )
+}
+
+function MaxTokens() {
+  const [max_tokens, update] = useStore((state) => [
+    state.config.max_tokens,
+    state.updateConfig,
+  ])
+  return (
+    <Field htmlFor="max_tokens" label="Max Tokens">
+      <Slider
+        value={[max_tokens]}
+        onValueChange={(value) => {
+          update("max_tokens", value[0])
+        }}
+        max={1024}
+        min={1}
+        step={8}
+      />
+    </Field>
+  )
+}
+
 function Model() {
   return (
     <div className="h-[80vh] space-y-4 overflow-y-auto px-4 py-5 pb-10 scrollbar scrollbar-none">
-      <Field htmlFor="model" label="Model">
-        <Select>
-          <SelectTrigger>gpt-4</SelectTrigger>
-          <SelectContent>
-            <SelectItem value="One">One</SelectItem>
-            <SelectItem value="Two">Two</SelectItem>
-            <SelectItem value="Three">Three</SelectItem>
-          </SelectContent>
-        </Select>
-      </Field>
-
-      <Field
-        htmlFor="template"
-        label={
-          <p className="mb-1 flex items-center gap-2">
-            <Text as="span" weight="medium" className="text-soft">
-              Template
-            </Text>
-            <span className="rounded-full border border-primary bg-primary-subdued px-2 py-0.5 text-xs">
-              Pro
-            </span>
-          </p>
-        }
-      >
-        <Select>
-          <SelectTrigger>gpt-4</SelectTrigger>
-          <SelectContent>
-            <SelectItem value="One">One</SelectItem>
-            <SelectItem value="Two">Two</SelectItem>
-            <SelectItem value="Three">Three</SelectItem>
-          </SelectContent>
-        </Select>
-      </Field>
+      <Temprature />
+      <TopP />
+      <PresencePenalty />
+      <FrequencePenalty />
+      <MaxTokens />
     </div>
   )
 }

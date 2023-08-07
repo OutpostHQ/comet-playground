@@ -11,7 +11,13 @@ type State = {
     referenceMessage: string
   }
 
-  config: {}
+  config: {
+    max_tokens: number
+    top_p: number
+    temperature: number
+    presence_penalty: number
+    frequency_penalty: number
+  }
 
   updateDesign: (key: keyof State["design"], value: string | number) => void
   updateConfig: (key: keyof State["config"], value: string | number) => void
@@ -27,7 +33,14 @@ export const useStore = create<State>()((set) => ({
     referenceMessage: "Reference",
     AIPlaceholder: "Search...",
   },
-  config: {},
+
+  config: {
+    max_tokens: 1024,
+    top_p: 1,
+    temperature: 1,
+    presence_penalty: 0,
+    frequency_penalty: 0,
+  },
 
   updateDesign: (key, value) =>
     set((state) => ({

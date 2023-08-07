@@ -22,7 +22,10 @@ function Field({
 }) {
   return (
     <div className={cn("space-y-1 " + className)}>
-      <Label className={labelStyles} htmlFor={htmlFor}>
+      <Label
+        className={cn("text-sm font-medium text-soft", labelStyles)}
+        htmlFor={htmlFor}
+      >
         {label}
       </Label>
       <div>{children}</div>
