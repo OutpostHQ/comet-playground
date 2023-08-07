@@ -9,6 +9,7 @@ type State = {
     borderRadius: number
     dontKnowMessage: string
     referenceMessage: string
+    includeBranding: boolean
   }
 
   config: {
@@ -30,8 +31,9 @@ export const useStore = create<State>()((set) => ({
     textSize: "medium",
     borderRadius: 8,
     dontKnowMessage: "I don't know",
-    referenceMessage: "Reference",
+    referenceMessage: "Answer generated from the following pages",
     AIPlaceholder: "Search...",
+    includeBranding: false,
   },
 
   config: {

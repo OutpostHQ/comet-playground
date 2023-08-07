@@ -1,7 +1,6 @@
 "use client"
 
 import React, { useContext } from "react"
-import * as Dialog from "@radix-ui/react-dialog"
 import { SearchIcon } from "lucide-react"
 
 import { SearchContext } from "../providers/search-provider"
@@ -51,17 +50,19 @@ function SearchFooter() {
 }
 
 function SearchContainer({ children }: Props) {
-  const { theme } = useContext(SearchContext)
+  const { theme, containerWidth } = useContext(SearchContext)
 
   return (
     <div className={`OutpostSearch ${theme === "dark" ? "dark" : ""}`}>
-      <div className="dialog-content">{children}</div>
+      <div className="dialog-content" style={{ maxWidth: containerWidth }}>
+        {children}
+      </div>
     </div>
   )
 }
 
 export default function SearchComponent() {
-  const { includeBranding } = useContext(SearchContext)
+  // const { includeBranding } = useContext(SearchContext)
   return (
     <SearchContainer>
       <SearchInput />

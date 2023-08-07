@@ -94,7 +94,6 @@
   align-items: center;
   overflow: hidden;
   border-bottom: 1px solid var(--op-border);
-  max-width: var(--search-max-width);
   margin: 0 auto;
 }
 

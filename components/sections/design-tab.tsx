@@ -3,6 +3,7 @@ import { useStore } from "@/store/store"
 import { Button } from "../ui/button"
 import Field from "../ui/field"
 import { Input } from "../ui/input"
+import { Slider } from "../ui/slider"
 
 export function Design() {
   return (
@@ -61,14 +62,13 @@ function ContainerWidth() {
 
   return (
     <Field className="" htmlFor="width" label="Container width (Desktop)">
-      <Input
-        value={containerWidth}
-        onChange={(e) => {
-          update("containerWidth", Number(e.target.value))
+      <Slider
+        value={[containerWidth]}
+        onValueChange={(value) => {
+          update("containerWidth", Number(value))
         }}
-        fullwidth
-        placeholder="default: 615px"
-        type="number"
+        max={750}
+        min={400}
       />
     </Field>
   )

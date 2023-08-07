@@ -1,6 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { useContext, useState } from "react"
+
+import { SearchContext } from "../providers/search-provider"
 
 const answerText = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium quo
 qui deleniti, similique sapiente possimus facilis nam obcaecati a enim
@@ -8,10 +10,12 @@ voluptas nisi Lorem ipsum dolor sit amet consectetur, adipisicing elit.
 Eum assumenda `
 
 function GeneratedFrom() {
+  const { referenceMessage } = useContext(SearchContext)
+
   return (
     <div className="generatedFrom">
       <p className="generatedFrom__title">
-        Answer generated from the following pages:
+        {referenceMessage || "Answer generated from the following pages"}:
       </p>
       <div className="generatedFrom__tabs">
         {["mdx", "project-structure", "jsx", "components", "quick-start"].map(
@@ -27,7 +31,11 @@ function GeneratedFrom() {
 }
 
 function SearchResultContainerContent() {
+  const { dontKnowMessage } = useContext(SearchContext)
+
   const [answer, setAnswer] = useState(answerText)
+  if (!answer) return <p className="searchResultContent">{dontKnowMessage}</p>
+
   return <p className="searchResultContent">{answer}</p>
 }
 
