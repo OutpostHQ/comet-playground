@@ -10,6 +10,9 @@ import Text from "../ui/text"
 import { Design } from "./design-tab"
 
 export default function Sidebar() {
+  const state = useDesignStore((state) => state.design)
+
+  console.log(state)
   return (
     <aside className="fixed bottom-6 right-6 top-[calc(var(--header-height)+24px)] w-[var(--sidebar-width)]  overflow-hidden rounded-lg border bg-default shadow-0.25">
       <Tabs defaultValue="design">

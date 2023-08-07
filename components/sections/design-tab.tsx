@@ -19,16 +19,16 @@ export function Design() {
 }
 
 function Theme() {
-  const [theme, setTheme] = useDesignStore((state) => [
-    state.theme,
-    state.setTheme,
+  const [theme, update] = useDesignStore((state) => [
+    state.design.theme,
+    state.update,
   ])
   return (
     <Field className="" htmlFor="theme" label="Theming">
       <div className="flex">
         <Button
           onClick={() => {
-            setTheme("light")
+            update("theme", "light")
           }}
           variant="outline"
           className={`${
@@ -39,7 +39,7 @@ function Theme() {
         </Button>
         <Button
           onClick={() => {
-            setTheme("dark")
+            update("theme", "dark")
           }}
           variant="outline"
           className={`${
@@ -54,9 +54,9 @@ function Theme() {
 }
 
 function ContainerWidth() {
-  const [containerWidth, setContainerWidth] = useDesignStore((state) => [
-    state.containerWidth,
-    state.setContainerWidth,
+  const [containerWidth, update] = useDesignStore((state) => [
+    state.design.containerWidth,
+    state.update,
   ])
 
   return (
@@ -64,11 +64,10 @@ function ContainerWidth() {
       <Input
         value={containerWidth}
         onChange={(e) => {
-          setContainerWidth(Number(e.target.value))
+          update("containerWidth", Number(e.target.value))
         }}
         fullwidth
         placeholder="default: 615px"
-        defaultValue="615"
         type="number"
       />
     </Field>
@@ -76,9 +75,9 @@ function ContainerWidth() {
 }
 
 function AIPlaceholder() {
-  const [AIPlaceholder, setAIPlaceholder] = useDesignStore((state) => [
-    state.AIPlaceholder,
-    state.setAIPlaceholder,
+  const [AIPlaceholder, update] = useDesignStore((state) => [
+    state.design.AIPlaceholder,
+    state.update,
   ])
 
   return (
@@ -86,20 +85,19 @@ function AIPlaceholder() {
       <Input
         value={AIPlaceholder}
         onChange={(e) => {
-          setAIPlaceholder(e.target.value)
+          update("AIPlaceholder", e.target.value)
         }}
         fullwidth
         placeholder="How do I use Outopst API"
-        defaultValue="Search"
       />
     </Field>
   )
 }
 
 function TextSize() {
-  const [textSize, setTextSize] = useDesignStore((state) => [
-    state.textSize,
-    state.setTextSize,
+  const [textSize, update] = useDesignStore((state) => [
+    state.design.textSize,
+    state.update,
   ])
 
   return (
@@ -107,7 +105,7 @@ function TextSize() {
       <div className="flex">
         <Button
           onClick={() => {
-            setTextSize("small")
+            update("textSize", "small")
           }}
           className={`${textSize == "small" ? "bg-pressed" : "bg-default"}
             flex-1 rounded-r-none`}
@@ -117,7 +115,7 @@ function TextSize() {
         </Button>
         <Button
           onClick={() => {
-            setTextSize("medium")
+            update("textSize", "medium")
           }}
           className={`${textSize == "medium" ? "bg-pressed" : "bg-default"}
             flex-1 rounded-none border-x-0`}
@@ -127,7 +125,7 @@ function TextSize() {
         </Button>
         <Button
           onClick={() => {
-            setTextSize("large")
+            update("textSize", "large")
           }}
           className={` ${
             textSize == "large" ? "bg-pressed" : "bg-default"
@@ -142,9 +140,9 @@ function TextSize() {
 }
 
 function Radius() {
-  const [radius, setBorderRadius] = useDesignStore((state) => [
-    state.borderRadius,
-    state.setBorderRadius,
+  const [radius, update] = useDesignStore((state) => [
+    state.design.borderRadius,
+    state.update,
   ])
 
   return (
@@ -152,11 +150,10 @@ function Radius() {
       <Input
         value={radius}
         onChange={(e) => {
-          setBorderRadius(Number(e.target.value))
+          update("borderRadius", Number(e.target.value))
         }}
         fullwidth
         placeholder="default: 8px"
-        defaultValue="8"
         type="number"
       />
     </Field>
@@ -164,9 +161,9 @@ function Radius() {
 }
 
 function DontKnowMessage() {
-  const [dontKnowMessage, setDontKnowMessage] = useDesignStore((state) => [
-    state.dontKnowMessage,
-    state.setDontKnowMessage,
+  const [dontKnowMessage, update] = useDesignStore((state) => [
+    state.design.dontKnowMessage,
+    state.update,
   ])
 
   return (
@@ -174,20 +171,19 @@ function DontKnowMessage() {
       <Input
         value={dontKnowMessage}
         onChange={(e) => {
-          setDontKnowMessage(e.target.value)
+          update("dontKnowMessage", e.target.value)
         }}
         fullwidth
         placeholder="Sorry, I couldn't find anything related to your search "
-        defaultValue="Sorry, I couldn't find anything related to your search "
       />
     </Field>
   )
 }
 
 function ReferenceMessage() {
-  const [referenceMessage, setReferenceMessage] = useDesignStore((state) => [
-    state.referenceMessage,
-    state.setReferenceMessage,
+  const [referenceMessage, update] = useDesignStore((state) => [
+    state.design.referenceMessage,
+    state.update,
   ])
 
   return (
@@ -195,11 +191,10 @@ function ReferenceMessage() {
       <Input
         value={referenceMessage}
         onChange={(e) => {
-          setReferenceMessage(e.target.value)
+          update("referenceMessage", e.target.value)
         }}
         fullwidth
         placeholder="Answer generated from the following pages"
-        defaultValue="Answer generated from the following pages"
       />
     </Field>
   )
