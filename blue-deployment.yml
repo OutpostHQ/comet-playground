@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: comet-blue
+  namespace: outpost   
+  labels:
+    app: comet-blue
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: comet-blue
+  template:
+    metadata:
+      labels:
+        app: comet-blue
+    spec:
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: comet
+          image: ghcr.io/outposthq/comet:latest-5
+          ports:
+          - containerPort: 3000
+            protocol: TCP
+          imagePullPolicy: Always
+          command: ["npm"]
+          args: ["start"]

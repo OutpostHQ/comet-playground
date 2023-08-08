@@ -3,7 +3,6 @@ name: release
 on:
   push:
     branches:
-      - ci-cd
       - main
 
 env:
@@ -35,4 +34,52 @@ jobs:
           labels: ${{ steps.metadata.outputs.labels }}
           cache: true
           cache-repository: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/cache
+  
+  deploy:
+    needs: build
+    name: Deploy to Kubernetes Cluster
+    runs-on: ubuntu-latest
 
+    steps:
+      - uses: actions/checkout@v3
+      - uses: docker/metadata-action@v3
+        id: metadata
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+      - uses: docker/login-action@v1
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: using kubectl
+        uses: tale/kubectl-action@v1
+        with:
+          base64-kube-config: ${{ secrets.SECRETS_CONFIG }}
+
+      - name: Check Current Service Deployment
+        run: |
+          CURRENT_DEPLOYMENT=$(kubectl get service comet-svc -n outpost -o jsonpath='{.spec.selector.app}')
+          echo "Current deployment: $CURRENT_DEPLOYMENT"
+
+          if [[ "$CURRENT_DEPLOYMENT" == "comet-blue" ]]; then
+            echo "Updating green deployment and service..."
+            sed -i "s|image: ghcr.io/outposthq/comet:latest|image: ghcr.io/outposthq/comet:${{ env.IMAGE_TAG }}|" green-deployment.yml
+            kubectl apply -f green-deployment.yml
+            sleep 10
+            kubectl patch service comet-svc -p '{"spec":{"selector":{"app":"comet-green"}}}' -n outpost
+            sleep 5
+            kubectl scale deployment comet-blue --replicas=0 -n outpost
+          elif [[ "$CURRENT_DEPLOYMENT" == "comet-green" ]]; then
+            echo "Updating blue deployment and service..."
+            sed -i "s|image: ghcr.io/outposthq/comet:latest|image: ghcr.io/outposthq/comet:${{ env.IMAGE_TAG }}|" blue-deployment.yml
+            kubectl apply -f blue-deployment.yml
+            sleep 10
+            kubectl patch service comet-svc -p '{"spec":{"selector":{"app":"comet-blue"}}}' -n outpost
+            sleep 5
+            kubectl scale deployment comet-green --replicas=0 -n outpost
+
+          else
+            echo "Unknown deployment detected. Exiting..."
+            exit 1
+          fi
