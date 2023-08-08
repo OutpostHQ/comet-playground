@@ -19,7 +19,7 @@ spec:
         - name: regcred
       containers:
         - name: comet
-          image: ghcr.io/outposthq/comet:latest-5
+          image: ghcr.io/outposthq/comet:latest
           ports:
           - containerPort: 3000
             protocol: TCP
