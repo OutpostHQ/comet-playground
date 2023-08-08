@@ -8,7 +8,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_NAME: outpostHQ/comet
+  IMAGE_NAME: outposthq/comet
   IMAGE_TAG: latest-${{ github.run_number }}
 
 jobs:
