@@ -90,8 +90,8 @@ dependencies:
     specifier: 13.4.14-canary.1
     version: 13.4.14-canary.1(@babel/core@7.22.10)(react-dom@18.2.0)(react@18.2.0)
   outpostkit:
-    specifier: ^0.0.6
-    version: 0.0.6
+    specifier: ^0.0.7
+    version: 0.0.7
   postcss:
     specifier: 8.4.27
     version: 8.4.27
@@ -3575,8 +3575,8 @@ packages:
       prelude-ls: 1.2.1
       type-check: 0.4.0
 
-  /outpostkit@0.0.6:
-    resolution: {integrity: sha512-A+KlTXkmJ7apY5gXqVIIU83l0Kighb75hAndPfyv8IhK7HGLdPUAazfOulmz6c9+fIjAb9MaHQkV9j9YnmBQfw==}
+  /outpostkit@0.0.7:
+    resolution: {integrity: sha512-4hU94k+9to4nHXGufyrvc1jL8Cc1orOyfE8tdzcWedpiQfx4RZ+N4HbNMTrRm8KTxQ4iu7Z1HkchD5U7vEbcag==}
     dependencies:
       axios: 1.4.0
       mime-types: 2.1.35
