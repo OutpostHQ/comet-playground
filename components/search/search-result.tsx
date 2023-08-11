@@ -1,6 +1,7 @@
 "use client"
 
 import { useContext, useState } from "react"
+import ReactMarkdown from "react-markdown"
 
 import { SearchContext } from "../providers/search-provider"
 
@@ -31,10 +32,12 @@ function SearchResultContainerContent({
   hasFinished?: boolean
 }) {
   if (answer === undefined)
-    return (
-      <p className="searchResultContent w-full">Go ahead, ask a question...</p>
-    )
-  return <p className="searchResultContent">{answer}</p>
+    return <p className="searchResultContent">Go ahead, ask a question...</p>
+  return (
+    <p className="searchResultContent">
+      <ReactMarkdown>{answer}</ReactMarkdown>
+    </p>
+  )
 }
 
 function SearchResultContainer({
