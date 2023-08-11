@@ -1,6 +1,7 @@
-"use client"
+"use client";
 
-import React, { useContext } from "react"
+import React, { useContext, useState } from "react"
+import { useStore } from "@/store/store"
 import { SearchIcon } from "lucide-react"
 
 import { SearchContext } from "../providers/search-provider"
@@ -17,12 +18,7 @@ const SearchInput = React.forwardRef<
   const { AIPlaceholder } = useContext(SearchContext)
 
   return (
-    <div
-      className={`search__input-container`}
-      style={{
-        ...style,
-      }}
-    >
+    <div className={`search__input-container `} style={style}>
       <SearchIcon className={`search__input-icon`} />
       <input
         placeholder={`${AIPlaceholder ? AIPlaceholder : "Search"}`}
@@ -53,10 +49,14 @@ function SearchContainer({ children }: Props) {
   const { theme, containerWidth, borderRadius } = useContext(SearchContext)
 
   return (
-    <div className={`OutpostSearch ${theme === "dark" ? "dark" : ""}`}>
+    <div className={`OutpostSearch ${theme === "dark" ? "dark" : ""} `}>
       <div
         className="dialog-content"
-        style={{ maxWidth: containerWidth, borderRadius }}
+        style={{
+          maxWidth: containerWidth,
+          width: containerWidth,
+          borderRadius,
+        }}
       >
         {children}
       </div>
@@ -66,10 +66,53 @@ function SearchContainer({ children }: Props) {
 
 export default function SearchComponent() {
   // const { includeBranding } = useContext(SearchContext)
+  const [comet, configs] = useStore((store) => [store.comet, store.config])
+  const [question, setQuestion] = useState("")
+  const [answer, setAnswer] = useState<string>()
+  const [fullResponse, setFullResponse] = useState<{
+    response: string
+    referencePaths: string[]
+  }>()
   return (
     <SearchContainer>
-      <SearchInput />
-      <SearchResultContainer />
+      <SearchInput
+        onKeyDown={async (e) => {
+          if (e.key === "Enter") {
+            if (comet) {
+              const stream = configs.stream
+
+              const data = await comet.prompt(
+                {
+                  configs,
+                  stream,
+                  input: question,
+                  visitorId: "ajeya",
+                },
+                stream
+                  ? (text) => {
+                      console.log("text:", text)
+                      setAnswer(text)
+                    }
+                  : undefined
+              )
+
+              if (!stream) {
+                setAnswer(data?.response || "No response.")
+              }
+              setFullResponse(data)
+            }
+          } else console.log("no comet.")
+        }}
+        onChange={(e) => {
+          setQuestion(e.target.value)
+        }}
+        value={question}
+      />
+      <SearchResultContainer
+        answer={answer}
+        hasFinished={fullResponse && true}
+        references={fullResponse?.referencePaths}
+      />
       {/* {includeBranding && <SearchFooter />} */}
     </SearchContainer>
   )

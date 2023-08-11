@@ -1,13 +1,18 @@
 "use client"
 
-import React from "react"
+import React, { useEffect, useState } from "react"
+import { setConfig } from "next/config"
 import { useStore } from "@/store/store"
 
+import { Button } from "../ui/button"
 import Field from "../ui/field"
+import { Input } from "../ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger } from "../ui/select"
 import { Slider } from "../ui/slider"
+import { Switch } from "../ui/switch"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
 import Text from "../ui/text"
+import { Textarea } from "../ui/textarea"
 import { Design } from "./design-tab"
 
 export default function Sidebar() {
@@ -36,13 +41,38 @@ export default function Sidebar() {
   )
 }
 
-/* 
-"max_tokens": 16,
-    "temperature": 1,
-    "top_p": 1,
-    "presence_penalty": 0,
-    "frequency_penalty": 0
-*/
+function CometId() {
+  const [cometId, update] = useStore((state) => [
+    state.api.cometId,
+    state.updateAPI,
+  ])
+
+  return (
+    <Field htmlFor="cometId" label="Comet ID">
+      <Input
+        value={cometId}
+        onChange={(e) => {
+          update("cometId", e.target.value)
+        }}
+        fullwidth
+      />
+    </Field>
+  )
+}
+function APIKey() {
+  const [key, update] = useStore((state) => [state.api.key, state.updateAPI])
+
+  return (
+    <Field htmlFor="key" label="API Key">
+      <Textarea
+        value={key}
+        onChange={(e) => {
+          update("key", e.target.value)
+        }}
+      />
+    </Field>
+  )
+}
 
 function Temprature() {
   const [temperature, update] = useStore((state) => [
@@ -144,14 +174,77 @@ function MaxTokens() {
   )
 }
 
-function Model() {
+function Stream() {
+  const [stream, update] = useStore((state) => [
+    state.config.stream,
+    state.updateConfig,
+  ])
   return (
+    <Field htmlFor="stream" label="Stream Response">
+      <Switch
+        checked={stream}
+        onCheckedChange={(value) => {
+          update("stream", value)
+        }}
+      />
+    </Field>
+  )
+}
+function Model() {
+  const [
+    config,
+    comet,
+    clearComet,
+    createComet,
+    mergeConfigs,
+    loadAPIConfigFromLocal,
+  ] = useStore((state) => [
+    state.config,
+    state.comet,
+    state.clearComet,
+    state.createComet,
+    state.mergeConfig,
+    state.loadAPIConfigFromLocal,
+  ])
+
+  useEffect(() => {
+    async function updateConfigState() {
+      if (comet) {
+        const newConfigs = await comet.getCometInfo().then((data: any) => {
+          return {
+            stream: data.configs?.stream,
+            max_tokens: data.configs?.max_tokens,
+            top_p: data.configs?.top_p,
+            temperature: data.configs?.temprature,
+            presence_penalty: data.configs?.presence_penalty,
+            frequency_penalty: data.configs?.frequency_penalty,
+          }
+        })
+        console.log(newConfigs)
+        mergeConfigs(newConfigs)
+      }
+    }
+    updateConfigState()
+  }, [comet, mergeConfigs])
+
+  useEffect(loadAPIConfigFromLocal, [])
+
+  return comet ? (
     <div className="h-[80vh] space-y-4 overflow-y-auto px-4 py-5 pb-10 scrollbar scrollbar-none">
       <Temprature />
       <TopP />
       <PresencePenalty />
       <FrequencePenalty />
       <MaxTokens />
+      <Stream />
+      <pre>{JSON.stringify(config, undefined, 2)}</pre>
+      <Button onClick={clearComet}>Edit API configs.</Button>{" "}
+    </div>
+  ) : (
+    <div className="h-[80vh] space-y-4 overflow-y-auto px-4 py-5 pb-10 scrollbar scrollbar-none">
+      <APIKey />
+      <CometId />
+      <Button onClick={createComet}>Use API configs</Button>
     </div>
   )
 }
