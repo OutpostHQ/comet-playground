@@ -1,7 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
-import { setConfig } from "next/config"
+import React from "react"
 import { useStore } from "@/store/store"
 
 import { Button } from "../ui/button"
@@ -191,43 +190,12 @@ function Stream() {
   )
 }
 function Model() {
-  const [
-    config,
-    comet,
-    clearComet,
-    createComet,
-    mergeConfigs,
-    loadAPIConfigFromLocal,
-  ] = useStore((state) => [
+  const [config, comet, clearComet, createComet] = useStore((state) => [
     state.config,
     state.comet,
     state.clearComet,
     state.createComet,
-    state.mergeConfig,
-    state.loadAPIConfigFromLocal,
   ])
-
-  useEffect(() => {
-    async function updateConfigState() {
-      if (comet) {
-        const newConfigs = await comet.getCometInfo().then((data: any) => {
-          return {
-            stream: data.configs?.stream,
-            max_tokens: data.configs?.max_tokens,
-            top_p: data.configs?.top_p,
-            temperature: data.configs?.temprature,
-            presence_penalty: data.configs?.presence_penalty,
-            frequency_penalty: data.configs?.frequency_penalty,
-          }
-        })
-        console.log(newConfigs)
-        mergeConfigs(newConfigs)
-      }
-    }
-    updateConfigState()
-  }, [comet, mergeConfigs])
-
-  useEffect(loadAPIConfigFromLocal, [])
 
   return comet ? (
     <div className="h-[80vh] space-y-4 overflow-y-auto px-4 py-5 pb-10 scrollbar scrollbar-none">
