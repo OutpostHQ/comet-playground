@@ -6,18 +6,15 @@ import { useStore } from "@/store/store"
 import { Button } from "../ui/button"
 import Field from "../ui/field"
 import { Input } from "../ui/input"
-import { Select, SelectContent, SelectItem, SelectTrigger } from "../ui/select"
 import { Slider } from "../ui/slider"
 import { Switch } from "../ui/switch"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
-import Text from "../ui/text"
 import { Textarea } from "../ui/textarea"
 import { Design } from "./design-tab"
 
 export default function Sidebar() {
   const state = useStore((state) => state.design)
 
-  console.log(state)
   return (
     <aside className="fixed bottom-6 right-6 top-[calc(var(--header-height)+24px)] w-[var(--sidebar-width)]  overflow-hidden rounded-lg border bg-default shadow-0.25">
       <Tabs defaultValue="design">

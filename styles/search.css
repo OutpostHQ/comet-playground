@@ -12,10 +12,12 @@
   box-sizing: border-box;
 }
 
-.OutpostSearch * {
-  color: var(--op-text);
+.OutpostSearch *{
+  /* overrides code styling but removing also cuases problems with darkmode */
+  /* color: var(--op-text); */
   font-size: 0.875rem;
 }
+
 
 .OutpostSearch .trigger-container {
   display: flex;
@@ -88,6 +90,15 @@
   overflow-y: auto;
   padding-bottom: 5rem;
 }
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: orange; }
+}
+
+.OutpostSearch .searchResultContent .typingEffect {
+  border-right: .15em solid orange;  
+}
+
 
 .OutpostSearch .search__input-container {
   display: flex;

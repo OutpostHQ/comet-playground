@@ -1,13 +1,15 @@
-"use client"
+"use client";
 
-import { useContext, useState } from "react"
-import ReactMarkdown from "react-markdown"
+import { useContext } from "react"
 
-import { SearchContext } from "../providers/search-provider"
+
+
+import { SearchContext } from "../providers/search-provider";
+import { MarkdownParser } from "./parse-markdown";
+
 
 function GeneratedFrom({ references }: { references: string[] }) {
   const { referenceMessage } = useContext(SearchContext)
-  console.log(references)
   return (
     <div className="generatedFrom">
       <p className="generatedFrom__title">
@@ -34,8 +36,8 @@ function SearchResultContainerContent({
   if (answer === undefined)
     return <p className="searchResultContent">Go ahead, ask a question...</p>
   return (
-    <p className="searchResultContent">
-      <ReactMarkdown>{answer}</ReactMarkdown>
+    <p className={`searchResultContent ${hasFinished ? "typingEffect" : ""}`}>
+      <MarkdownParser>{answer}</MarkdownParser>
     </p>
   )
 }

@@ -1,11 +1,23 @@
 "use client";
 
-import React, { useContext, useState } from "react"
+import React, {
+  KeyboardEventHandler,
+  useCallback,
+  useContext,
+  useState,
+} from "react"
 import { useStore } from "@/store/store"
 import { SearchIcon } from "lucide-react"
 
+
+
+import { streamPromptWithNativeFetch } from "@/lib/utils/fetch-stream"
+
+
+
 import { SearchContext } from "../providers/search-provider"
 import SearchResultContainer from "./search-result"
+
 
 export interface Props extends React.HTMLAttributes<HTMLDivElement> {
   errorMessage?: string
@@ -68,41 +80,56 @@ export default function SearchComponent() {
   // const { includeBranding } = useContext(SearchContext)
   const [comet, configs] = useStore((store) => [store.comet, store.config])
   const [question, setQuestion] = useState("")
-  const [answer, setAnswer] = useState<string>()
+  const [answer, setAnswer] = useState<string>("")
   const [fullResponse, setFullResponse] = useState<{
     response: string
     referencePaths: string[]
   }>()
+  const [isDisabled, setDisable] = useState(false)
+
   return (
     <SearchContainer>
       <SearchInput
-        onKeyDown={async (e) => {
-          if (e.key === "Enter") {
-            if (comet) {
-              const stream = configs.stream
+        aria-disabled={isDisabled}
+        onKeyUp={useCallback(
+          async function (e: { key: string }) {
+            try {
+              //todo: maybe dont check diabled here.
+              // add it in the search input props
+              if (e.key === "Enter" && !isDisabled) {
+                if (comet) {
+                  const stream = configs.stream
+                  setAnswer("")
+                  setDisable(true)
+                  const data = await comet.prompt(
+                    {
+                      configs,
+                      stream,
+                      input: question,
+                      visitorId: "ajeya",
+                    },
+                    stream
+                      ? (text: string) => {
+                          setAnswer((current) => current + text)
+                        }
+                      : undefined
+                  )
 
-              const data = await comet.prompt(
-                {
-                  configs,
-                  stream,
-                  input: question,
-                  visitorId: "ajeya",
-                },
-                stream
-                  ? (text) => {
-                      console.log("text:", text)
-                      setAnswer(text)
-                    }
-                  : undefined
-              )
-
-              if (!stream) {
-                setAnswer(data?.response || "No response.")
+                  if (!stream) {
+                    setAnswer(data?.response || "No response.")
+                  }
+                  setFullResponse(data)
+                } else console.log("No Comet.")
+                setDisable(false)
               }
-              setFullResponse(data)
+            } catch (e) {
+              console.error(e)
+              //cleanup
+              setDisable(false)
             }
-          } else console.log("no comet.")
-        }}
+          },
+          [ comet, configs, isDisabled, question]
+        )}
         onChange={(e) => {
           setQuestion(e.target.value)
         }}
@@ -111,7 +138,7 @@ export default function SearchComponent() {
       <SearchResultContainer
         answer={answer}
         hasFinished={fullResponse && true}
-        references={fullResponse?.referencePaths}
+        references={Array.from(new Set(fullResponse?.referencePaths))}
       />
       {/* {includeBranding && <SearchFooter />} */}
     </SearchContainer>
