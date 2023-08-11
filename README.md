@@ -2,6 +2,6 @@
 
 ## License
 
-Outpost Kit is a project by [Outpost](https://outpost.run).
+Outpost Comet Playground is a project by [Outpost](https://outpost.run).
 
 Released under the MIT License.
