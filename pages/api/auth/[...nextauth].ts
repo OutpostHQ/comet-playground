@@ -1,10 +1,23 @@
-import NextAuth, { NextAuthOptions } from "next-auth"
+import NextAuth, {
+  DefaultSession,
+  DefaultUser,
+  ISODateString,
+  NextAuthOptions,
+} from "next-auth"
 import GithubProvider from "next-auth/providers/github"
 import { OAuthConfig, OAuthUserConfig } from "next-auth/providers/oauth"
 import { OAuthProviderType as OPT } from "next-auth/providers/oauth-types"
 
 declare module "next-auth" {
-  export type OAuthProviderType = OPT | "outpost"
+  export interface Session {
+    user: { accessToken: string; userId: string } & DefaultSession["user"]
+    expires: ISODateString
+    loggedIn?: false
+  }
+  export interface User extends DefaultUser {
+    // accessToken: string
+    userId: string
+  }
 }
 
 interface OutpostProfile {
@@ -57,7 +70,7 @@ export const nextAuthOptions: NextAuthOptions = {
     async jwt(data) {
       const { token, user } = data
       if (user) {
-        token.accessToken = user.accessToken
+        // token.accessToken = user.accessToken
         token.userId = user.userId
       }
       return token
