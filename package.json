@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "next build",
-    "dev": "next dev",
+    "dev": "next dev -p 3004",
     "lint": "next lint",
     "start": "next start"
   },
@@ -36,8 +36,9 @@
     "eslint-config-next": "13.4.12",
     "framer-motion": "^10.15.1",
     "lucide-react": "^0.263.1",
-    "next": "13.4.14-canary.1",
     "outpostkit": "^0.0.8",
+    "next": "13.4.8",
+    "next-auth": "4.22.5",
     "postcss": "8.4.27",
     "react": "18.2.0",
     "react-day-picker": "^8.8.0",

@@ -1,3 +1,5 @@
+"use client"
+
 import React from "react"
 
 import SwitchTheme from "@/components/ui/switch-theme"

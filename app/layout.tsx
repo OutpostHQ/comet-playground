@@ -5,6 +5,8 @@ import "@/styles/globals.css"
 import "@/styles/search.css"
 import "@/styles/tokens.css"
 
+import AuthProvider from "@/components/providers/auth-provider"
+
 import Mounted from "./mounted"
 
 const inter = Inter({ subsets: ["latin"] })
@@ -22,7 +24,9 @@ export default function RootLayout({
   return (
     <html className="light" suppressHydrationWarning lang="en">
       <body suppressHydrationWarning className={inter.className}>
-        <Mounted>{children}</Mounted>
+        <AuthProvider>
+          <Mounted>{children}</Mounted>
+        </AuthProvider>
       </body>
     </html>
   )
