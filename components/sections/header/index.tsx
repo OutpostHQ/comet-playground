@@ -1,8 +1,9 @@
 import React from "react"
 import Link from "next/link"
 
-import { Button } from "@/components/ui/button"
 import Text from "@/components/ui/text"
+
+import { AuthComponent } from "./_components/auth"
 
 export default function Header() {
   return (
@@ -14,10 +15,7 @@ export default function Header() {
           AI
         </Text>
       </div>
-      <Button className="flex h-9 gap-2 py-2">
-        <span className=" bg-white h-5 w-5 rounded-full border"></span>
-        <span>Login with outpost</span>
-      </Button>
+      <AuthComponent />
     </header>
   )
 }
