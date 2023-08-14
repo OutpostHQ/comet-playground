@@ -15,7 +15,7 @@ declare module "next-auth" {
     loggedIn?: false
   }
   export interface User extends DefaultUser {
-    // accessToken: string
+    accessToken: string
     userId: string
   }
 }
@@ -68,11 +68,12 @@ export const nextAuthOptions: NextAuthOptions = {
   ],
   callbacks: {
     async jwt(data) {
-      const { token, user } = data
-      if (user) {
-        // token.accessToken = user.accessToken
+      const { token, user, account } = data
+      if (account) {
+        token.accessToken = account.access_token
         token.userId = user.userId
       }
+
       return token
     },
 
