@@ -48,6 +48,7 @@ function OutpostProvider(
         email: profile.email,
         image: profile.image,
         userId: profile.id,
+        accessToken: "",
       }
     },
     httpOptions: {
