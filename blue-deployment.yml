@@ -26,3 +26,6 @@ spec:
           imagePullPolicy: Always
           command: ["npm"]
           args: ["start"]
+          envFrom:
+          - configMapRef:
+              name: comet-env
