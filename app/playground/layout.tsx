@@ -4,7 +4,6 @@ import React from "react"
 
 import SwitchTheme from "@/components/ui/switch-theme"
 import Header from "@/components/sections/header"
-import Sidebar from "@/components/sections/sidebar"
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (

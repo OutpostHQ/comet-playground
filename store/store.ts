@@ -1,5 +1,9 @@
-import { Comet } from "outpostkit"
-import { create } from "zustand"
+import { Comet } from "outpostkit";
+import { create } from "zustand";
+
+
+
+
 
 type State = {
   design: {
@@ -23,7 +27,6 @@ type State = {
   }
   api: {
     cometId: string
-    key: string
   }
   comet: Comet | undefined
 
@@ -35,8 +38,8 @@ type State = {
     value: string | number | boolean
   ) => void
   clearComet: () => void
-  createComet: () => void
-  loadAPIConfigFromLocal: () => void
+  createComet: (accessToken: string) => void
+  loadAPIConfigFromLocal: (accessToken: string) => void
 }
 
 export const useStore = create<State>()((set) => ({
@@ -61,7 +64,6 @@ export const useStore = create<State>()((set) => ({
   },
   api: {
     cometId: "",
-    key: "",
   },
   comet: undefined,
 
@@ -73,17 +75,18 @@ export const useStore = create<State>()((set) => ({
         [key]: value,
       },
     })),
-  loadAPIConfigFromLocal: () => {
-    const localAPIKey = localStorage.getItem("apiKey")
+  loadAPIConfigFromLocal: async (accessToken: string) => {
+    if (typeof window === undefined)
+      throw new Error("Cannot load on the server")
+
     const localCometId = localStorage.getItem("cometId")
-    if (localAPIKey && localCometId) {
+    if (localCometId) {
       set((state) => ({
         ...state,
         api: {
           cometId: localCometId,
-          key: localAPIKey,
         },
-        comet: new Comet(localAPIKey, localCometId),
+        comet: new Comet(accessToken, localCometId),
       }))
     }
   },
@@ -116,16 +119,14 @@ export const useStore = create<State>()((set) => ({
       ...state,
       comet: undefined,
     }))
-    localStorage.removeItem("apiKey")
     localStorage.removeItem("cometId")
   },
-  createComet: () => {
+  createComet: (accessToken: string) => {
     set((state) => {
-      localStorage.setItem("apiKey", state.api.key)
       localStorage.setItem("cometId", state.api.cometId)
       return {
         ...state,
-        comet: new Comet(state.api.key, state.api.cometId),
+        comet: new Comet(accessToken, state.api.cometId),
       }
     })
   },

@@ -1,7 +1,8 @@
-"use client"
+"use client";
 
-import React from "react"
+import React from "react";
 import { useStore } from "@/store/store"
+import { useSession } from "next-auth/react"
 
 import { Button } from "../ui/button"
 import Field from "../ui/field"
@@ -51,20 +52,6 @@ function CometId() {
           update("cometId", e.target.value)
         }}
         fullwidth
-      />
-    </Field>
-  )
-}
-function APIKey() {
-  const [key, update] = useStore((state) => [state.api.key, state.updateAPI])
-
-  return (
-    <Field htmlFor="key" label="API Key">
-      <Textarea
-        value={key}
-        onChange={(e) => {
-          update("key", e.target.value)
-        }}
       />
     </Field>
   )
@@ -193,6 +180,7 @@ function Model() {
     state.clearComet,
     state.createComet,
   ])
+  const session = useSession()
 
   return comet ? (
     <div className="h-[80vh] space-y-4 overflow-y-auto px-4 py-5 pb-10 scrollbar scrollbar-none">
@@ -207,9 +195,15 @@ function Model() {
     </div>
   ) : (
     <div className="h-[80vh] space-y-4 overflow-y-auto px-4 py-5 pb-10 scrollbar scrollbar-none">
-      <APIKey />
       <CometId />
-      <Button onClick={createComet}>Use API configs</Button>
+      <Button
+        onClick={() =>
+          session.status === "authenticated" &&
+          createComet(session.data.user.accessToken)
+        }
+      >
+        Use API configs
+      </Button>
     </div>
   )
 }

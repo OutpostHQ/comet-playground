@@ -2,6 +2,7 @@
 
 import { useEffect } from "react"
 import { useStore } from "@/store/store"
+import { useSession } from "next-auth/react"
 
 import Search from "./providers/search-provider"
 import Sidebar from "./sections/sidebar"
@@ -16,6 +17,7 @@ export default function Playground() {
       state.loadAPIConfigFromLocal,
     ]
   )
+  const session = useSession()
 
   useEffect(() => {
     async function updateConfigState() {
@@ -36,8 +38,11 @@ export default function Playground() {
     updateConfigState()
   }, [comet, mergeConfigs])
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(loadAPIConfigFromLocal, [])
+  useEffect(() => {
+    if (session.status === "authenticated") {
+      loadAPIConfigFromLocal(session.data.user.accessToken)
+    }
+  }, [session, loadAPIConfigFromLocal])
 
   return (
     <div>
