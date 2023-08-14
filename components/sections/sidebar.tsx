@@ -12,7 +12,8 @@ import { Input } from "../ui/input";
 import { Slider } from "../ui/slider";
 import { Switch } from "../ui/switch"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
-import { Design } from "./design-tab"
+import { Design } from "./design-tab";
+
 
 export default function Sidebar() {
   return (
@@ -196,10 +197,14 @@ function Model() {
     <div className="h-[80vh] space-y-4 overflow-y-auto px-4 py-5 pb-10 scrollbar scrollbar-none">
       <CometId />
       <Button
-        onClick={() =>
-          session.status === "authenticated" &&
-          createComet(session.data.user.accessToken)
-        }
+        onClick={() => {
+          try {
+            session.status === "authenticated" &&
+              createComet(session.data.user.accessToken)
+          } catch (e) {
+            console.log(e)
+          }
+        }}
       >
         Use API configs
       </Button>

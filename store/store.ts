@@ -29,6 +29,7 @@ type State = {
     cometId: string
   }
   comet: Comet | undefined
+  error: string | undefined
 
   mergeConfig: (new_configs: Partial<State["config"]>) => void
   updateAPI: (key: keyof State["api"], value: string) => void
@@ -39,6 +40,8 @@ type State = {
   ) => void
   clearComet: () => void
   createComet: (accessToken: string) => void
+  clearError: () => void
+  setError: (e: string) => void
   loadAPIConfigFromLocal: (accessToken: string) => void
 }
 
@@ -65,6 +68,7 @@ export const useStore = create<State>()((set) => ({
   api: {
     cometId: "",
   },
+  error: undefined,
   comet: undefined,
 
   updateDesign: (key, value) =>
@@ -121,8 +125,21 @@ export const useStore = create<State>()((set) => ({
     }))
     localStorage.removeItem("cometId")
   },
+  clearError: () => {
+    set((state) => ({
+      ...state,
+      error: undefined,
+    }))
+  },
+  setError: (e: string) => {
+    set((state) => ({
+      ...state,
+      error: e,
+    }))
+  },
   createComet: (accessToken: string) => {
     set((state) => {
+      if (!state.api.cometId) throw new Error("Invalid Comet ID")
       localStorage.setItem("cometId", state.api.cometId)
       return {
         ...state,

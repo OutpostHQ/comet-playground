@@ -86,6 +86,7 @@ export default function SearchComponent() {
     referencePaths: string[]
   }>()
   const [isDisabled, setDisable] = useState(false)
+  const [error, setError] = useState<string | undefined>()
 
   return (
     <SearchContainer>
@@ -93,14 +94,16 @@ export default function SearchComponent() {
         aria-disabled={isDisabled}
         onKeyUp={useCallback(
           async function (e: { key: string }) {
-            try {
-              //todo: maybe dont check diabled here.
-              // add it in the search input props
-              if (e.key === "Enter" && !isDisabled) {
-                if (comet) {
-                  const stream = configs.stream
-                  setAnswer("")
-                  setDisable(true)
+            //todo: maybe dont check diabled here.
+            // add it in the search input props
+            if (e.key === "Enter" && !isDisabled) {
+              if (comet) {
+                const stream = configs.stream
+                setAnswer("")
+                setFullResponse(undefined)
+                setError(undefined)
+                setDisable(true)
+                try {
                   const data = await comet.prompt(
                     {
                       configs,
@@ -119,12 +122,11 @@ export default function SearchComponent() {
                     setAnswer(data?.response || "No response.")
                   }
                   setFullResponse(data)
-                } else console.log("No Comet.")
-                setDisable(false)
-              }
-            } catch (e) {
-              console.error(e)
-              //cleanup
+                } catch (e: any) {
+                  setError(e?.message || "Try again.")
+                }
+              } else setError("No Comet Instance found.")
+
               setDisable(false)
             }
           },
@@ -137,6 +139,7 @@ export default function SearchComponent() {
       />
       <SearchResultContainer
         answer={answer}
+        error={error}
         hasFinished={fullResponse && true}
         references={Array.from(new Set(fullResponse?.referencePaths))}
       />

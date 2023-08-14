@@ -46,15 +46,32 @@ function SearchResultContainer({
   answer,
   hasFinished,
   references,
+  error,
 }: {
+  error?: string
   answer?: string
   hasFinished?: boolean
   references?: string[]
 }) {
   return (
     <div className="searchResultContainer">
-      <SearchResultContainerContent answer={answer} hasFinished={hasFinished} />
-      {references && <GeneratedFrom references={references} />}
+      {error ? (
+        <div className="searchResultContent">
+          <div className="rounded-md bg-[#ff6666] p-2 text-[#000000]">
+            {error}
+          </div>
+        </div>
+      ) : (
+        <>
+          <SearchResultContainerContent
+            answer={answer}
+            hasFinished={hasFinished}
+          />
+          {references && references?.length > 0 && (
+            <GeneratedFrom references={references} />
+          )}
+        </>
+      )}
     </div>
   )
 }
