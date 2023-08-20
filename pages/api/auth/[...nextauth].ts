@@ -35,7 +35,7 @@ function OutpostProvider(
     name: "outpost",
     type: "oauth",
     authorization: {
-      params: { scope: "profile" },
+      params: { scope: "READ_USER PROMPT_COMET" },
       url: process.env.AUTHORIZATION_URL,
     },
     token: process.env.ACCESSTOKEN_URL,
