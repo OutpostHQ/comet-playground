@@ -1,19 +1,16 @@
-"use client";
+"use client"
 
-import React from "react";
-import { useStore } from "@/store/store";
-import { useSession } from "next-auth/react";
+import React from "react"
+import { useStore } from "@/store/store"
+import { useSession } from "next-auth/react"
 
-
-
-import { Button } from "../ui/button";
-import Field from "../ui/field";
-import { Input } from "../ui/input";
-import { Slider } from "../ui/slider";
+import { Button } from "../ui/button"
+import Field from "../ui/field"
+import { Input } from "../ui/input"
+import { Slider } from "../ui/slider"
 import { Switch } from "../ui/switch"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
-import { Design } from "./design-tab";
-
+import { Design } from "./design-tab"
 
 export default function Sidebar() {
   return (
@@ -191,23 +188,30 @@ function Model() {
       <MaxTokens />
       <Stream />
       <pre>{JSON.stringify(config, undefined, 2)}</pre>
-      <Button onClick={clearComet}>Edit API configs.</Button>{" "}
+      <div className="absolute inset-x-0 bottom-0 border-t bg-subdued p-2 ">
+        <Button variant="outline" className="w-full" onClick={clearComet}>
+          Edit API configs.
+        </Button>{" "}
+      </div>
     </div>
   ) : (
-    <div className="h-[80vh] space-y-4 overflow-y-auto px-4 py-5 pb-10 scrollbar scrollbar-none">
+    <div className="relative h-[80vh] space-y-4 overflow-y-auto px-4 py-5 pb-10 scrollbar scrollbar-none">
       <CometId />
-      <Button
-        onClick={() => {
-          try {
-            session.status === "authenticated" &&
-              createComet(session.data.user.accessToken)
-          } catch (e) {
-            console.log(e)
-          }
-        }}
-      >
-        Use API configs
-      </Button>
+      <div className="absolute inset-x-0 bottom-0 border-t bg-subdued p-2">
+        <Button
+          className="w-full"
+          onClick={() => {
+            try {
+              session.status === "authenticated" &&
+                createComet(session.data.user.accessToken)
+            } catch (e) {
+              console.log(e)
+            }
+          }}
+        >
+          Use API configs
+        </Button>
+      </div>
     </div>
   )
 }
