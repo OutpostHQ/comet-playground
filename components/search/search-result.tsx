@@ -1,12 +1,9 @@
-"use client";
+"use client"
 
 import { useContext } from "react"
 
-
-
-import { SearchContext } from "../providers/search-provider";
-import { MarkdownParser } from "./parse-markdown";
-
+import { SearchContext } from "../providers/search-provider"
+import { MarkdownParser } from "./parse-markdown"
 
 function GeneratedFrom({ references }: { references: string[] }) {
   const { referenceMessage } = useContext(SearchContext)
@@ -35,10 +32,15 @@ function SearchResultContainerContent({
 }) {
   if (answer === undefined)
     return <p className="searchResultContent">Go ahead, ask a question...</p>
+
   return (
-    <p className={`searchResultContent ${hasFinished ? "typingEffect" : ""}`}>
-      <MarkdownParser>{answer}</MarkdownParser>
-    </p>
+    <div
+      className={`searchResultContent scrollbar-thin scrollbar-track-transparent scrollbar-thumb-transparent ${
+        hasFinished ? "typingEffect" : ""
+      }`}
+    >
+      <MarkdownParser answer={answer} />
+    </div>
   )
 }
 
