@@ -6,6 +6,7 @@ import "@/styles/search.css"
 import "@/styles/tokens.css"
 import "@/styles/markdown.css"
 
+import { Toaster } from "@/components/ui/toaster"
 import AuthProvider from "@/components/providers/auth-provider"
 
 import Mounted from "./mounted"
@@ -26,7 +27,10 @@ export default function RootLayout({
     <html className="light" suppressHydrationWarning lang="en">
       <body suppressHydrationWarning className={inter.className}>
         <AuthProvider>
-          <Mounted>{children}</Mounted>
+          <Mounted>
+            {children}
+            <Toaster />
+          </Mounted>
         </AuthProvider>
       </body>
     </html>
