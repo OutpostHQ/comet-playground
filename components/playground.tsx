@@ -21,28 +21,30 @@ export default function Playground() {
 
   useEffect(() => {
     async function updateConfigState() {
-      try {
-        if (comet) {
-          const newConfigs = await comet.getCometInfo().then((data: any) => {
-            return {
-              stream: data.configs?.stream,
-              max_tokens: data.configs?.max_tokens,
-              top_p: data.configs?.top_p,
-              temperature: data.configs?.temprature,
-              presence_penalty: data.configs?.presence_penalty,
-              frequency_penalty: data.configs?.frequency_penalty,
-            }
-          })
+      if (api?.cometId !== comet?.cometId) {
+        try {
+          if (comet) {
+            const newConfigs = await comet.getCometInfo().then((data: any) => {
+              return {
+                stream: data.configs?.stream,
+                max_tokens: data.configs?.max_tokens,
+                top_p: data.configs?.top_p,
+                temperature: data.configs?.temperature,
+                presence_penalty: data.configs?.presence_penalty,
+                frequency_penalty: data.configs?.frequency_penalty,
+              }
+            })
 
-          mergeConfigs(newConfigs)
+            mergeConfigs(newConfigs)
+          }
+        } catch (e) {
+          console.error(e)
+          clearComet()
         }
-      } catch (e) {
-        console.error(e)
-        clearComet()
       }
+      updateConfigState()
     }
-    updateConfigState()
-  }, [comet, mergeConfigs, clearComet])
+  }, [comet, mergeConfigs, clearComet, api.cometId])
 
   useEffect(() => {
     if (session.status === "authenticated") {
