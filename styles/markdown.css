@@ -1,19 +1,19 @@
-.searchResultContent * {
+.cometSearchResults * {
   @apply text-bodyMd text-default;
 }
 
-.searchResultContent {
+.cometSearchResults {
   @apply space-y-4;
 }
-.searchResultContent h1 {
+.cometSearchResults h1 {
   @apply text-heading2Xl font-semibold leading-heading2Xl;
 }
 
-.searchResultContent ul {
+.cometSearchResults ul {
   @apply list-inside list-disc space-y-2 marker:text-disabled !important;
 }
 
-.searchResultContent li > p:first-of-type {
+.cometSearchResults li > p:first-of-type {
   @apply inline !important;
 }
 
@@ -21,34 +21,34 @@ li {
   @apply space-y-4;
 }
 
-.searchResultContent ol {
+.cometSearchResults ol {
   @apply list-inside list-decimal space-y-2  marker:text-disabled !important;
 }
 
-.searchResultContent h2 {
+.cometSearchResults h2 {
   @apply text-headingXl font-semibold leading-headingXl;
 }
 
-.searchResultContent h3 {
+.cometSearchResults h3 {
   @apply text-headingLg font-semibold leading-headingLg;
 }
 
-.searchResultContent p {
+.cometSearchResults p {
   @apply text-bodyMd leading-bodyMd text-default;
 }
 
 /* prism code styles */
 
-.searchResultContent pre div {
-  @apply rounded border bg-hovered p-2 text-bodySm leading-bodySm !important;
+.cometSearchResults pre div {
+  @apply rounded border bg-subdued p-2 text-bodySm leading-bodySm !important;
 }
 
-.searchResultContent pre code {
-  @apply block w-full overflow-x-scroll rounded bg-hovered p-2 text-bodyMd scrollbar-none !important;
+.cometSearchResults pre code {
+  @apply block w-full overflow-x-scroll rounded bg-subdued p-2 text-bodyMd scrollbar-thin !important;
 }
 
-.searchResultContent code[class*="language-"],
-.searchResultContent pre[class*="language-"] {
+.cometSearchResults code[class*="language-"],
+.cometSearchResults pre[class*="language-"] {
   @apply text-left font-mono text-bodySm leading-bodySm !important;
   white-space: pre;
   word-spacing: normal;
@@ -64,68 +64,68 @@ li {
   hyphens: none;
 }
 
-.searchResultContent :not(pre) > code {
-  @apply rounded bg-hovered p-0.5 px-2 text-bodyMd  !important;
+.cometSearchResults :not(pre) > code {
+  @apply rounded bg-subdued p-0.5 px-2 text-bodyMd  !important;
 }
-.searchResultContent .token.cdata,
-.searchResultContent .token.comment,
-.searchResultContent .token.doctype,
-.searchResultContent .token.prolog {
+.cometSearchResults .token.cdata,
+.cometSearchResults .token.comment,
+.cometSearchResults .token.doctype,
+.cometSearchResults .token.prolog {
   color: #f2c992;
 }
-.searchResultContent .token.punctuation {
+.cometSearchResults .token.punctuation {
   color: #f2c992;
 }
-.searchResultContent .token.namespace {
+.cometSearchResults .token.namespace {
   opacity: 0.7;
 }
-.searchResultContent .token.constant,
-.searchResultContent .token.deleted,
-.searchResultContent .token.property,
-.searchResultContent .token.symbol,
-.searchResultContent .token.tag {
+.cometSearchResults .token.constant,
+.cometSearchResults .token.deleted,
+.cometSearchResults .token.property,
+.cometSearchResults .token.symbol,
+.cometSearchResults .token.tag {
   color: white;
 }
-.searchResultContent .token.boolean,
-.searchResultContent .token.number {
+.cometSearchResults .token.boolean,
+.cometSearchResults .token.number {
   color: #ae81ff;
 }
-.searchResultContent .token.attr-name,
-.searchResultContent .token.builtin,
-.searchResultContent .token.char,
-.searchResultContent .token.inserted,
-.searchResultContent .token.selector,
-.searchResultContent .token.string {
+.cometSearchResults .token.attr-name,
+.cometSearchResults .token.builtin,
+.cometSearchResults .token.char,
+.cometSearchResults .token.inserted,
+.cometSearchResults .token.selector,
+.cometSearchResults .token.string {
   color: #8ccdc0;
 }
-.searchResultContent .language-css .token.string,
-.searchResultContent .style .token.string,
-.searchResultContent .token.entity,
-.searchResultContent .token.operator,
-.searchResultContent .token.url,
-.searchResultContent .token.variable {
+.cometSearchResults .language-css .token.string,
+.cometSearchResults .style .token.string,
+.cometSearchResults .token.entity,
+.cometSearchResults .token.operator,
+.cometSearchResults .token.url,
+.cometSearchResults .token.variable {
   color: #bc92e0;
 }
-.searchResultContent .token.atrule,
-.searchResultContent .token.attr-value,
-.searchResultContent .token.class-name,
-.searchResultContent .token.function {
+.cometSearchResults .token.atrule,
+.cometSearchResults .token.attr-value,
+.cometSearchResults .token.class-name,
+.cometSearchResults .token.function {
   color: #bc92e0;
 }
-.searchResultContent .token.keyword {
+.cometSearchResults .token.keyword {
   color: #66d9ef;
 }
-.searchResultContent .token.important,
-.searchResultContent .token.regex {
+.cometSearchResults .token.important,
+.cometSearchResults .token.regex {
   color: #fd971f;
 }
-.searchResultContent .token.bold,
-.searchResultContent .token.important {
+.cometSearchResults .token.bold,
+.cometSearchResults .token.important {
   font-weight: 700;
 }
-.searchResultContent .token.italic {
+.cometSearchResults .token.italic {
   font-style: italic;
 }
-.searchResultContent .token.entity {
+.cometSearchResults .token.entity {
   cursor: help;
 }

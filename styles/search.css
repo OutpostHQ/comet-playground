@@ -89,6 +89,7 @@
   overflow-y: auto;
   padding-bottom: 5rem;
 }
+
 @keyframes blink-caret {
   from,
   to {
@@ -99,7 +100,7 @@
   }
 }
 
-.OutpostSearch .searchResultContent .typingEffect {
+.typingEffect {
   border-right: 0.15em solid orange;
 }
 
