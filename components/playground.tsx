@@ -1,7 +1,7 @@
-"use client";
+"use client"
 
-import { useEffect } from "react";
-import { useStore } from "@/store/store";
+import { useEffect } from "react"
+import { useStore } from "@/store/store"
 import { useSession } from "next-auth/react"
 
 import Search from "./providers/search-provider"
