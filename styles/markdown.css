@@ -1,0 +1,131 @@
+.searchResultContent * {
+  @apply text-bodyMd text-default;
+}
+
+.searchResultContent {
+  @apply space-y-4;
+}
+.searchResultContent h1 {
+  @apply text-heading2Xl font-semibold leading-heading2Xl;
+}
+
+.searchResultContent ul {
+  @apply list-inside list-disc space-y-2 marker:text-disabled !important;
+}
+
+.searchResultContent li > p:first-of-type {
+  @apply inline !important;
+}
+
+li {
+  @apply space-y-4;
+}
+
+.searchResultContent ol {
+  @apply list-inside list-decimal space-y-2  marker:text-disabled !important;
+}
+
+.searchResultContent h2 {
+  @apply text-headingXl font-semibold leading-headingXl;
+}
+
+.searchResultContent h3 {
+  @apply text-headingLg font-semibold leading-headingLg;
+}
+
+.searchResultContent p {
+  @apply text-bodyMd leading-bodyMd text-default;
+}
+
+/* prism code styles */
+
+.searchResultContent pre div {
+  @apply rounded border bg-hovered p-2 text-bodySm leading-bodySm !important;
+}
+
+.searchResultContent pre code {
+  @apply block w-full overflow-x-scroll rounded bg-hovered p-2 text-bodyMd scrollbar-none !important;
+}
+
+.searchResultContent code[class*="language-"],
+.searchResultContent pre[class*="language-"] {
+  @apply text-left font-mono text-bodySm leading-bodySm !important;
+  white-space: pre;
+  word-spacing: normal;
+  word-break: normal;
+  word-wrap: normal;
+  line-height: 1.5;
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+}
+
+.searchResultContent :not(pre) > code {
+  @apply rounded bg-hovered p-0.5 px-2 text-bodyMd  !important;
+}
+.searchResultContent .token.cdata,
+.searchResultContent .token.comment,
+.searchResultContent .token.doctype,
+.searchResultContent .token.prolog {
+  color: #f2c992;
+}
+.searchResultContent .token.punctuation {
+  color: #f2c992;
+}
+.searchResultContent .token.namespace {
+  opacity: 0.7;
+}
+.searchResultContent .token.constant,
+.searchResultContent .token.deleted,
+.searchResultContent .token.property,
+.searchResultContent .token.symbol,
+.searchResultContent .token.tag {
+  color: white;
+}
+.searchResultContent .token.boolean,
+.searchResultContent .token.number {
+  color: #ae81ff;
+}
+.searchResultContent .token.attr-name,
+.searchResultContent .token.builtin,
+.searchResultContent .token.char,
+.searchResultContent .token.inserted,
+.searchResultContent .token.selector,
+.searchResultContent .token.string {
+  color: #8ccdc0;
+}
+.searchResultContent .language-css .token.string,
+.searchResultContent .style .token.string,
+.searchResultContent .token.entity,
+.searchResultContent .token.operator,
+.searchResultContent .token.url,
+.searchResultContent .token.variable {
+  color: #bc92e0;
+}
+.searchResultContent .token.atrule,
+.searchResultContent .token.attr-value,
+.searchResultContent .token.class-name,
+.searchResultContent .token.function {
+  color: #bc92e0;
+}
+.searchResultContent .token.keyword {
+  color: #66d9ef;
+}
+.searchResultContent .token.important,
+.searchResultContent .token.regex {
+  color: #fd971f;
+}
+.searchResultContent .token.bold,
+.searchResultContent .token.important {
+  font-weight: 700;
+}
+.searchResultContent .token.italic {
+  font-style: italic;
+}
+.searchResultContent .token.entity {
+  cursor: help;
+}
