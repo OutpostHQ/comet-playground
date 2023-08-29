@@ -1,9 +1,6 @@
-import { Comet } from "outpostkit";
-import { create } from "zustand";
-
-
-
-
+import { Comet } from "outpostkit"
+import { create } from "zustand"
+import { persist } from "zustand/middleware"
 
 type State = {
   design: {
@@ -45,106 +42,111 @@ type State = {
   loadAPIConfigFromLocal: (accessToken: string) => void
 }
 
-export const useStore = create<State>()((set) => ({
-  design: {
-    theme: "light",
-    containerWidth: 615,
-    textSize: "medium",
-    borderRadius: 8,
-    dontKnowMessage: "I don't know",
-    referenceMessage: "Answer generated from the following pages",
-    AIPlaceholder: "Search...",
-    includeBranding: false,
-  },
-
-  config: {
-    max_tokens: 1024,
-    top_p: 1,
-    temperature: 1,
-    presence_penalty: 0,
-    frequency_penalty: 0,
-    stream: false,
-  },
-  api: {
-    cometId: "",
-  },
-  error: undefined,
-  comet: undefined,
-
-  updateDesign: (key, value) =>
-    set((state) => ({
-      ...state,
+export const useStore = create<State>()(
+  persist(
+    (set) => ({
       design: {
-        ...state.design,
-        [key]: value,
+        theme: "light",
+        containerWidth: 615,
+        textSize: "medium",
+        borderRadius: 8,
+        dontKnowMessage: "I don't know",
+        referenceMessage: "Answer generated from the following pages",
+        AIPlaceholder: "Search...",
+        includeBranding: false,
       },
-    })),
-  loadAPIConfigFromLocal: async (accessToken: string) => {
-    if (typeof window === undefined)
-      throw new Error("Cannot load on the server")
 
-    const localCometId = localStorage.getItem("cometId")
-    if (localCometId) {
-      set((state) => ({
-        ...state,
-        api: {
-          cometId: localCometId,
-        },
-        comet: new Comet(accessToken, localCometId),
-      }))
-    }
-  },
-  updateAPI: (key, value) =>
-    set((state) => ({
-      ...state,
+      config: {
+        max_tokens: 1024,
+        top_p: 1,
+        temperature: 1,
+        presence_penalty: 0,
+        frequency_penalty: 0,
+        stream: false,
+      },
       api: {
-        ...state.api,
-        [key]: value,
+        cometId: "",
       },
-    })),
-  updateConfig: (key, value) =>
-    set((state) => ({
-      ...state,
-      config: {
-        ...state.config,
-        [key]: value,
-      },
-    })),
-  mergeConfig: (new_configs) =>
-    set((state) => ({
-      ...state,
-      config: {
-        ...state.config,
-        ...new_configs,
-      },
-    })),
-  clearComet: () => {
-    set((state) => ({
-      ...state,
-      comet: undefined,
-    }))
-    localStorage.removeItem("cometId")
-  },
-  clearError: () => {
-    set((state) => ({
-      ...state,
       error: undefined,
-    }))
-  },
-  setError: (e: string) => {
-    set((state) => ({
-      ...state,
-      error: e,
-    }))
-  },
-  createComet: (accessToken: string) => {
-    set((state) => {
-      if (!state.api.cometId) throw new Error("Invalid Comet ID")
-      localStorage.setItem("cometId", state.api.cometId)
-      return {
-        ...state,
-        comet: new Comet(accessToken, state.api.cometId),
-      }
-    })
-  },
-}))
+      comet: undefined,
+
+      updateDesign: (key, value) =>
+        set((state) => ({
+          ...state,
+          design: {
+            ...state.design,
+            [key]: value,
+          },
+        })),
+      loadAPIConfigFromLocal: async (accessToken: string) => {
+        if (typeof window === undefined)
+          throw new Error("Cannot load on the server")
+
+        const localCometId = localStorage.getItem("cometId")
+        if (localCometId) {
+          set((state) => ({
+            ...state,
+            api: {
+              cometId: localCometId,
+            },
+            comet: new Comet(accessToken, localCometId),
+          }))
+        }
+      },
+      updateAPI: (key, value) =>
+        set((state) => ({
+          ...state,
+          api: {
+            ...state.api,
+            [key]: value,
+          },
+        })),
+      updateConfig: (key, value) =>
+        set((state) => ({
+          ...state,
+          config: {
+            ...state.config,
+            [key]: value,
+          },
+        })),
+      mergeConfig: (new_configs) =>
+        set((state) => ({
+          ...state,
+          config: {
+            ...state.config,
+            ...new_configs,
+          },
+        })),
+      clearComet: () => {
+        set((state) => ({
+          ...state,
+          comet: undefined,
+        }))
+        localStorage.removeItem("cometId")
+      },
+      clearError: () => {
+        set((state) => ({
+          ...state,
+          error: undefined,
+        }))
+      },
+      setError: (e: string) => {
+        set((state) => ({
+          ...state,
+          error: e,
+        }))
+      },
+      createComet: (accessToken: string) => {
+        set((state) => {
+          if (!state.api.cometId) throw new Error("Invalid Comet ID")
+          localStorage.setItem("cometId", state.api.cometId)
+          return {
+            ...state,
+            comet: new Comet(accessToken, state.api.cometId),
+          }
+        })
+      },
+    }),
+    { name: "comet-config" }
+  )
+)
