@@ -8,10 +8,10 @@ import { Slider } from "../ui/slider"
 export function Design() {
   return (
     <div className="h-[80vh] w-[var(--sidebar-width)]  space-y-4 overflow-y-scroll px-4 py-5 pb-10 scrollbar scrollbar-none">
-      <Theme />
+      {/* <Theme /> */}
       <ContainerWidth />
       <AIPlaceholder />
-      <TextSize />
+      {/* <TextSize /> */}
       <Radius />
       <DontKnowMessage />
       <ReferenceMessage />

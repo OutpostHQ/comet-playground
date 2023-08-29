@@ -69,9 +69,9 @@ function SearchResultContainer({
             answer={answer}
             hasFinished={hasFinished}
           />
-          {references && references?.length > 0 && (
+          {/* {references && references?.length > 0 && (
             <GeneratedFrom references={references} />
-          )}
+          )} */}
         </>
       )}
     </div>
