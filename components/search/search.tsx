@@ -1,46 +1,98 @@
-"use client";
+"use client"
 
 import React, {
-  KeyboardEventHandler,
-  useCallback,
+  ReactNode,
+  SetStateAction,
   useContext,
+  useEffect,
+  useRef,
   useState,
 } from "react"
 import { useStore } from "@/store/store"
-import { SearchIcon } from "lucide-react"
+import { ArrowRight, PlaneTakeoff, RefreshCcw, SearchIcon } from "lucide-react"
+import { useSession } from "next-auth/react"
+import { Comet } from "outpostkit"
 
-
-
-import { streamPromptWithNativeFetch } from "@/lib/utils/fetch-stream"
-
-
+import { useCometSession } from "@/lib/hooks/useCometSession"
 
 import { SearchContext } from "../providers/search-provider"
-import SearchResultContainer from "./search-result"
+import { Input } from "../ui/input"
+import { LoadingDots } from "./icons"
 
-
-export interface Props extends React.HTMLAttributes<HTMLDivElement> {
+export interface Props extends React.HTMLProps<HTMLInputElement> {
   errorMessage?: string
+  isSearching: boolean
+  setIsSearching: React.Dispatch<SetStateAction<boolean>>
+  resetSession: () => void
+  sessionId: string
+  promptUser: (e: any) => void
 }
 
-const SearchInput = React.forwardRef<
-  HTMLInputElement,
-  React.InputHTMLAttributes<HTMLInputElement>
->(({ style, ...props }, ref) => {
-  const { AIPlaceholder } = useContext(SearchContext)
+const SearchInput = React.forwardRef<HTMLInputElement, Props>(
+  (
+    {
+      style,
+      isSearching,
+      promptUser,
+      setIsSearching,
+      sessionId,
+      resetSession,
+      ...props
+    },
+    ref
+  ) => {
+    const { AIPlaceholder } = useContext(SearchContext)
 
-  return (
-    <div className={`search__input-container `} style={style}>
-      <SearchIcon className={`search__input-icon`} />
-      <input
-        placeholder={`${AIPlaceholder ? AIPlaceholder : "Search"}`}
-        className={`search__input-input`}
-        ref={ref}
-        {...props}
-      />
-    </div>
-  )
-})
+    return (
+      <div
+        className={`relative flex h-[52px] items-center gap-3 border-b px-4`}
+        style={style}
+      >
+        {!sessionId && (
+          <form
+            onSubmit={promptUser}
+            className="flex w-full items-center gap-3"
+          >
+            <SearchIcon className={`w-4 shrink-0 stroke-black`} />
+            <input
+              autoFocus
+              placeholder={`${AIPlaceholder ? AIPlaceholder : "Search"}`}
+              className={`w-full text-[black] outline-none`}
+              ref={ref}
+              {...props}
+            />
+          </form>
+        )}
+        <div className="absolute right-4 flex items-center gap-1 rounded-lg bg-active p-1">
+          <button className="p-2" onClick={resetSession}>
+            <RefreshCcw className="h-4" />
+          </button>
+          <button
+            className={`rounded-lg px-2 py-1 text-[black] ${
+              !isSearching ? "bg-default shadow-0.25" : ""
+            }`}
+            onClick={() => {
+              setIsSearching(false)
+            }}
+          >
+            Ask
+          </button>
+          <button
+            onClick={() => {
+              setIsSearching(true)
+            }}
+            disabled
+            className={`rounded-lg px-2 py-1 text-[black] disabled:opacity-25 ${
+              isSearching ? "bg-default shadow-0.25" : ""
+            }`}
+          >
+            Search
+          </button>
+        </div>
+      </div>
+    )
+  }
+)
 
 SearchInput.displayName = "SearchInput"
 
@@ -57,13 +109,13 @@ function SearchFooter() {
   )
 }
 
-function SearchContainer({ children }: Props) {
+function SearchContainer({ children }: { children: ReactNode }) {
   const { theme, containerWidth, borderRadius } = useContext(SearchContext)
 
   return (
     <div className={`OutpostSearch ${theme === "dark" ? "dark" : ""} `}>
       <div
-        className="dialog-content"
+        className="dialog-content relative pb-[76px]"
         style={{
           maxWidth: containerWidth,
           width: containerWidth,
@@ -80,69 +132,114 @@ export default function SearchComponent() {
   // const { includeBranding } = useContext(SearchContext)
   const [comet, configs] = useStore((store) => [store.comet, store.config])
   const [question, setQuestion] = useState("")
-  const [answer, setAnswer] = useState<string>("")
-  const [fullResponse, setFullResponse] = useState<{
-    response: string
-    referencePaths: string[]
-  }>()
-  const [isDisabled, setDisable] = useState(false)
-  const [error, setError] = useState<string | undefined>()
+
+  const { data: user } = useSession()
+  // const takeFeedback = useCallback(
+  //   async (vote: boolean) => {
+  //     const res = await comet?.takeConversationFeedback({
+  //       conversationId: "",
+  //       feedback: "",
+  //       vote,
+  //     })
+  //     console.log(res)
+  //   },
+  //   [comet]
+  // )
+
+  const {
+    isLoading,
+    promptUser,
+    session,
+    isDisabled,
+    streamMessage,
+    resetSession,
+  } = useCometSession(
+    comet as Comet,
+    configs,
+    user?.user?.name || "",
+    question,
+    setQuestion
+  )
+
+  console.log(session)
+  const ref = useRef<null | HTMLDivElement>(null)
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.scroll({ behavior: "instant", top: 10000000000 })
+    }
+  }, [streamMessage, question])
 
   return (
     <SearchContainer>
       <SearchInput
+        promptUser={promptUser}
+        resetSession={resetSession}
+        isSearching={false}
+        setIsSearching={() => {}}
         aria-disabled={isDisabled}
-        onKeyUp={useCallback(
-          async function (e: { key: string }) {
-            //todo: maybe dont check diabled here.
-            // add it in the search input props
-            if (e.key === "Enter" && !isDisabled) {
-              if (comet) {
-                const stream = configs.stream
-                setAnswer("")
-                setFullResponse(undefined)
-                setError(undefined)
-                setDisable(true)
-                try {
-                  const data = await comet.prompt(
-                    {
-                      configs,
-                      stream,
-                      input: question,
-                      visitorId: "ajeya",
-                    },
-                    stream
-                      ? (text: string) => {
-                          setAnswer((current) => current + text)
-                        }
-                      : undefined
-                  )
-
-                  if (!stream) {
-                    setAnswer(data?.response || "No response.")
-                  }
-                  setFullResponse(data)
-                } catch (e: any) {
-                  setError(e?.message || "Try again.")
-                }
-              } else setError("No Comet Instance found.")
-
-              setDisable(false)
-            }
-          },
-          [ comet, configs, isDisabled, question]
-        )}
-        onChange={(e) => {
+        onChange={(e: any) => {
           setQuestion(e.target.value)
         }}
+        sessionId={session.sessionId}
         value={question}
       />
-      <SearchResultContainer
-        answer={answer}
-        error={error}
-        hasFinished={fullResponse && true}
-        references={Array.from(new Set(fullResponse?.referencePaths))}
-      />
+
+      <div
+        ref={ref}
+        className=" h-[var(--result-container-height)]   scroll-mb-10 scroll-pb-10 overflow-y-auto p-5  scrollbar-thin "
+      >
+        <div className=" space-y-5">
+          {session?.messages &&
+            session?.messages.length > 0 &&
+            session?.messages.map((i, index) => (
+              <div key={index} className="space-y-5">
+                <div
+                  className={` w-max max-w-[70%] rounded-lg bg-hovered p-3   text-[black] ${
+                    i?.from === "human"
+                      ? " ml-auto text-right "
+                      : "mr-auto text-left"
+                  } ${i?.from === "agent" && i?.text ? " " : ""}`}
+                >
+                  {i?.text}
+                </div>
+              </div>
+            ))}
+          {isLoading && (
+            <div className="w-14 shrink-0 rounded-lg bg-hovered p-3 text-[black]">
+              <LoadingDots />
+            </div>
+          )}
+          {streamMessage && (
+            <div className="w-max max-w-[70%] snap-end rounded-lg bg-hovered p-3">
+              {streamMessage}
+            </div>
+          )}
+        </div>
+        {session.sessionId && (
+          <form
+            onSubmit={promptUser}
+            className="absolute inset-x-0 bottom-0 h-[76px] w-full bg-default p-5"
+          >
+            <div className="relative h-full w-full">
+              <input
+                autoFocus
+                value={question}
+                onChange={(e: any) => {
+                  setQuestion(e.target.value)
+                }}
+                placeholder="Ask your question..."
+                className="mt-auto h-9 w-full rounded-lg border p-2 outline-none"
+              />
+              <button
+                onClick={promptUser}
+                className="absolute right-2 top-1/2 -translate-y-1/2"
+              >
+                <ArrowRight className="h-4" />
+              </button>
+            </div>
+          </form>
+        )}
+      </div>
       {/* {includeBranding && <SearchFooter />} */}
     </SearchContainer>
   )
