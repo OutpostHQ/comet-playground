@@ -63,31 +63,33 @@ const SearchInput = React.forwardRef<HTMLInputElement, Props>(
             />
           </form>
         )}
-        <div className="absolute right-4 flex items-center gap-1 rounded-lg bg-active p-1">
+        <div className="absolute right-4 flex  items-center justify-end gap-3">
           <button className="p-2" onClick={resetSession}>
-            <RefreshCcw className="h-4" />
+            <RefreshCcw className="ml-auto block h-4" />
           </button>
-          <button
-            className={`rounded-lg px-2 py-1 text-[black] ${
-              !isSearching ? "bg-default shadow-0.25" : ""
-            }`}
-            onClick={() => {
-              setIsSearching(false)
-            }}
-          >
-            Ask
-          </button>
-          <button
-            onClick={() => {
-              setIsSearching(true)
-            }}
-            disabled
-            className={`rounded-lg px-2 py-1 text-[black] disabled:opacity-25 ${
-              isSearching ? "bg-default shadow-0.25" : ""
-            }`}
-          >
-            Search
-          </button>
+          <div className=" flex items-center gap-1 rounded-lg bg-active p-1">
+            <button
+              className={`rounded-lg px-2 py-1 text-[black] ${
+                !isSearching ? "bg-default shadow-0.25" : ""
+              }`}
+              onClick={() => {
+                setIsSearching(false)
+              }}
+            >
+              Ask
+            </button>
+            <button
+              onClick={() => {
+                setIsSearching(true)
+              }}
+              disabled
+              className={`rounded-lg px-2 py-1 text-[black] disabled:opacity-25 ${
+                isSearching ? "bg-default shadow-0.25" : ""
+              }`}
+            >
+              Search
+            </button>
+          </div>
         </div>
       </div>
     )
@@ -215,7 +217,7 @@ export default function SearchComponent() {
             </div>
           )}
           {streamMessage && (
-            <div className="w-max max-w-[70%] snap-end rounded-lg bg-hovered p-3">
+            <div className="w-max max-w-[70%] snap-end rounded-lg bg-hovered p-3 text-[#000]">
               <MarkdownParser answer={streamMessage} />
             </div>
           )}
@@ -233,7 +235,7 @@ export default function SearchComponent() {
                   setQuestion(e.target.value)
                 }}
                 placeholder="Ask your question..."
-                className="mt-auto h-9 w-full rounded-lg border p-2 outline-none"
+                className="mt-auto h-9 w-full rounded-lg border p-2 text-[#000] outline-none"
               />
               <button
                 onClick={promptUser}

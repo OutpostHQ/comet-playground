@@ -187,7 +187,7 @@ function Model() {
       <FrequencePenalty />
       <MaxTokens />
       <Stream />
-      <pre>{JSON.stringify(config, undefined, 2)}</pre>
+      {/* <pre>{JSON.stringify(config, undefined, 2)}</pre> */}
       <div className="absolute inset-x-0 bottom-0 border-t bg-subdued p-2 ">
         <Button variant="outline" className="w-full" onClick={clearComet}>
           Edit API configs.
