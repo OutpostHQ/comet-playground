@@ -35,6 +35,7 @@ export function useCometSession(
   const promptUser = useCallback(
     async function (e: any) {
       e.preventDefault()
+
       if (!isDisabled) {
         if (question == "") {
           toast({
@@ -43,7 +44,6 @@ export function useCometSession(
           })
           return
         }
-
         setIsLoading(true)
         setQuestion("")
         setError(undefined)
@@ -117,12 +117,17 @@ export function useCometSession(
             setIsLoading(false)
           } catch (e: any) {
             setError(e?.message || "Try again.")
+            toast({ title: e.message, variant: "destructive" })
+            setIsDisabled(false)
           }
         } else {
           toast({
             title: "Comet not initialized",
             variant: "destructive",
           })
+          setIsLoading(false)
+          setError(e.message)
+          setIsDisabled(false)
         }
         setIsDisabled(false)
       }
