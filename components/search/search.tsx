@@ -9,15 +9,15 @@ import React, {
   useState,
 } from "react"
 import { useStore } from "@/store/store"
-import { ArrowRight, PlaneTakeoff, RefreshCcw, SearchIcon } from "lucide-react"
+import { ArrowRight, RefreshCcw, SearchIcon } from "lucide-react"
 import { useSession } from "next-auth/react"
 import { Comet } from "outpostkit"
 
 import { useCometSession } from "@/lib/hooks/useCometSession"
 
 import { SearchContext } from "../providers/search-provider"
-import { Input } from "../ui/input"
 import { LoadingDots } from "./icons"
+import { MarkdownParser } from "./parse-markdown"
 
 export interface Props extends React.HTMLProps<HTMLInputElement> {
   errorMessage?: string
@@ -153,6 +153,7 @@ export default function SearchComponent() {
     isDisabled,
     streamMessage,
     resetSession,
+    error,
   } = useCometSession(
     comet as Comet,
     configs,
@@ -193,15 +194,19 @@ export default function SearchComponent() {
             session?.messages.length > 0 &&
             session?.messages.map((i, index) => (
               <div key={index} className="space-y-5">
-                <div
-                  className={` w-max max-w-[70%] rounded-lg bg-hovered p-3   text-[black] ${
-                    i?.from === "human"
-                      ? " ml-auto text-right "
-                      : "mr-auto text-left"
-                  } ${i?.from === "agent" && i?.text ? " " : ""}`}
-                >
-                  {i?.text}
-                </div>
+                {i.from === "human" ? (
+                  <div
+                    className={` ml-auto w-max max-w-[70%] rounded-lg bg-hovered   p-3 text-[black]`}
+                  >
+                    {i?.text}
+                  </div>
+                ) : (
+                  <div
+                    className={` mr-auto w-max max-w-[70%] space-y-5 rounded-lg bg-hovered   p-3 text-[black]`}
+                  >
+                    <MarkdownParser answer={i?.text} />
+                  </div>
+                )}
               </div>
             ))}
           {isLoading && (
@@ -211,7 +216,7 @@ export default function SearchComponent() {
           )}
           {streamMessage && (
             <div className="w-max max-w-[70%] snap-end rounded-lg bg-hovered p-3">
-              {streamMessage}
+              <MarkdownParser answer={streamMessage} />
             </div>
           )}
         </div>

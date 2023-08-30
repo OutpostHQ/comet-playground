@@ -9,14 +9,13 @@ export function MarkdownParser({ answer }: { answer: string }) {
       children={String(answer).replace(/\n$/, "")}
       components={{
         code({ node, inline, className, children, style, ...props }) {
-          const match = /language-(\w+)/.exec(className || "")
-          return !inline && match ? (
+          return !inline ? (
             <SyntaxHighlighter
               children={String(children).replace(/\n$/, "")}
-              language={match[1]}
               PreTag="div"
               style={{}}
               useInlineStyles
+              language="javascript"
               {...props}
             />
           ) : (
