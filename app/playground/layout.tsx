@@ -15,7 +15,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <Header />
 
       {session.status === "authenticated" ? (
-        <main className="min-h-screen bg-subdued pr-[calc(var(--sidebar-width)+24px+24px)]">
+        <main className="h-screen overflow-hidden bg-subdued pr-[calc(var(--sidebar-width)+24px+24px)]">
           {children}
         </main>
       ) : session.status === "loading" ? (
@@ -25,9 +25,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       ) : (
         <div className="g-3 grid min-h-screen content-center justify-center ">
           <div className="flex flex-col items-center justify-center gap-1">
-            <Text variant={"displayMedium"} className="text-critical">
-              401: Unauthorized
-            </Text>
             <OutpostLoginButton />
           </div>
         </div>
