@@ -9,29 +9,36 @@ import Field from "../ui/field"
 import { Input } from "../ui/input"
 import { Slider } from "../ui/slider"
 import { Switch } from "../ui/switch"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs"
-import { Design } from "./design-tab"
 
 export default function Sidebar() {
+  const [config, comet, clearComet, createComet] = useStore((state) => [
+    state.config,
+    state.comet,
+    state.clearComet,
+    state.createComet,
+  ])
+  const session = useSession()
+
   return (
-    <aside className="fixed bottom-6 right-6 top-[calc(var(--header-height)+24px)] w-[var(--sidebar-width)]  overflow-hidden rounded-lg border bg-default shadow-0.25">
-      <Tabs defaultValue="design">
-        <TabsList className=" border-0 border-b bg-default">
-          <TabsTrigger className="px-4 py-2 font-medium" value="design">
-            Design
-          </TabsTrigger>
-          <TabsTrigger className="px-4 py-2 font-medium" value="model">
-            Model configurator
-          </TabsTrigger>
-        </TabsList>
-        <TabsContent className="overflow-hidden border-none p-0" value="design">
-          <Design />
-        </TabsContent>
-        <TabsContent className="overflow-auto border-none p-0" value="model">
-          <Model />
-        </TabsContent>
-      </Tabs>
-    </aside>
+    <div className="fixed bottom-6 right-6 top-[84px] w-[var(--sidebar-width)] space-y-4 overflow-y-auto rounded-lg border bg-default px-4 py-5 pb-10 shadow-0.25 scrollbar scrollbar-none">
+      <CometId />
+
+      <Temprature />
+      <TopP />
+      <PresencePenalty />
+      <FrequencePenalty />
+      <MaxTokens />
+      <Stream />
+
+      {/* onClick={() => {
+            try {
+              session.status === "authenticated" &&
+                createComet(session.data.user.accessToken)
+            } catch (e) {
+              console.log(e)
+            }
+          }} */}
+    </div>
   )
 }
 
@@ -168,50 +175,5 @@ function Stream() {
         }}
       />
     </Field>
-  )
-}
-function Model() {
-  const [config, comet, clearComet, createComet] = useStore((state) => [
-    state.config,
-    state.comet,
-    state.clearComet,
-    state.createComet,
-  ])
-  const session = useSession()
-
-  return comet ? (
-    <div className="h-[80vh] space-y-4 overflow-y-auto px-4 py-5 pb-10 scrollbar scrollbar-none">
-      <Temprature />
-      <TopP />
-      <PresencePenalty />
-      <FrequencePenalty />
-      <MaxTokens />
-      <Stream />
-      {/* <pre>{JSON.stringify(config, undefined, 2)}</pre> */}
-      <div className="absolute inset-x-0 bottom-0 border-t bg-subdued p-2 ">
-        <Button variant="outline" className="w-full" onClick={clearComet}>
-          Edit API configs.
-        </Button>{" "}
-      </div>
-    </div>
-  ) : (
-    <div className="relative h-[80vh] space-y-4 overflow-y-auto px-4 py-5 pb-10 scrollbar scrollbar-none">
-      <CometId />
-      <div className="absolute inset-x-0 bottom-0 border-t bg-subdued p-2">
-        <Button
-          className="w-full"
-          onClick={() => {
-            try {
-              session.status === "authenticated" &&
-                createComet(session.data.user.accessToken)
-            } catch (e) {
-              console.log(e)
-            }
-          }}
-        >
-          Use API configs
-        </Button>
-      </div>
-    </div>
   )
 }

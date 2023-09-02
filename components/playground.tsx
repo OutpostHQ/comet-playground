@@ -4,7 +4,6 @@ import { useEffect } from "react"
 import { useStore } from "@/store/store"
 import { useSession } from "next-auth/react"
 
-import Search from "./providers/search-provider"
 import Sidebar from "./sections/sidebar"
 
 export default function Playground() {
@@ -54,13 +53,12 @@ export default function Playground() {
 
   return (
     <div>
-      <Search
+      {/* <Search
         config={{
           ...design,
           ...api,
         }}
-      />
-      <Sidebar />
+      /> */}
     </div>
   )
 }
