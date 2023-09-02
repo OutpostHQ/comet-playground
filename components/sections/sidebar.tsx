@@ -9,35 +9,45 @@ import Field from "../ui/field"
 import { Input } from "../ui/input"
 import { Slider } from "../ui/slider"
 import { Switch } from "../ui/switch"
+import Text from "../ui/text"
+import { useToast } from "../ui/use-toast"
 
 export default function Sidebar() {
-  const [config, comet, clearComet, createComet] = useStore((state) => [
-    state.config,
-    state.comet,
-    state.clearComet,
-    state.createComet,
-  ])
+  const { toast } = useToast()
+  const [createComet] = useStore((state) => [state.createComet])
   const session = useSession()
 
   return (
-    <div className="fixed bottom-6 right-6 top-[84px] w-[var(--sidebar-width)] space-y-4 overflow-y-auto rounded-lg border bg-default px-4 py-5 pb-10 shadow-0.25 scrollbar scrollbar-none">
-      <CometId />
+    <div className="relative flex w-[var(--sidebar-width)] flex-col space-y-4 overflow-hidden overflow-y-auto border border-y-0 bg-default p-5 pb-10 shadow-0.25 scrollbar scrollbar-none">
+      <div>
+        <Text variant="displaySmall">Configure Model</Text>
+      </div>
 
-      <Temprature />
-      <TopP />
-      <PresencePenalty />
-      <FrequencePenalty />
-      <MaxTokens />
-      <Stream />
+      <div className="flex-1 space-y-5 overflow-y-auto  pb-16">
+        <CometId />
+        <Temprature />
+        <TopP />
+        <PresencePenalty />
+        <FrequencePenalty />
+        <MaxTokens />
+        <Stream />
+      </div>
 
-      {/* onClick={() => {
+      <div className="absolute bottom-0 right-0 w-full border-t bg-default p-4">
+        <Button
+          onClick={() => {
             try {
               session.status === "authenticated" &&
                 createComet(session.data.user.accessToken)
-            } catch (e) {
-              console.log(e)
+            } catch (e: any) {
+              toast({ title: e.message })
             }
-          }} */}
+          }}
+          className="w-full"
+        >
+          Save
+        </Button>
+      </div>
     </div>
   )
 }

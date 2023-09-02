@@ -15,9 +15,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <Header />
 
       {session.status === "authenticated" ? (
-        <main className="h-screen overflow-hidden bg-subdued pr-[calc(var(--sidebar-width)+24px+24px)]">
-          {children}
-        </main>
+        <main className="h-screen overflow-hidden bg-subdued">{children}</main>
       ) : session.status === "loading" ? (
         <div className="grid min-h-screen place-items-center">
           <Text variant={"displayMedium"}>Loading...</Text>

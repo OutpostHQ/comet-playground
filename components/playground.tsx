@@ -4,12 +4,9 @@ import { useEffect } from "react"
 import { useStore } from "@/store/store"
 import { useSession } from "next-auth/react"
 
-import Sidebar from "./sections/sidebar"
-
 export default function Playground() {
-  const [design, api, comet, mergeConfigs, loadAPIConfigFromLocal, clearComet] =
+  const [api, comet, mergeConfigs, loadAPIConfigFromLocal, clearComet] =
     useStore((state) => [
-      state.design,
       state.api,
       state.comet,
       state.mergeConfig,
@@ -55,7 +52,6 @@ export default function Playground() {
     <div>
       {/* <Search
         config={{
-          ...design,
           ...api,
         }}
       /> */}
