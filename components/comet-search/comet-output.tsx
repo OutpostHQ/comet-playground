@@ -4,9 +4,9 @@ import React from "react"
 import { Aperture, RefreshCcw, UserCircle2Icon } from "lucide-react"
 
 import { CometSession } from "."
-import { LoadingDots } from "../search/icons"
-import { MarkdownParser } from "../search/parse-markdown"
+import { MarkdownParser } from "../markdown/markdown-parser"
 import Text from "../ui/text"
+import { LoadingDots } from "./icons"
 
 export const CometOutput = React.forwardRef<HTMLDivElement, any>(
   (
