@@ -2,7 +2,6 @@ import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 
 import "@/styles/globals.css"
-import "@/styles/search.css"
 import "@/styles/tokens.css"
 import "@/styles/markdown.css"
 
