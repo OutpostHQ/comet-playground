@@ -1,7 +1,13 @@
 "use client"
 
-import React from "react"
-import { Aperture, RefreshCcw, UserCircle2Icon } from "lucide-react"
+import React, { useEffect, useState } from "react"
+import {
+  Aperture,
+  CheckIcon,
+  Copy,
+  RefreshCcw,
+  UserCircle2Icon,
+} from "lucide-react"
 
 import { CometSession } from "."
 import { MarkdownParser } from "../markdown/markdown-parser"
@@ -110,15 +116,38 @@ export function CometQuestion(props: { text: string }) {
 }
 
 export function CometReply(props: { text: string }) {
+  const [isCopied, setIsCopied] = useState(false)
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (isCopied) {
+        setIsCopied(false)
+      }
+    }, 2000)
+  }, [isCopied])
+
   return (
-    <div className="bg-subdued">
-      <div className=" mx-auto w-full max-w-[700px] ">
+    <div className=" group bg-subdued">
+      <div className="relative mx-auto w-full max-w-[700px] ">
         <div className="flex gap-4  py-5">
           <Aperture className="h-5 w-5 shrink-0 text-icon-soft" />
           <div className="w-[calc(100%-20px-16px)]  space-y-4 text-bodyLg">
             <MarkdownParser answer={props?.text} />
           </div>
         </div>
+        <button
+          onClick={() => {
+            setIsCopied(true)
+            navigator.clipboard.writeText(props?.text)
+          }}
+          className="absolute -right-5 top-3 opacity-0 group-hover:opacity-100"
+        >
+          {isCopied ? (
+            <CheckIcon className="h-5 w-5 text-icon-soft" />
+          ) : (
+            <Copy className="h-5 w-5 text-icon-soft" />
+          )}
+        </button>
       </div>
     </div>
   )
