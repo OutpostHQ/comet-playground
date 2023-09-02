@@ -335,13 +335,18 @@ pre > code.diff-highlight .token.token.inserted:not(.prefix) {
   font-weight: 500;
 }
 
-.comet-search ul,
-.comet-search ol {
+.comet-search ol,
+.comet-search ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.comet-search ul {
   list-style: inside;
 }
-
 .comet-search ol {
   list-style-type: decimal;
+  margin-left: 1rem;
 }
 /* 
 .comet-search {
