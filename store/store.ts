@@ -3,17 +3,6 @@ import { create } from "zustand"
 import { persist } from "zustand/middleware"
 
 type State = {
-  design: {
-    theme: "light" | "dark"
-    containerWidth: number
-    AIPlaceholder: string
-    textSize: "small" | "medium" | "large"
-    borderRadius: number
-    dontKnowMessage: string
-    referenceMessage: string
-    includeBranding: boolean
-  }
-
   config: {
     max_tokens: number
     top_p: number
@@ -30,7 +19,6 @@ type State = {
 
   mergeConfig: (new_configs: Partial<State["config"]>) => void
   updateAPI: (key: keyof State["api"], value: string) => void
-  updateDesign: (key: keyof State["design"], value: string | number) => void
   updateConfig: (
     key: keyof State["config"],
     value: string | number | boolean
@@ -45,17 +33,6 @@ type State = {
 export const useStore = create<State>()(
   persist(
     (set) => ({
-      design: {
-        theme: "light",
-        containerWidth: 615,
-        textSize: "medium",
-        borderRadius: 8,
-        dontKnowMessage: "I don't know",
-        referenceMessage: "Answer generated from the following pages",
-        AIPlaceholder: "Search...",
-        includeBranding: false,
-      },
-
       config: {
         max_tokens: 1024,
         top_p: 1,
@@ -69,15 +46,6 @@ export const useStore = create<State>()(
       },
       error: undefined,
       comet: undefined,
-
-      updateDesign: (key, value) =>
-        set((state) => ({
-          ...state,
-          design: {
-            ...state.design,
-            [key]: value,
-          },
-        })),
       loadAPIConfigFromLocal: async (accessToken: string) => {
         if (typeof window === undefined)
           throw new Error("Cannot load on the server")

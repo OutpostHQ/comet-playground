@@ -14,11 +14,13 @@ import { useToast } from "../ui/use-toast"
 
 export default function Sidebar() {
   const { toast } = useToast()
-  const [createComet] = useStore((state) => [state.createComet])
+  const [createComet, cometId] = useStore((state) => [
+    state.createComet,
+    state.api.cometId,
+  ])
   const session = useSession()
-
   return (
-    <div className="relative flex w-[var(--sidebar-width)] flex-col space-y-4 overflow-hidden overflow-y-auto border border-y-0 bg-default p-5 pb-10 shadow-0.25 scrollbar scrollbar-none">
+    <aside className="relative flex w-[var(--sidebar-width)] flex-col space-y-4 overflow-hidden overflow-y-auto border border-y-0 bg-default p-5 pb-10 shadow-0.25 scrollbar scrollbar-none">
       <div>
         <Text variant="displaySmall">Configure Model</Text>
       </div>
@@ -35,11 +37,13 @@ export default function Sidebar() {
 
       <div className="absolute bottom-0 right-0 w-full border-t bg-default p-4">
         <Button
+          disabled={Boolean(!cometId.trim())}
           onClick={() => {
             try {
               session.status === "authenticated" &&
                 createComet(session.data.user.accessToken)
             } catch (e: any) {
+              console.log(e)
               toast({ title: e.message })
             }
           }}
@@ -48,7 +52,7 @@ export default function Sidebar() {
           Save
         </Button>
       </div>
-    </div>
+    </aside>
   )
 }
 
