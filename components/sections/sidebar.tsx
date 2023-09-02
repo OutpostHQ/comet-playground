@@ -14,11 +14,13 @@ import { useToast } from "../ui/use-toast"
 
 export default function Sidebar() {
   const { toast } = useToast()
-  const [createComet, cometId] = useStore((state) => [
+  const [createComet, cometId, comet] = useStore((state) => [
     state.createComet,
     state.api.cometId,
+    state.comet,
   ])
   const session = useSession()
+
   return (
     <aside className="relative flex w-[var(--sidebar-width)] flex-col space-y-4 overflow-hidden overflow-y-auto border border-y-0 bg-default p-5 pb-10  scrollbar scrollbar-none">
       <div>
