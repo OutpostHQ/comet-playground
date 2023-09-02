@@ -55,6 +55,7 @@ export default function CometSearch() {
         session={session}
         streamMessage={streamMessage}
         error={error}
+        resetSession={resetSession}
       />
       <CometInput
         question={question}

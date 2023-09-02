@@ -116,7 +116,12 @@ export function useCometSession(
             })
             setIsLoading(false)
           } catch (e: any) {
-            setError(e?.message || "Try again.")
+            if (e.message === "comet.prompt is not a function") {
+              setError("The Comet ID you have entered is not valid")
+              resetSession()
+            } else {
+              setError(e?.message || "Try again.")
+            }
             setIsLoading(false)
             toast({ title: e.message, variant: "destructive" })
             setIsDisabled(false)
@@ -142,6 +147,7 @@ export function useCometSession(
       userName,
       question,
       setQuestion,
+      resetSession,
     ]
   )
 

@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import { Aperture, UserCircle2Icon } from "lucide-react"
+import { Aperture, RefreshCcw, UserCircle2Icon } from "lucide-react"
 
 import { CometSession } from "."
 import { LoadingDots } from "../search/icons"
@@ -15,12 +15,18 @@ export const CometOutput = React.forwardRef<HTMLDivElement, any>(
       streamMessage: string | undefined
       isLoading: boolean
       error: string | undefined
+      resetSession: any
     },
     ref
   ) => {
     return (
       <div className="comet-search flex w-full flex-1 flex-col overflow-hidden bg-subdued">
-        <div className="border-b px-5 py-3 text-headingLg">Outpost.AI</div>
+        <div className="flex items-center justify-between border-b px-5 py-3 text-headingLg">
+          <Text className="text-headingLg">Outpost.AI</Text>
+          <button onClick={props?.resetSession} title="Refresh conversation">
+            <RefreshCcw className="h-4 w-4 text-soft" />
+          </button>
+        </div>
         <div
           ref={ref}
           className="h-full flex-1 divide-y overflow-y-scroll pb-20 scrollbar-none  "
