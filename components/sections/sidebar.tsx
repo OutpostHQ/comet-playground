@@ -20,7 +20,7 @@ export default function Sidebar() {
   ])
   const session = useSession()
   return (
-    <aside className="relative flex w-[var(--sidebar-width)] flex-col space-y-4 overflow-hidden overflow-y-auto border border-y-0 bg-default p-5 pb-10 shadow-0.25 scrollbar scrollbar-none">
+    <aside className="relative flex w-[var(--sidebar-width)] flex-col space-y-4 overflow-hidden overflow-y-auto border border-y-0 bg-default p-5 pb-10  scrollbar scrollbar-none">
       <div>
         <Text variant="displaySmall">Configure Model</Text>
       </div>
