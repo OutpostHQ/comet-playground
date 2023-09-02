@@ -117,6 +117,7 @@ export function useCometSession(
             setIsLoading(false)
           } catch (e: any) {
             setError(e?.message || "Try again.")
+            setIsLoading(false)
             toast({ title: e.message, variant: "destructive" })
             setIsDisabled(false)
           }
