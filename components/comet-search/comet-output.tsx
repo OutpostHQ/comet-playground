@@ -140,7 +140,7 @@ export function CometReply(props: { text: string }) {
             setIsCopied(true)
             navigator.clipboard.writeText(props?.text)
           }}
-          className="absolute -right-5 top-3 opacity-0 group-hover:opacity-100"
+          className="absolute -right-10 top-5 opacity-0 group-hover:opacity-100"
         >
           {isCopied ? (
             <CheckIcon className="h-5 w-5 text-icon-soft" />
