@@ -28,8 +28,12 @@ export const CometOutput = React.forwardRef<HTMLDivElement, any>(
     return (
       <div className="comet-search flex w-full flex-1 flex-col overflow-hidden bg-subdued">
         <div className="flex items-center justify-between border-b px-5 py-3 text-headingLg">
-          <Text className="text-headingLg">Outpost.AI</Text>
-          <button onClick={props?.resetSession} title="Refresh conversation">
+          {/* <Text className="text-headingLg">Outpost.AI</Text> */}
+          <button
+            className="ml-auto block"
+            onClick={props?.resetSession}
+            title="Refresh conversation"
+          >
             <RefreshCcw className="h-4 w-4 text-soft" />
           </button>
         </div>

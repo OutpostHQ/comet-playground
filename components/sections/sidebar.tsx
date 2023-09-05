@@ -41,6 +41,7 @@ export default function Sidebar() {
         <Button
           disabled={Boolean(!cometId.trim())}
           onClick={() => {
+            toast({ title: "Config updated!" })
             try {
               session.status === "authenticated" &&
                 createComet(session.data.user.accessToken)
@@ -67,6 +68,8 @@ function CometId() {
   return (
     <Field htmlFor="cometId" label="Comet ID">
       <Input
+        className="focus:outline-1 focus:outline-focus focus:ring-0 active:ring-0"
+        defaultValue={""}
         value={cometId}
         onChange={(e) => {
           update("cometId", e.target.value)

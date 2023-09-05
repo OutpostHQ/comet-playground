@@ -39,7 +39,7 @@ export const useStore = create<State>()(
         temperature: 1,
         presence_penalty: 0,
         frequency_penalty: 0,
-        stream: false,
+        stream: true,
       },
       api: {
         cometId: "",

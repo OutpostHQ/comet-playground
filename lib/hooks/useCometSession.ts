@@ -29,8 +29,8 @@ export function useCometSession(
 
   const resetSession = useCallback(() => {
     setSession({} as Session)
-    toast({ title: "session has been reset" })
-  }, [toast])
+    // toast({ title: "session has been reset" })
+  }, [])
 
   const promptUser = useCallback(
     async function (e: any) {
@@ -121,9 +121,9 @@ export function useCometSession(
               resetSession()
             } else {
               setError(e?.message || "Try again.")
+              toast({ title: e.message, variant: "destructive" })
             }
             setIsLoading(false)
-            toast({ title: e.message, variant: "destructive" })
             setIsDisabled(false)
           }
         } else {
