@@ -1,4 +1,9 @@
-# Outpost Comet Playground
+# Outpost Inference Playground
+
+Playgroungd for Outpost Inference Endpoints and Comet.
+
+> **Inference Endpoints** is a fully managed infrastructure from Outpost for models hosting.
+> **Comet** is an AI Agent.
 
 ## License
 

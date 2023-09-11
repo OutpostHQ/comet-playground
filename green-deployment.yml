@@ -24,8 +24,8 @@ spec:
           - containerPort: 3000
             protocol: TCP
           imagePullPolicy: Always
-          command: ["npm"]
-          args: ["start"]
+          command: ["node"]
+          args: ["server.js"]
           envFrom:
           - configMapRef:
               name: comet-env
