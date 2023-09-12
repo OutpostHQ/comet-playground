@@ -34,6 +34,12 @@ RUN yarn build
 
 # Production image, copy all the files and run next
 FROM base AS runner
+RUN apk add --no-cache bash curl && curl -1sLf \
+'https://dl.cloudsmith.io/public/infisical/infisical-cli/setup.alpine.sh' | bash \
+&& apk add infisical
+
+ENV INFISICAL_API_URL="https://env.outpost.run/api"
+ENV INFISICAL_TOKEN=""
 WORKDIR /app
 
 ENV NODE_ENV production
@@ -60,4 +66,4 @@ ENV PORT 3000
 # set hostname to localhost
 ENV HOSTNAME "0.0.0.0"
 
-CMD ["node", "server.js"]
+CMD ["infisical", "run", "--env=prod", "--", "node", "server.js"]

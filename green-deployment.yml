@@ -24,8 +24,11 @@ spec:
           - containerPort: 3000
             protocol: TCP
           imagePullPolicy: Always
-          command: ["node"]
-          args: ["server.js"]
-          envFrom:
-          - configMapRef:
-              name: comet-env
+          command: ["infisical", "run", "--env=prod", "--"]
+          args: ["node", "server.js"]
+          env:
+            - name: INFISICAL_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: infisical-token-playground 
+                  key: INFISICAL_TOKEN
