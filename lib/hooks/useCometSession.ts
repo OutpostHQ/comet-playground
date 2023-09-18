@@ -66,13 +66,10 @@ export function useCometSession(
           })
 
           try {
-            const data = (await comet.prompt(
+            const data = await comet.prompt(
               {
-                configs,
-                stream,
+                stream: true,
                 input: question,
-                visitorId: userName || "anonymous",
-                channel: "playground",
                 ...(session?.sessionId
                   ? { sessionId: session?.sessionId }
                   : {}),
@@ -89,15 +86,7 @@ export function useCometSession(
                     }
                   }
                 : undefined
-            )) as {
-              text: string
-              conversationId: string
-              sessionId: string
-              usage: {
-                completion_tokens: number
-                prompt_tokens: number
-              }
-            }
+            )
 
             setSession((prev) => {
               setStreamMessage("")
@@ -108,7 +97,7 @@ export function useCometSession(
                   ...(prev?.messages || []),
                   {
                     from: "agent",
-                    text: data?.text,
+                    text: data?.generations[0],
                     conversationId: data?.conversationId,
                   },
                 ],
@@ -137,16 +126,7 @@ export function useCometSession(
         setIsDisabled(false)
       }
     },
-    [
-      comet,
-      configs,
-      toast,
-      session,
-      isDisabled,
-      userName,
-      question,
-      setQuestion,
-    ]
+    [comet, configs, toast, session, isDisabled, question, setQuestion]
   )
 
   return {

@@ -4,8 +4,6 @@ import React, { useCallback, useEffect, useState } from "react"
 import { useStore } from "@/store/store"
 import {
   Aperture,
-  CheckIcon,
-  Copy,
   HelpCircle,
   RefreshCcw,
   ThumbsDown,
