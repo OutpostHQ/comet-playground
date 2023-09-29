@@ -33,13 +33,7 @@ export default function CometSearch() {
     streamMessage,
     resetSession,
     error,
-  } = useCometSession(
-    comet as Comet,
-    configs,
-    user?.user?.name || "",
-    question,
-    setQuestion
-  )
+  } = useCometSession(comet as Comet, configs, question, setQuestion)
 
   useEffect(() => {
     if (ref.current) {

@@ -23,13 +23,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html className="light" suppressHydrationWarning lang="en">
+    <html className="dark" suppressHydrationWarning lang="en">
       <body suppressHydrationWarning className={inter.className}>
         <AuthProvider>
-          <Mounted>
-            {children}
-            <Toaster />
-          </Mounted>
+          {/* <Mounted> */}
+          {children}
+          <Toaster />
+          {/* </Mounted> */}
         </AuthProvider>
       </body>
     </html>

@@ -15,7 +15,6 @@ type Session = {
 export function useCometSession(
   comet: Comet,
   configs: any,
-  userName: string | undefined,
   question: string,
   setQuestion: (question: string) => void
 ) {
