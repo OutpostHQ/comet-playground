@@ -96,8 +96,8 @@ dependencies:
     specifier: 4.22.5
     version: 4.22.5(next@13.4.19)(react-dom@18.2.0)(react@18.2.0)
   outpostkit:
-    specifier: ^0.0.18
-    version: 0.0.18
+    specifier: ^0.0.20
+    version: 0.0.20
   postcss:
     specifier: 8.4.27
     version: 8.4.27
@@ -3764,8 +3764,8 @@ packages:
       prelude-ls: 1.2.1
       type-check: 0.4.0
 
-  /outpostkit@0.0.18:
-    resolution: {integrity: sha512-pLRkx5f15LAxes7X1ycdneCajqgkusl5U2z4OQ6vgxVEx3nemmm4k/bqKhFx+IR0cD/AMBXpooud2b2TTj5aoQ==}
+  /outpostkit@0.0.20:
+    resolution: {integrity: sha512-WoKqQFZPCZboNS0VqzbsGM1ELj21vAI+7frAwR278AgMs793VmfnP9EFSrAYjja7uo9RwF04p+9Fr+osS6hfBg==}
     dependencies:
       '@microsoft/fetch-event-source': 2.0.1
       axios: 1.4.0
