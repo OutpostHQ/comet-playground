@@ -6,10 +6,7 @@ import React, {
   useRef,
   useState,
 } from "react"
-import { useStore } from "@/store/store"
-import { Checkbox } from "@components/checkbox"
 import { Input } from "@components/input"
-import { Text } from "@components/text"
 import { Comet } from "outpostkit"
 
 import { useCometSession } from "@/lib/hooks/useCometSession"
@@ -30,14 +27,14 @@ export function Search(props: {
   const { id, deleteTab } = props
   const ref = useRef<null | HTMLDivElement>(null)
 
-  const [comet] = useStore((store) => [store.comet])
+  const [globalComet, setGlobalComet] = useState<Comet>({} as Comet)
   const [localQuery, setLocalQuery] = useState(props.syncedQuery)
   const [synced, setSynced] = useState(false)
 
   const [configValues, setConfigValues] = useState({
-    max_tokens: 0,
-    temperature: 0,
-    top_p: 0,
+    max_tokens: 16,
+    temperature: 1,
+    top_p: 1,
     frequency_penalty: 0,
     presence_penalty: 0,
     stream: true,
@@ -45,7 +42,7 @@ export function Search(props: {
 
   const { isLoading, promptUser, session, streamMessage, resetSession, error } =
     useCometSession(
-      comet as Comet,
+      globalComet as Comet,
       configValues,
       localQuery,
       props.setSyncedQuery
@@ -87,6 +84,7 @@ export function Search(props: {
   return (
     <div className="flex flex-1 flex-col overflow-hidden">
       <SearchHeader
+        setGlobalComet={setGlobalComet}
         configValues={configValues}
         setConfigValues={setConfigValues}
         addTab={props.addTab}
@@ -112,6 +110,8 @@ export function Search(props: {
               })
             } else {
               promptUser(e)
+              props.setSyncedQuery("")
+              setLocalQuery("")
             }
           }}
           className="flex gap-4 pr-2"

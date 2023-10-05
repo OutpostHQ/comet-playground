@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { use, useState } from "react"
 import { useStore } from "@/store/store"
 import { Field } from "@components/field"
 import { Input } from "@components/input"
@@ -9,6 +9,7 @@ import { Slider } from "@components/slider"
 import { Text } from "@components/text"
 import { MinusCircle, PlusCircle, Settings } from "lucide-react"
 import { useSession } from "next-auth/react"
+import { Comet } from "outpostkit"
 
 import { useToast } from "@/components/ui/use-toast"
 
@@ -24,23 +25,26 @@ export function SearchHeader(props: {
     stream: any
   }
   setConfigValues: any
+  setGlobalComet: any
 }) {
   const { toast } = useToast()
-  const [createComet, cometId, comet] = useStore((state) => [
-    state.createComet,
-    state.api.cometId,
-    state.comet,
-  ])
+  const [value, setValue] = useState("")
   const session = useSession()
-
+  const { data } = useSession()
   return (
     <div className="flex items-center gap-2 border-b p-2">
       <Input
+        value={value}
+        onChange={(e) => {
+          setValue(e.target.value)
+        }}
         onBlur={() => {
           toast({ title: "Config updated!" })
           try {
-            session.status === "authenticated" &&
-              createComet(session.data.user.accessToken)
+            if (session.status === "authenticated") {
+              const comet = new Comet(data?.user.accessToken as string, value)
+              props.setGlobalComet(comet)
+            }
           } catch (e: any) {
             console.log(e)
             toast({ title: e.message })
@@ -88,6 +92,7 @@ export function SearchHeader(props: {
             }
           >
             <Slider
+              min={1}
               value={[props.configValues.max_tokens]}
               onValueChange={(v) => {
                 // @ts-ignore
@@ -106,6 +111,9 @@ export function SearchHeader(props: {
             }
           >
             <Slider
+              step={0.01}
+              min={0.0}
+              max={0.1}
               value={[props.configValues.temperature]}
               onValueChange={(v) => {
                 // @ts-ignore
@@ -121,6 +129,9 @@ export function SearchHeader(props: {
             }
           >
             <Slider
+              min={0}
+              max={1.0}
+              step={0.01}
               value={[props.configValues.top_p]}
               onValueChange={(v) => {
                 // @ts-ignore
@@ -139,6 +150,9 @@ export function SearchHeader(props: {
             }
           >
             <Slider
+              min={-2.0}
+              max={2.0}
+              step={0.1}
               value={[props.configValues.frequency_penalty]}
               onValueChange={(v) => {
                 // @ts-ignore
@@ -160,6 +174,9 @@ export function SearchHeader(props: {
             }
           >
             <Slider
+              min={-2.0}
+              step={0.1}
+              max={2.0}
               value={[props.configValues.presence_penalty]}
               onValueChange={(v) => {
                 // @ts-ignore
