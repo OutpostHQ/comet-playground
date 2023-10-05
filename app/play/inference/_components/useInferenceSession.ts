@@ -98,7 +98,7 @@ export function useInferenceSession(
             setIsLoading(false)
           } catch (e: any) {
             if (e.message === "comet.prompt is not a function") {
-              setError("The Comet ID you have entered is not valid")
+              setError("The Inference ID you have entered is not valid")
             } else {
               setError(e?.message || "Try again.")
               toast({ title: e.message, variant: "destructive" })
@@ -108,7 +108,7 @@ export function useInferenceSession(
           }
         } else {
           toast({
-            title: "Comet not initialized",
+            title: "Inference not initialized",
             variant: "destructive",
           })
           setIsLoading(false)

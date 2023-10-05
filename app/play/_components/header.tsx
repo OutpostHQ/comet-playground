@@ -1,14 +1,9 @@
-"use client"
-
 import React, { useState } from "react"
-import Link from "next/link"
-import { Input } from "@components/input"
 import { Text } from "@components/text"
 
 import { OutpostLoginButton } from "@/components/sections/header/_components/auth"
 
 export default function Header() {
-  const [value, setValue] = useState<number>(1)
   return (
     <header className=" flex items-center justify-between border-b px-6 py-3">
       <div className="flex  items-center gap-2">
