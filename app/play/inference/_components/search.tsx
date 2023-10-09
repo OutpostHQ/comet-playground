@@ -6,11 +6,8 @@ import React, {
   useRef,
   useState,
 } from "react"
-import { useStore } from "@/store/store"
-import { Checkbox } from "@components/checkbox"
 import { Input } from "@components/input"
-import { Text } from "@components/text"
-import { Comet, Inference } from "outpostkit"
+import { Inference } from "outpostkit"
 
 import { GlobalState } from "../page"
 import { SearchHeader } from "./search-header"

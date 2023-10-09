@@ -31,11 +31,7 @@ export function SearchHeader(props: {
   setGlobalInference: Dispatch<SetStateAction<GlobalInference>>
 }) {
   const { toast } = useToast()
-  const [createComet, cometId, comet] = useStore((state) => [
-    state.createComet,
-    state.api.cometId,
-    state.comet,
-  ])
+
   const session = useSession()
   const [value, setValue] = useState("")
   return (
@@ -46,6 +42,7 @@ export function SearchHeader(props: {
         }}
         value={value}
         onBlur={async () => {
+          if (!value.trim()) return
           toast({ title: "Config updated!" })
           const infer = new Inference(
             session?.data?.user?.accessToken as string,
@@ -105,6 +102,7 @@ export function SearchHeader(props: {
             }
           >
             <Slider
+              min={1}
               value={[props.configValues.max_tokens]}
               onValueChange={(v) => {
                 // @ts-ignore
@@ -123,6 +121,9 @@ export function SearchHeader(props: {
             }
           >
             <Slider
+              step={0.01}
+              min={0.0}
+              max={0.1}
               value={[props.configValues.temperature]}
               onValueChange={(v) => {
                 // @ts-ignore
@@ -138,6 +139,9 @@ export function SearchHeader(props: {
             }
           >
             <Slider
+              min={0}
+              max={1.0}
+              step={0.01}
               value={[props.configValues.top_p]}
               onValueChange={(v) => {
                 // @ts-ignore
@@ -156,6 +160,9 @@ export function SearchHeader(props: {
             }
           >
             <Slider
+              min={-2.0}
+              max={2.0}
+              step={0.1}
               value={[props.configValues.frequency_penalty]}
               onValueChange={(v) => {
                 // @ts-ignore
@@ -177,6 +184,9 @@ export function SearchHeader(props: {
             }
           >
             <Slider
+              min={-2.0}
+              step={0.1}
+              max={2.0}
               value={[props.configValues.presence_penalty]}
               onValueChange={(v) => {
                 // @ts-ignore
