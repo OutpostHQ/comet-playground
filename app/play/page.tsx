@@ -45,6 +45,10 @@ export default function Page() {
   )
 
   const addTab = useCallback(() => {
+    if (globalState.tabs.length === 4) {
+      return
+    }
+
     setGlobalState((prev) => ({
       ...prev,
       tabs: [
@@ -56,7 +60,7 @@ export default function Page() {
         },
       ],
     }))
-  }, [])
+  }, [globalState.tabs.length])
 
   return (
     <div className="flex h-screen w-screen flex-col  overflow-hidden">
