@@ -106,6 +106,8 @@ export function Search(props: {
               })
             } else {
               promptUser(e)
+              setLocalQuery("")
+              props.setSyncedQuery("")
             }
           }}
           className="flex gap-4 pr-2"

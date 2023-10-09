@@ -107,6 +107,7 @@ export function SearchHeader(props: {
           >
             <Slider
               min={1}
+              max={1024}
               value={[props.configValues.max_tokens]}
               onValueChange={(v) => {
                 // @ts-ignore
@@ -127,7 +128,7 @@ export function SearchHeader(props: {
             <Slider
               step={0.01}
               min={0.0}
-              max={0.1}
+              max={2}
               value={[props.configValues.temperature]}
               onValueChange={(v) => {
                 // @ts-ignore
