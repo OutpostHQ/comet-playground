@@ -6,7 +6,7 @@ html.light {
   --op-surface-subdued: #f9fafb;
   --op-surface-hovered: #f3f4f6;
   --op-surface-pressed: #e4e4e7;
-  --op-surface-active: #e5e7eb;
+  --op-surface-active: #f4f4f5;
   --op-surface-input: #ffffff;
   --op-surface-disabled: #f9fafb;
 
@@ -97,11 +97,11 @@ html.dark {
   --sidebar-width: 302px;
 
   --op-surface: #18181b;
-  --op-surface-subdued: #27272a;
+  --op-surface-subdued: #0f0f11;
 
   --op-surface-hovered: #3f3f46;
   --op-surface-pressed: #070708;
-  --op-surface-active: #1f2937;
+  --op-surface-active: #27272a;
   --op-surface-input: #020408;
   --op-surface-disabled: #18181b;
 

@@ -1,24 +1,20 @@
 "use client"
 
-import { useState } from "react"
 import { Moon, Sun } from "lucide-react"
+import { useTheme } from "next-themes"
 
 function SwitchTheme() {
-  const [theme, setTheme] = useState("light")
+  const { theme, setTheme } = useTheme()
   return (
     <button
       onClick={() => {
         if (theme === "light") {
           setTheme("dark")
-          document.documentElement.classList.add("dark")
-          document.documentElement.classList.remove("light")
         } else {
           setTheme("light")
-          document.documentElement.classList.remove("dark")
-          document.documentElement.classList.add("light")
         }
       }}
-      className="fixed bottom-6 right-6 grid h-8 w-8 place-items-center rounded-full border bg-default shadow-0.25 "
+      className=" grid h-8 w-8 place-items-center rounded-full border bg-default shadow-0.25 "
     >
       {theme === "dark" ? <Sun size="14" /> : <Moon size="14" />}
     </button>
