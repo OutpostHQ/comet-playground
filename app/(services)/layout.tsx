@@ -3,7 +3,6 @@
 import React from "react"
 import { useSession } from "next-auth/react"
 
-import SwitchTheme from "@/components/ui/switch-theme"
 import Text from "@/components/ui/text"
 import Header from "@/components/sections/header"
 import { OutpostLoginButton } from "@/components/sections/header/_components/auth"

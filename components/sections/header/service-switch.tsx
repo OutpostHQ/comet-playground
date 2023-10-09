@@ -13,20 +13,20 @@ export default function ServiceSwitch() {
       <Link
         className={cn(
           ` block rounded-lg px-4 py-2 text-soft ${
-            path === "/play" ? " bg-default text-default" : ""
+            path === "/comet" ? " bg-default text-default" : ""
           }`
         )}
-        href="/play"
+        href="/comet"
       >
         Comet
       </Link>
       <Link
         className={cn(
           ` block rounded-lg px-4 py-2 text-soft ${
-            path === "/play/inference" ? "bg-default text-default" : ""
+            path === "/inference" ? "bg-default text-default" : ""
           }`
         )}
-        href="/play/inference"
+        href="/inference"
       >
         Inference Endpoints
       </Link>
