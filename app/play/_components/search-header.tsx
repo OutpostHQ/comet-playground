@@ -29,8 +29,7 @@ export function SearchHeader(props: {
 }) {
   const { toast } = useToast()
   const [value, setValue] = useState("")
-  const session = useSession()
-  const { data } = useSession()
+  const { data, status } = useSession()
   return (
     <div className="flex items-center gap-2 border-b p-2">
       <Input
@@ -38,11 +37,26 @@ export function SearchHeader(props: {
         onChange={(e) => {
           setValue(e.target.value)
         }}
-        onBlur={() => {
+        onBlur={async () => {
+          if (!value.trim()) return
           toast({ title: "Config updated!" })
           try {
-            if (session.status === "authenticated") {
+            if (status === "authenticated") {
               const comet = new Comet(data?.user.accessToken as string, value)
+              comet
+                .getCometInfo()
+                .then((data) => {
+                  const configs = data.thirdPartyModelDetails.configs
+                  props.setConfigValues({
+                    max_tokens: configs.max_tokens,
+                    temperature: configs.temperature,
+                    top_p: configs.top_p,
+                    frequency_penalty: configs.frequency_penalty,
+                    presence_penalty: configs.presence_penalty,
+                    stream: true,
+                  })
+                })
+                .catch((e) => console.log(e))
               props.setGlobalComet(comet)
             }
           } catch (e: any) {

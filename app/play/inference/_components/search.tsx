@@ -34,14 +34,13 @@ export function Search(props: {
   const { id, deleteTab } = props
   const ref = useRef<null | HTMLDivElement>(null)
 
-  const [comet] = useStore((store) => [store.comet])
   const [localQuery, setLocalQuery] = useState(props.syncedQuery)
   const [synced, setSynced] = useState(false)
 
   const [configValues, setConfigValues] = useState({
-    max_tokens: 0,
-    temperature: 0,
-    top_p: 0,
+    max_tokens: 16,
+    temperature: 1,
+    top_p: 1,
     frequency_penalty: 0,
     presence_penalty: 0,
     stream: true,
