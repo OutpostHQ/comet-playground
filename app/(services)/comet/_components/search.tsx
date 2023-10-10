@@ -117,6 +117,7 @@ export function Search(props: {
           className="flex gap-4 pr-2"
         >
           <Input
+            disabled={isLoading || streamMessage.trim() !== ""}
             className="h-20 p-2 pb-10 scrollbar-none md:pr-28 lg:pr-32"
             value={localQuery}
             onChange={(e) => {
