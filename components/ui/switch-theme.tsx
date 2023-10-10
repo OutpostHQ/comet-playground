@@ -8,11 +8,7 @@ function SwitchTheme() {
   return (
     <button
       onClick={() => {
-        if (theme === "light") {
-          setTheme("dark")
-        } else {
-          setTheme("light")
-        }
+        theme === "dark" ? setTheme("light") : setTheme("dark")
       }}
       className=" grid h-8 w-8 place-items-center rounded-full border bg-default shadow-0.25 "
     >
