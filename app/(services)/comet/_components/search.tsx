@@ -82,7 +82,7 @@ export function Search(props: {
   }, [])
 
   return (
-    <div className="flex flex-1 flex-col overflow-hidden">
+    <div className="flex min-w-[600px] flex-1 flex-col overflow-hidden">
       <SearchHeader
         setGlobalComet={setGlobalComet}
         configValues={configValues}

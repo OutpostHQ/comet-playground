@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction, useCallback, useState } from "react"
-import { Comet, Inference } from "outpostkit"
 
 import { useToast } from "@/components/ui/use-toast"
 
@@ -34,8 +33,6 @@ export function useInferenceSession(
     setSession({} as Session)
     // toast({ title: "session has been reset" })
   }, [])
-
-  console.log(globalInference)
 
   const promptUser = useCallback(
     async function (e: any) {

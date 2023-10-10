@@ -47,7 +47,7 @@ export default function Page() {
   )
 
   const addTab = useCallback(() => {
-    if (globalState.tabs.length === 4) {
+    if (globalState.tabs.length === 10) {
       return
     }
     setGlobalState((prev) => ({
@@ -66,7 +66,7 @@ export default function Page() {
   return (
     <div className="flex h-screen w-screen flex-col  overflow-hidden">
       <Header />
-      <main className="flex w-full flex-1 divide-x overflow-hidden">
+      <main className="flex w-full flex-1 divide-x overflow-x-auto">
         {globalState.tabs.map((i) => (
           <Search
             syncedQuery={syncedQuery}
