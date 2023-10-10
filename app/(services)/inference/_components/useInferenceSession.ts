@@ -28,9 +28,12 @@ export function useInferenceSession(
   const [streamMessage, setStreamMessage] = useState("")
 
   const [error, setError] = useState<any>()
-
   const resetSession = useCallback(() => {
     setSession({} as Session)
+    setIsLoading(false)
+    setError("")
+    setIsDisabled(false)
+    setStreamMessage("")
     // toast({ title: "session has been reset" })
   }, [])
 
