@@ -25,6 +25,7 @@ export const promptInference = async (
       "text",
       (chunk) => {
         const parsed = JSON.parse(chunk) as { choices: { text: string }[] }
+        console.log(parsed)
         const text = parsed.choices[0].text
         response += text
         handleNewChunk(text)

@@ -1,16 +1,22 @@
 import { Dispatch, SetStateAction, useCallback, useRef, useState } from "react"
+import dayjs from "dayjs"
+import relativeTime from "dayjs/plugin/relativeTime"
 
 import { useToast } from "@/components/ui/use-toast"
 
 import { promptInference } from "./promptInference"
 import { GlobalInference } from "./search"
 
-type Session = {
+dayjs.extend(relativeTime)
+
+export type InferenceSession = {
   sessionId: string
   messages: {
     from: "agent" | "human"
     text: string
     conversationId?: string | null
+    latency?: string
+    tokens?: number
   }[]
 }
 
@@ -21,7 +27,7 @@ export function useInferenceSession(
   globalInference: GlobalInference,
   setGlobalInference: Dispatch<SetStateAction<GlobalInference>>
 ) {
-  const [session, setSession] = useState({} as Session)
+  const [session, setSession] = useState({} as InferenceSession)
   const [isLoading, setIsLoading] = useState(false)
   const [isDisabled, setIsDisabled] = useState(false)
   const { toast } = useToast()
@@ -29,7 +35,7 @@ export function useInferenceSession(
 
   const [error, setError] = useState<any>()
   const resetSession = useCallback(() => {
-    setSession({} as Session)
+    setSession({} as InferenceSession)
     setIsLoading(false)
     setError("")
     setIsDisabled(false)
@@ -55,7 +61,7 @@ export function useInferenceSession(
         setQuestion("")
         setError(undefined)
         setIsDisabled(true)
-
+        const messageSentTime = dayjs(Date.now())
         if (globalInference.infer.inferenceId != undefined) {
           setSession((prev) => {
             return {
@@ -88,7 +94,7 @@ export function useInferenceSession(
               signal
             )
 
-            setSession((prev) => {
+            setSession((prev: any) => {
               setStreamMessage("")
               return {
                 ...prev,
@@ -97,10 +103,13 @@ export function useInferenceSession(
                   {
                     from: "agent",
                     text: data,
+                    tokens: data.length,
+                    latency: dayjs(Date.now()).diff(messageSentTime, "seconds"),
                   },
                 ],
               }
             })
+
             setIsLoading(false)
           } catch (e: any) {
             if (e.message === "comet.prompt is not a function") {

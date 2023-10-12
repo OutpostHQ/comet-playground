@@ -3,23 +3,19 @@
 import React, { useCallback, useEffect, useState } from "react"
 import { useStore } from "@/store/store"
 import { Text } from "@components/text"
-import {
-  Aperture,
-  RefreshCcw,
-  ThumbsDown,
-  ThumbsUp,
-  UserCircle2Icon,
-} from "lucide-react"
+import { Aperture, RefreshCcw, UserCircle2Icon } from "lucide-react"
 
 import { useToast } from "@/components/ui/use-toast"
 import { CometSession } from "@/components/comet-search"
 import { LoadingDots } from "@/components/comet-search/icons"
 import { MarkdownParser } from "@/components/markdown/markdown-parser"
 
+import { InferenceSession } from "./useInferenceSession"
+
 export const SearchOutput = React.forwardRef<HTMLDivElement, any>(
   (
     props: {
-      session: CometSession
+      session: InferenceSession
       streamMessage: string | undefined
       isLoading: boolean
       error: string | undefined
@@ -53,11 +49,16 @@ export const SearchOutput = React.forwardRef<HTMLDivElement, any>(
                   text={i.text}
                 />
               ) : (
-                <SearchReply
-                  key={`${i.conversationId}/${i.from}`}
-                  text={i.text}
-                  conversationId={i.conversationId}
-                />
+                <div>
+                  <SearchReply
+                    key={`${i.conversationId}/${i.from}`}
+                    text={i.text}
+                    conversationId={i.conversationId}
+                  />
+                  {/* <div className="flex items-center gap-5 bg-subdued px-14 pb-4 text-soft">
+                    {i?.latency} {i?.tokens}
+                  </div> */}
+                </div>
               )
             )}
           {props?.streamMessage && (
