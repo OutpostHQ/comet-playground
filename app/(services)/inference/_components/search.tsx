@@ -6,6 +6,7 @@ import React, {
   useRef,
   useState,
 } from "react"
+import { Button } from "@components/button"
 import { Input } from "@components/input"
 import { Inference } from "outpostkit"
 
@@ -47,14 +48,21 @@ export function Search(props: {
     {} as GlobalInference
   )
 
-  const { isLoading, promptUser, session, streamMessage, resetSession, error } =
-    useInferenceSession(
-      configValues,
-      localQuery,
-      props.setSyncedQuery,
-      globalInference,
-      setGlobalInference
-    )
+  const {
+    isLoading,
+    promptUser,
+    stopGenerating,
+    session,
+    streamMessage,
+    resetSession,
+    error,
+  } = useInferenceSession(
+    configValues,
+    localQuery,
+    props.setSyncedQuery,
+    globalInference,
+    setGlobalInference
+  )
 
   const deleteSelf = useCallback(() => {
     deleteTab(id)
@@ -96,7 +104,17 @@ export function Search(props: {
         globalState={props.globalState}
         id={id}
       />
-      <div className="border-t p-2 py-8">
+      <div className="relative border-t p-2 py-4">
+        {isLoading || streamMessage.trim() ? (
+          <Button
+            onClick={stopGenerating}
+            variant="outline"
+            // eslint-disable-next-line tailwindcss/enforces-negative-arbitrary-values
+            className="absolute -top-[52px] right-4 ml-auto w-full max-w-max bg-default hover:bg-active"
+          >
+            Stop generating
+          </Button>
+        ) : null}
         <form
           onSubmit={(e) => {
             e.preventDefault()

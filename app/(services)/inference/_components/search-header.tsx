@@ -49,6 +49,7 @@ export function SearchHeader(props: {
             value as string
           )
           const details = await infer.getInferenceInfo()
+          console.log(details)
           props.setGlobalInference({
             infer: infer,
             details: {

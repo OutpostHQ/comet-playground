@@ -1,7 +1,6 @@
 "use client"
 
 import React, { useCallback, useState } from "react"
-import { Inference } from "outpostkit"
 import { v4 as uuidv4 } from "uuid"
 
 import Header from "./_components/header"

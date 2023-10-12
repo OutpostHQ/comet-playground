@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useCallback, useState } from "react"
+import { Dispatch, SetStateAction, useCallback, useRef, useState } from "react"
 
 import { useToast } from "@/components/ui/use-toast"
 
@@ -37,6 +37,8 @@ export function useInferenceSession(
     // toast({ title: "session has been reset" })
   }, [])
 
+  let controller = useRef<null | AbortController>(null)
+
   const promptUser = useCallback(
     async function (e: any) {
       e.preventDefault()
@@ -55,7 +57,6 @@ export function useInferenceSession(
         setIsDisabled(true)
 
         if (globalInference.infer.inferenceId != undefined) {
-          const stream = configs.stream
           setSession((prev) => {
             return {
               sessionId: prev?.sessionId || "",
@@ -71,6 +72,10 @@ export function useInferenceSession(
           })
 
           try {
+            controller.current = new AbortController()
+            const signal = controller.current.signal
+            console.log(controller, signal)
+
             const data = await promptInference(
               {
                 prompt: question,
@@ -79,7 +84,8 @@ export function useInferenceSession(
               (text: string) => {
                 setIsLoading(false)
                 setStreamMessage((prev) => prev + text)
-              }
+              },
+              signal
             )
 
             setSession((prev) => {
@@ -118,8 +124,36 @@ export function useInferenceSession(
         setIsDisabled(false)
       }
     },
-    [configs, toast, isDisabled, question, setQuestion, globalInference]
+    [toast, isDisabled, question, setQuestion, globalInference]
   )
+
+  const stopGenerating = useCallback(() => {
+    console.log(controller)
+    if (controller.current) {
+      controller.current.abort()
+      setIsLoading(false)
+      setError("")
+      setIsDisabled(false)
+      // if (streamMessage.trim() !== "") {
+      //   setSession((prev) => {
+      //     let stream = streamMessage
+      //     return {
+      //       ...prev,
+      //       sessionId: session?.sessionId || "",
+      //       messages: [
+      //         ...(prev?.messages || []),
+      //         {
+      //           from: "agent",
+      //           text: stream,
+      //           conversationId: "",
+      //         },
+      //       ],
+      //     }
+      //   })
+      // }
+      setStreamMessage("")
+    }
+  }, [controller])
 
   return {
     isLoading,
@@ -129,5 +163,6 @@ export function useInferenceSession(
     isDisabled,
     streamMessage,
     resetSession,
+    stopGenerating,
   }
 }

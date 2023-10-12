@@ -14,7 +14,8 @@ export const promptInference = async (
     domain: string
     entrypointType: "openai" | "generic"
   },
-  handleNewChunk: (chunk: string) => void | Promise<void>
+  handleNewChunk: (chunk: string) => void | Promise<void>,
+  signal: AbortSignal | undefined
 ) => {
   let response: string = ""
   if (entrypointType === "openai") {
@@ -27,7 +28,8 @@ export const promptInference = async (
         const text = parsed.choices[0].text
         response += text
         handleNewChunk(text)
-      }
+      },
+      signal
     ).then((res) => {
       console.log(res)
     })
@@ -42,7 +44,8 @@ export const promptInference = async (
         const text = parsed.text[0]
         response += text
         handleNewChunk(text)
-      }
+      },
+      signal
     ).then((res) => {
       console.log(res)
     })
