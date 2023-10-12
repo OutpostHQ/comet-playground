@@ -6,6 +6,7 @@ import React, {
   useRef,
   useState,
 } from "react"
+import { Button } from "@components/button"
 import { Input } from "@components/input"
 import { Comet } from "outpostkit"
 
@@ -40,13 +41,20 @@ export function Search(props: {
     stream: true,
   })
 
-  const { isLoading, promptUser, session, streamMessage, resetSession, error } =
-    useCometSession(
-      globalComet as Comet,
-      configValues,
-      localQuery,
-      props.setSyncedQuery
-    )
+  const {
+    isLoading,
+    promptUser,
+    session,
+    streamMessage,
+    resetSession,
+    error,
+    stopGenerating,
+  } = useCometSession(
+    globalComet as Comet,
+    configValues,
+    localQuery,
+    props.setSyncedQuery
+  )
 
   const deleteSelf = useCallback(() => {
     deleteTab(id)
@@ -82,7 +90,7 @@ export function Search(props: {
   }, [])
 
   return (
-    <div className="flex min-w-[600px] flex-1 flex-col overflow-hidden">
+    <div className=" flex min-w-[600px] flex-1 flex-col overflow-hidden">
       <SearchHeader
         setGlobalComet={setGlobalComet}
         configValues={configValues}
@@ -100,7 +108,17 @@ export function Search(props: {
         globalState={props.globalState}
         id={id}
       />
-      <div className="border-t p-2 py-8">
+      <div className="relative border-t p-2 py-4">
+        {isLoading || streamMessage.trim() ? (
+          <Button
+            onClick={stopGenerating}
+            variant="outline"
+            // eslint-disable-next-line tailwindcss/enforces-negative-arbitrary-values
+            className="absolute -top-[52px] right-4 ml-auto w-full max-w-max bg-default hover:bg-active"
+          >
+            Stop generating
+          </Button>
+        ) : null}
         <form
           onSubmit={(e) => {
             e.preventDefault()

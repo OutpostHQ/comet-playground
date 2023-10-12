@@ -36,7 +36,7 @@ export const SearchOutput = React.forwardRef<HTMLDivElement, any>(
         )}
         <div
           ref={ref}
-          className="h-full flex-1 divide-y overflow-y-scroll pb-8 scrollbar-none  "
+          className="h-full flex-1 divide-y overflow-y-scroll pb-20 scrollbar-none  "
         >
           {props?.session?.messages &&
             props?.session?.messages.length > 0 &&

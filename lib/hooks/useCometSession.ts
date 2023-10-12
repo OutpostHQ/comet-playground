@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react"
+import { useCallback, useRef, useState } from "react"
 import { Comet } from "outpostkit"
 
 import { useToast } from "@/components/ui/use-toast"
@@ -32,8 +32,9 @@ export function useCometSession(
     setError("")
     setIsDisabled(false)
     setStreamMessage("")
-    // toast({ title: "session has been reset" })
   }, [])
+
+  let controller = useRef<null | AbortController>(null)
 
   const promptUser = useCallback(
     async function (e: any) {
@@ -69,6 +70,9 @@ export function useCometSession(
           })
 
           try {
+            controller.current = new AbortController()
+            const signal = controller.current.signal
+            console.log(controller, signal)
             const data = await comet.prompt(
               {
                 stream: true,
@@ -88,7 +92,8 @@ export function useCometSession(
                       })
                     }
                   }
-                : undefined
+                : undefined,
+              { signal }
             )
 
             setSession((prev) => {
@@ -108,11 +113,14 @@ export function useCometSession(
             })
             setIsLoading(false)
           } catch (e: any) {
-            if (e.message === "comet.prompt is not a function") {
-              setError("The Comet ID you have entered is not valid")
-            } else {
-              setError(e?.message || "Try again.")
-              toast({ title: e.message, variant: "destructive" })
+            if (controller.current?.signal.aborted === false) {
+              if (e.message === "comet.prompt is not a function") {
+                toast({ title: "The Comet ID you have entered is not valid" })
+                resetSession()
+              } else {
+                setError(e?.message || "Try again.")
+                toast({ title: e.message, variant: "destructive" })
+              }
             }
             setIsLoading(false)
             setIsDisabled(false)
@@ -129,8 +137,46 @@ export function useCometSession(
         setIsDisabled(false)
       }
     },
-    [comet, configs, toast, session, isDisabled, question, setQuestion]
+    [
+      comet,
+      configs,
+      toast,
+      session,
+      isDisabled,
+      question,
+      setQuestion,
+      resetSession,
+    ]
   )
+
+  const stopGenerating = useCallback(() => {
+    console.log(controller)
+    if (controller.current) {
+      controller.current.abort()
+      setIsLoading(false)
+      setError("")
+      setIsDisabled(false)
+
+      if (streamMessage.trim() !== "") {
+        setSession((prev) => {
+          let stream = streamMessage
+          setStreamMessage("")
+          return {
+            ...prev,
+            sessionId: session?.sessionId || "",
+            messages: [
+              ...(prev?.messages || []),
+              {
+                from: "agent",
+                text: stream,
+                conversationId: "",
+              },
+            ],
+          }
+        })
+      }
+    }
+  }, [controller, session?.sessionId, streamMessage])
 
   return {
     isLoading,
@@ -140,5 +186,6 @@ export function useCometSession(
     isDisabled,
     streamMessage,
     resetSession,
+    stopGenerating,
   }
 }
