@@ -3,13 +3,7 @@
 import React, { useCallback, useEffect, useState } from "react"
 import { useStore } from "@/store/store"
 import { Text } from "@components/text"
-import {
-  Aperture,
-  RefreshCcw,
-  ThumbsDown,
-  ThumbsUp,
-  UserCircle2Icon,
-} from "lucide-react"
+import { Aperture, RefreshCcw, UserCircle2Icon } from "lucide-react"
 
 import { useToast } from "@/components/ui/use-toast"
 import { CometSession } from "@/components/comet-search"
@@ -83,7 +77,7 @@ export function SearchReplyError(props: { text: string | undefined }) {
 
 export function SearchReplyLoading() {
   return (
-    <div className="bg-subdued px-4">
+    <div className="bg-subdued px-8">
       <div className=" mx-auto w-full max-w-[700px] py-5 ">
         <div className="w-14 shrink-0 rounded-full border p-3 ">
           <LoadingDots />
@@ -95,7 +89,7 @@ export function SearchReplyLoading() {
 
 export function SearchReplyStream(props: { stream: string | undefined }) {
   return (
-    <div className="bg-subdued px-4">
+    <div className="bg-subdued px-8">
       <div className=" mx-auto w-full max-w-[700px] ">
         <div className="flex gap-4  py-5">
           <Aperture className="h-5 w-5 shrink-0 text-icon-soft" />
@@ -112,7 +106,7 @@ SearchOutput.displayName = "CometOutput"
 
 export function SearchQuestion(props: { text: string }) {
   return (
-    <div className="bg-hovered px-4 [&:last-child]:border-b">
+    <div className="bg-hovered px-8 [&:last-child]:border-b">
       <div className="mx-auto  max-w-[700px]  bg-hovered ">
         <div className="flex gap-4 py-5">
           <UserCircle2Icon className="h-5 w-5 shrink-0 text-icon-soft" />
@@ -168,7 +162,7 @@ export function SearchReply(props: {
   )
 
   return (
-    <div className=" group bg-subdued px-4">
+    <div className=" group bg-subdued px-8">
       <div className="relative mx-auto w-full max-w-[700px] ">
         <div className="flex gap-4  py-5">
           <Aperture className="h-5 w-5 shrink-0 text-icon-soft" />
