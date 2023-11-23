@@ -55,7 +55,7 @@ jobs:
       - name: using kubectl
         uses: tale/kubectl-action@v1
         with:
-          base64-kube-config: ${{ secrets.SECRETS_CONFIG }}
+          base64-kube-config: ${{ secrets.K3S_CONFIG }}
 
       - name: Check Current Service Deployment
         run: |
