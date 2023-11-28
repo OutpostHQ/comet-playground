@@ -15,6 +15,12 @@ spec:
       labels:
         app: comet-blue
     spec:
+      nodeSelector:
+        outpost/internal: "true"
+      tolerations:
+      - key: "dedicated"
+        value: "spot"
+        effect: "NoSchedule"
       imagePullSecrets:
         - name: regcred
       containers:
